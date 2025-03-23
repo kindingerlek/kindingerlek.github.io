@@ -25,11 +25,11 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 	})
 }
 
-interface Props {
+export interface Props {
 	page: Page<CollectionEntry<'post'>>
 }
 
-const { page } = Astro.props
+const { page } = Astro.props as unknown as Props
 const { tag } = Astro.params
 
 const meta = {

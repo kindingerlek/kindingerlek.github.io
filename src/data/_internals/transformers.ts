@@ -12,7 +12,7 @@ type SectionKey = keyof Sections
 
 type ProjectName = Sections['portfolio']['projects'][number]['name']
 
-type JobRole = Sections['experience']['jobs'][number]['roles']
+type JobRole = Sections['experience']['jobs'][number]['roles'][number]
 
 type JobCompany = Sections['experience']['jobs'][number]['company']
 
@@ -44,7 +44,7 @@ export const hideJob =
 	(role: JobRole, company?: JobCompany): DataTransformer =>
 	(draft) => {
 		draft.sections.experience.jobs = draft.sections.experience.jobs.filter(
-			(job) => job.roles !== role && job.company !== company
+			(job) => job.roles.findIndex((r) => r.title === role.title) === -1 && job.company !== company
 		)
 	}
 

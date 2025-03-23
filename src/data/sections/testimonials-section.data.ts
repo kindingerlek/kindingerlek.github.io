@@ -1,6 +1,5 @@
 import type { TestimonialsSection } from '@/components/sections/Testimonials/TestimonialsSection.types'
 import type { ReadonlyDeep } from 'type-fest'
-import { github, linkedin, website } from '../helpers/links'
 
 const testimonialsSectionData = {
 	config: {
