@@ -1,6 +1,6 @@
 import type { SkillsSection } from '@/components/sections/Skills/SkillsSection.types'
 import type { ReadonlyDeep } from 'type-fest'
-import * as icon from '../helpers/skills'
+import * as icon from '../../helpers/skillsIconSet'
 
 const skillsSectionData = {
 	config: {

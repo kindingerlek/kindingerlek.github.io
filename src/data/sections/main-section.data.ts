@@ -1,6 +1,6 @@
 import type { MainSection } from '@/components/sections/Main/MainSection.types'
 import type { ReadonlyDeep } from 'type-fest'
-import { github, linkedin } from '../helpers/links'
+import { github, linkedin } from '../../helpers/linksIconSet'
 
 const mainSectionData = {
 	config: {

@@ -1,7 +1,7 @@
 import type { ExperienceSection } from '@/components/sections/Experience/ExperienceSection.types'
 import type { ReadonlyDeep } from 'type-fest'
-import * as links from '../helpers/links'
-import * as skills from '../helpers/skills'
+import * as links from '../../helpers/linksIconSet'
+import * as skills from '../../helpers/skillsIconSet'
 
 const experienceSectionData = {
 	config: {
