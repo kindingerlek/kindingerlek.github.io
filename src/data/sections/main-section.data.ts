@@ -32,13 +32,13 @@ const mainSectionData = {
 		{ label: 'Email', value: 'lucas.ernesto.k@gmail.com' },
 		{
 			label: 'LinkedIn',
-			value: '/in/lucas-kindinger',
+			value: '/in/kindingerlek',
 			url: 'https://linkedin.com/in/kindingerlek'
 		},
 		{ label: 'GitHub', value: '/kindingerlek', url: 'https://github.com/kindingerlek' }
 	],
 	description:
-		'Lorem ipsum dolor sit amet, consectetur **adipiscing elit**. In sodales ac dui at *vestibulum*. In condimentum metus id dui tincidunt, in blandit mi [vehicula](/). Nulla lacinia, erat sit amet elementum vulputate, lectus mauris volutpat mi, vitae accumsan metus elit ut nunc. Vestibulum lacinia enim eget eros fermentum scelerisque. Proin augue leo, posuere ut imperdiet vitae, fermentum eu ipsum. Sed sed neque sagittis, posuere urna nec, commodo leo. Pellentesque posuere justo vitae massa volutpat maximus.',
+		"I'm Lucas Ernesto Kindinger, a Brazilian full-stack developer with 7 years of experience, working mostly with JavaScript and TypeScript. I specialize in modern frameworks like React and Next.js but lean more toward backend development. I enjoy tackling real-world challenges, optimizing APIs, and ensuring smooth system performance. I value good development practices, such as writing clear API documentation, adding unit tests, and actively participating in code reviews to maintain high-quality code. In my free time, I like joining Game Jams and creating small games with Unity. I'm always looking to learn new technologies and improve my craft.",
 	tags: [
 		{ name: 'Open for freelance' },
 		{ name: 'Available for mentoring' },
@@ -49,7 +49,10 @@ const mainSectionData = {
 		url: '/cv.pdf',
 		downloadedFileName: 'CV-Lucas_Kindinger.pdf'
 	},
-	links: [github({ url: '#' }), linkedin({ url: '#' })]
+	links: [
+		github({ url: 'https://github.com/kindingerlek' }),
+		linkedin({ url: 'https://linkedin.com/in/kindingerlek' })
+	]
 } as const satisfies ReadonlyDeep<MainSection>
 
 export default mainSectionData

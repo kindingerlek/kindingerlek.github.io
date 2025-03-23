@@ -295,3 +295,31 @@ export const rollup = createSkillFactory({
 	iconColor: '#EC4A3F',
 	url: 'https://rollupjs.org/'
 })
+
+export const go = createSkillFactory({
+	name: 'Go',
+	icon: 'simple-icons:go',
+	iconColor: '#00ADD8',
+	url: 'https://golang.org/'
+})
+
+export const rust = createSkillFactory({
+	name: 'Rust',
+	icon: 'simple-icons:rust',
+	iconColor: '#000000',
+	url: 'https://www.rust-lang.org/'
+})
+
+export const arduino = createSkillFactory({
+	name: 'Arduino',
+	icon: 'simple-icons:arduino',
+	iconColor: '#00979D',
+	url: 'https://www.arduino.cc/'
+})
+
+export const unity = createSkillFactory({
+	name: 'Unity',
+	icon: 'simple-icons:unity',
+	iconColor: '#000000',
+	url: 'https://unity.com/'
+})

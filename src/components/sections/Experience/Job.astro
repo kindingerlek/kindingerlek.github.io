@@ -25,8 +25,12 @@ const endDate = maxDate.toLocaleDateString('en-US', dateFormatOptions)
 const timeSpan = getFormattedDateSpan(minDate, maxDate)
 ---
 
-<div class='relative rounded-2xl border border-border bg-primary-foreground px-5 py-3'>
-	<div class='flex flex-row items-start gap-4'>
+<div
+	class='z-10 rounded-2xl border border-border bg-primary-foreground px-5 py-3 shadow-md'
+>
+	<div
+		class={'flex flex-row items-start gap-4' /*TODO: add `sticky top-4 z-10`, but need to fix background*/}
+	>
 		<div class='relative flex-shrink-0'>
 			<ImageSrc src={image} alt={company} class='h-12 w-12 rounded-md' />
 		</div>
@@ -49,9 +53,10 @@ const timeSpan = getFormattedDateSpan(minDate, maxDate)
 					)
 				}
 			</div>
-			<div class='timeline_container flex flex-col gap-y-3'>
-				{roles.map((role) => <Role {...role} />)}
-			</div>
 		</div>
+	</div>
+
+	<div class='timeline_container flex flex-col gap-y-3 mt-4'>
+		{roles.map((role) => <Role {...role} />)}
 	</div>
 </div>

@@ -3,10 +3,11 @@ import type { MainSection } from '@/components/sections/Main/MainSection.types'
 import ImageSrc from '@/components/ImageSrc.astro'
 import Icon from '@/components/Icon.astro'
 import Section from '@/components/Section.astro'
+import Tag from '@/components/Tag.astro'
 
 interface Props extends MainSection {}
 
-const { config, image, fullName, role, links, details } = Astro.props
+const { config, image, fullName, role, links, details, description } = Astro.props
 ---
 
 {
@@ -37,28 +38,14 @@ const { config, image, fullName, role, links, details } = Astro.props
 						))}
 					</div>
 					<div class='flex flex-wrap justify-center gap-x-7 gap-y-3'>
-						{/* {links.map((link) => (
-						<Label title={link.label} as='a' href={link.url} target='_blank'>
-							<svg
-								xmlns='http://www.w3.org/2000/svg'
-								viewBox='0 0 24 24'
-								class='h-5 w-5'
-								slot='icon'
-							>
-								<path fill='currentColor' d={link.iconPath} />
-							</svg>
-						</Label>
-					))} */}
+						{links.map((link) => (
+							<Tag {...link} />
+						))}
 					</div>
 				</div>
 			</section>
 			<Section title={config.title}>
-				<p class='text-muted-foreground'>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis atque quia omnis
-					consectetur, voluptas praesentium veniam blanditiis ratione asperiores accusantium laborum
-					odit commodi quis deserunt incidunt et dolor iure ut! Lorem ipsum dolor sit, amet
-					consectetur adipisicing elit. Alias quia, doloribus ut beatae perspiciatis voluptatibus.
-				</p>
+				<p class='text-justify text-muted-foreground'>{description}</p>
 			</Section>
 		</>
 	)
