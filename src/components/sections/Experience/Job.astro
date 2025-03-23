@@ -25,9 +25,7 @@ const endDate = maxDate.toLocaleDateString('en-US', dateFormatOptions)
 const timeSpan = getFormattedDateSpan(minDate, maxDate)
 ---
 
-<div
-	class='z-10 rounded-2xl border border-border bg-primary-foreground px-5 py-3 shadow-md'
->
+<div class='z-10 rounded-2xl border border-border bg-primary-foreground px-5 py-3 shadow-md'>
 	<div
 		class={'flex flex-row items-start gap-4' /*TODO: add `sticky top-4 z-10`, but need to fix background*/}
 	>
@@ -56,7 +54,7 @@ const timeSpan = getFormattedDateSpan(minDate, maxDate)
 		</div>
 	</div>
 
-	<div class='timeline_container flex flex-col gap-y-3 mt-4'>
+	<div class='timeline_container mt-4 flex flex-col gap-y-3'>
 		{roles.map((role) => <Role {...role} />)}
 	</div>
 </div>

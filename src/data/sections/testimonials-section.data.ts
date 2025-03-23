@@ -8,8 +8,7 @@ const testimonialsSectionData = {
 		icon: 'fa6-solid:comment',
 		visible: true
 	},
-	testimonials: [
-	]
+	testimonials: []
 } as const satisfies ReadonlyDeep<TestimonialsSection>
 
 export default testimonialsSectionData

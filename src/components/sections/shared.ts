@@ -1,6 +1,4 @@
-import type {
-	AllIcons,
-} from 'iconify-icon-names'
+import type { AllIcons } from 'iconify-icon-names'
 
 /**
  * Name of the icon from the iconify library.
