@@ -12,7 +12,6 @@ import icon from 'astro-icon'
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://kindingerlek.github.io',
-	base: 'kindingerlek.github.io',
 	integrations: [
 		expressiveCode(expressiveCodeOptions),
 		tailwind({
