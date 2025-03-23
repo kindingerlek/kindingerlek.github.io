@@ -1,10 +1,5 @@
 import type {
 	AllIcons,
-	CircleFlags,
-	Fa6Brands,
-	Fa6Solid,
-	Ri,
-	SimpleIcons
 } from 'iconify-icon-names'
 
 /**

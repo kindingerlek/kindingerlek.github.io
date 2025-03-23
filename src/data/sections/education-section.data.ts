@@ -1,4 +1,4 @@
-import type { EducationSection } from '@/types/sections/education-section.types'
+import type { EducationSection } from '@/components/sections/Education/EducationSection.types'
 import type { ReadonlyDeep } from 'type-fest'
 
 const educationSectionData = {

@@ -3,6 +3,7 @@ export const prerender = true
 
 import type { GetStaticPaths, Page } from 'astro'
 import type { CollectionEntry } from 'astro:content'
+import { type Config } from '@/types/data'
 
 import Pagination from '@/components/Paginator.astro'
 import PostPreview from '@/components/blog/PostPreview.astro'
@@ -34,7 +35,7 @@ const { tag } = Astro.params
 const meta = {
 	description: `View all posts with the tag - ${tag}`,
 	title: `Tag: ${tag}`
-}
+} as Config['meta']
 
 const paginationProps = {
 	...(page.url.prev && {

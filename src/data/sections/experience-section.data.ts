@@ -1,31 +1,7 @@
 import type { ExperienceSection } from '@/components/sections/Experience/ExperienceSection.types'
 import type { ReadonlyDeep } from 'type-fest'
-import { facebook, github, instagram, linkedin, twitter, website } from '../helpers/links'
-import {
-	nextJs,
-	pnpm,
-	react,
-	tailwindCss,
-	typescript,
-	contentful,
-	amazonS3,
-	decapCMS,
-	docusaurus,
-	nodeJs,
-	docker,
-	azure,
-	flutter,
-	kubernetes,
-	dotnet,
-	sqlServer,
-	rubyOnRails,
-	postgreSql,
-	firebase,
-	jest,
-	expressJs,
-	rollup,
-	koa
-} from '../helpers/skills'
+import * as links from '../helpers/links'
+import * as skills from '../helpers/skills'
 
 const experienceSectionData = {
 	config: {
@@ -39,7 +15,7 @@ const experienceSectionData = {
 			company: 'Mindera',
 			image: import('@/assets/logos/mindera-logo.png'),
 
-			links: [facebook({ url: '#' }), linkedin({ url: '#' })],
+			links: [links.facebook({ url: '#' }), links.linkedin({ url: '#' })],
 			roles: [
 				{
 					title: 'Senior Software Engineer',
@@ -55,14 +31,14 @@ const experienceSectionData = {
 					tagsList: {
 						title: 'Technologies',
 						tags: [
-							react(),
-							nextJs(),
-							typescript(),
-							pnpm(),
-							contentful(),
-							tailwindCss(),
-							koa(),
-							rollup()
+							skills.react(),
+							skills.nextJs(),
+							skills.typescript(),
+							skills.pnpm(),
+							skills.contentful(),
+							skills.tailwindCss(),
+							skills.koa(),
+							skills.rollup()
 						]
 					}
 				},
@@ -81,7 +57,13 @@ const experienceSectionData = {
 					`,
 					tagsList: {
 						title: 'Technologies',
-						tags: [react(), typescript(), amazonS3(), decapCMS(), docusaurus()]
+						tags: [
+							skills.react(),
+							skills.typescript(),
+							skills.amazonS3(),
+							skills.decapCMS(),
+							skills.docusaurus()
+						]
 					}
 				}
 			]
@@ -89,7 +71,7 @@ const experienceSectionData = {
 		{
 			company: 'Gateware',
 			image: import('@/assets/logos/gateware-logo.jpeg'),
-			links: [facebook({ url: '#' }), linkedin({ url: '#' })],
+			links: [links.facebook({ url: '#' }), links.linkedin({ url: '#' })],
 			roles: [
 				{
 					title: 'Mid Software Engineer',
@@ -106,7 +88,13 @@ const experienceSectionData = {
 					`,
 					tagsList: {
 						title: 'Technologies',
-						tags: [typescript(), firebase(), flutter(), expressJs(), jest()]
+						tags: [
+							skills.typescript(),
+							skills.firebase(),
+							skills.flutter(),
+							skills.expressJs(),
+							skills.jest()
+						]
 					}
 				},
 				{
@@ -122,12 +110,12 @@ const experienceSectionData = {
 					tagsList: {
 						title: 'Technologies',
 						tags: [
-							nodeJs(),
-							typescript(),
-							docker(),
-							azure(),
-							flutter(),
-							kubernetes(),
+							skills.nodeJs(),
+							skills.typescript(),
+							skills.docker(),
+							skills.azure(),
+							skills.flutter(),
+							skills.kubernetes(),
 							{ name: 'Cielo LIO Payment Terminal', icon: 'ic:round-payment' }
 						]
 					}
@@ -144,7 +132,7 @@ const experienceSectionData = {
 					`,
 					tagsList: {
 						title: 'Technologies',
-						tags: [dotnet(), sqlServer()]
+						tags: [skills.dotnet(), skills.sqlServer()]
 					}
 				}
 			]
@@ -152,7 +140,7 @@ const experienceSectionData = {
 		{
 			company: 'BNE - EMPLOYER',
 			image: import('@/assets/logos/bne-logo.png'),
-			links: [website({ url: 'https://www.bne.com.br/' })],
+			links: [links.website({ url: 'https://www.bne.com.br/' })],
 			roles: [
 				{
 					title: 'Junior Software Engineer',
@@ -167,9 +155,9 @@ const experienceSectionData = {
 					tagsList: {
 						title: 'Technologies',
 						tags: [
-							dotnet({ name: 'ASP.MVC' }),
-							dotnet({ name: '.NET Core' }),
-							sqlServer(),
+							skills.dotnet({ name: 'ASP.MVC' }),
+							skills.dotnet({ name: '.NET Core' }),
+							skills.sqlServer(),
 							{ name: 'Solr' }
 						]
 					}
@@ -188,9 +176,9 @@ const experienceSectionData = {
 					tagsList: {
 						title: 'Technologies',
 						tags: [
-							dotnet({ name: 'ASP.MVC' }),
-							dotnet({ name: '.NET Core' }),
-							sqlServer(),
+							skills.dotnet({ name: 'ASP.MVC' }),
+							skills.dotnet({ name: '.NET Core' }),
+							skills.sqlServer(),
 							{ name: 'WebForms' },
 							{ name: 'Solr' }
 						]
@@ -201,7 +189,7 @@ const experienceSectionData = {
 		{
 			company: 'C3SL - CENTER FOR SCIENTIFIC COMPUTING AND FREE SOFTWARE',
 			image: import('@/assets/logos/c3sl-logo.png'),
-			links: [facebook({ url: '#' }), linkedin({ url: '#' })],
+			links: [links.facebook({ url: '#' }), links.linkedin({ url: '#' })],
 			roles: [
 				{
 					title: 'Scholarship',
@@ -216,7 +204,7 @@ const experienceSectionData = {
 					`,
 					tagsList: {
 						title: 'Technologies',
-						tags: [rubyOnRails(), postgreSql()]
+						tags: [skills.rubyOnRails(), skills.postgreSql()]
 					}
 				}
 			]
