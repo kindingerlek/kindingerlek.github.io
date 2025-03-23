@@ -1,0 +1,57 @@
+---
+import ImageSrc from '@/components/ImageSrc.astro'
+import type { JobExperience } from './ExperienceSection.types'
+import Role from './Role.astro'
+import LinkButton from '@/components/LinkButton.astro'
+import { getFormattedDateSpan } from '@/utils/date'
+
+export interface Props extends JobExperience {}
+
+const { image, company, roles, links } = Astro.props
+
+const minDate = new Date(Math.min(...roles.map((role) => role.dates[0].getTime())))
+const maxDate = new Date(
+	Math.max(...roles.map((role) => role.dates[1]?.getTime() ?? new Date().getTime()))
+)
+
+const dateFormatOptions: Intl.DateTimeFormatOptions = {
+	year: 'numeric',
+	month: 'short'
+}
+
+const startDate = minDate.toLocaleDateString('en-US', dateFormatOptions)
+const endDate = maxDate.toLocaleDateString('en-US', dateFormatOptions)
+
+const timeSpan = getFormattedDateSpan(minDate, maxDate)
+---
+
+<div class='relative rounded-2xl border border-border bg-primary-foreground px-5 py-3'>
+	<div class='flex flex-row items-start gap-4'>
+		<div class='relative flex-shrink-0'>
+			<ImageSrc src={image} alt={company} class='h-12 w-12 rounded-md' />
+		</div>
+		<div class='flex w-full flex-col gap-y-3'>
+			<div class='flex items-start justify-between'>
+				<div>
+					<h2 class='text-lg font-bold'>{company}</h2>
+					<p class='text-sm text-gray-500'>
+						<!-- {startDate} - {endDate ?? 'Present'} -->
+						{startDate} - {endDate ?? 'Present'} ({timeSpan})
+					</p>
+				</div>
+				{
+					links?.length > 0 && (
+						<div class='flex flex-wrap gap-3 sm:flex-nowrap'>
+							{links.map((link) => (
+								<LinkButton {...link} />
+							))}
+						</div>
+					)
+				}
+			</div>
+			<div class='timeline_container flex flex-col gap-y-3'>
+				{roles.map((role) => <Role {...role} />)}
+			</div>
+		</div>
+	</div>
+</div>

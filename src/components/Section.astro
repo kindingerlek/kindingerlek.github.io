@@ -1,0 +1,38 @@
+---
+import { cn } from '@/utils'
+import type { IconName } from './sections/shared'
+
+export interface SectionConfig {
+	/**
+	 * Name displayed as a section header (except for the main section).
+	 *
+	 * Content of the tooltip displayed when someone hovers over the section in the sidebar.
+	 */
+	title: string
+
+	/** URL hash used to navigate to the section. */
+	slug: string
+
+	/** Icon used in sidebar navigation to represent the section. */
+	icon: IconName
+
+	/** Should section be displayed on the page. */
+	visible: boolean
+}
+
+export interface Section {
+	/** Base information about the section. */
+	config: SectionConfig
+}
+
+const { class: className, title } = Astro.props
+---
+
+<section class={cn(className, 'flex flex-col gap-y-5 md:flex-row md:gap-y-0')}>
+	<div class='pr-5 text-xl font-semibold md:w-1/4 md:text-right'>
+		<h2 class='sticky top-4'>{title}</h2>
+	</div>
+	<div class='flex flex-col gap-y-3 md:w-3/4'>
+		<slot />
+	</div>
+</section>

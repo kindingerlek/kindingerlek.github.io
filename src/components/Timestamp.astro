@@ -1,0 +1,13 @@
+---
+import type { DateRange } from '@/components/sections/shared'
+import { getFormattedDate } from '@/utils'
+
+export interface Props {
+	dates: DateRange
+}
+const { dates } = Astro.props
+---
+
+<p class='text-sm font-medium text-gray-700 dark:text-gray-100'>
+	{getFormattedDate(dates[0])}
+</p>

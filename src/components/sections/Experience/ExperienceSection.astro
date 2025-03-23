@@ -1,0 +1,19 @@
+---
+import type { ExperienceSection } from './ExperienceSection.types'
+import Section from '../../Section.astro'
+import Job from './Job.astro'
+
+export interface Props extends ExperienceSection {}
+
+const { config, jobs } = Astro.props
+---
+
+{
+	config.visible && (
+		<Section title={config.title}>
+			{jobs.map((job) => (
+				<Job {...job} />
+			))}
+		</Section>
+	)
+}

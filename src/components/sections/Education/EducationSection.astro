@@ -1,0 +1,19 @@
+---
+import Section from '@/components/Section.astro'
+import type { EducationSection } from './EducationSection.types'
+import Diploma from './Diploma.astro'
+
+interface Props extends EducationSection {}
+
+const { config, diplomas } = Astro.props
+---
+
+{
+	config.visible && (
+		<Section title={config.title}>
+			{diplomas.map((diploma) => (
+				<Diploma {...diploma} />
+			))}
+		</Section>
+	)
+}

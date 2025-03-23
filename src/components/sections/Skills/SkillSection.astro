@@ -1,0 +1,19 @@
+---
+import Section from '@/components/Section.astro'
+import SkillLayout from '@/components/SkillLayout.astro'
+import type { SkillsSection } from '@/components/sections/Skills/SkillsSection.types'
+
+interface Props extends SkillsSection {}
+
+const { config, skillSets } = Astro.props as Props
+---
+
+{
+	config.visible && (
+		<Section title={config.title}>
+			{skillSets.map((skillSet) => (
+				<SkillLayout title={skillSet.title} skills={skillSet.skills} />
+			))}
+		</Section>
+	)
+}

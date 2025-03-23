@@ -1,0 +1,35 @@
+---
+export interface DownloadButton {
+	/** Text displayed within the download button. */
+	label: string
+
+	/** URL or path to the CV file. */
+	url: string
+
+	/**
+	 * Name of the file that will be downloaded.
+	 *
+	 * If not specified, the original file name will be used and file will open in a PDF viewer in some browsers.
+	 *
+	 * If specified, the file will be downloaded immediately (without preview) in all browsers.
+	 */
+	downloadedFileName?: string
+}
+
+export interface Props extends DownloadButton {}
+
+const { url, downloadedFileName, label } = Astro.props
+
+const classes = {
+	main: 'inline-flex items-center px-4 h-10 rounded-md shadow-sm bg-primary-600 select-none cursor-pointer',
+	hover: 'hover:bg-primary-700',
+	active: 'active:translate-y-px',
+	focus: 'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500'
+}
+
+const className = Object.values(classes).join(' ')
+---
+
+<a href={url} class={className + ' text-base font-medium text-white'} download={downloadedFileName}>
+	{label}
+</a>

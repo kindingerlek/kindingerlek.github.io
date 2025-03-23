@@ -1,0 +1,29 @@
+---
+import type { LabelledValue } from '@/components/sections/shared'
+
+export interface Props extends LabelledValue {}
+
+const { label, value, url } = Astro.props
+
+const parsedValue = Array.isArray(value) ? value.join(', ') : value
+
+const isHttpLink = url?.startsWith('http')
+const target = isHttpLink ? '_blank' : '_self'
+---
+
+<div>
+	<span class='text-base font-medium text-gray-700 dark:text-gray-300'>{label}:</span>
+	{
+		url ? (
+			<a
+				href={url}
+				target={target}
+				class='text-base font-normal text-gray-500 underline dark:text-gray-400'
+			>
+				{parsedValue}
+			</a>
+		) : (
+			<span class='text-base font-normal text-gray-500 dark:text-gray-400'>{parsedValue}</span>
+		)
+	}
+</div>

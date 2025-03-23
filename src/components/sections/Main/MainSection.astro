@@ -1,0 +1,65 @@
+---
+import type { MainSection } from '@/components/sections/Main/MainSection.types'
+import ImageSrc from '@/components/ImageSrc.astro'
+import Icon from '@/components/Icon.astro'
+import Section from '@/components/Section.astro'
+
+interface Props extends MainSection {}
+
+const { config, image, fullName, role, links, details } = Astro.props
+---
+
+{
+	config.visible && (
+		<>
+			<section class='flex flex-col items-center gap-y-7'>
+				<ImageSrc
+					src={image}
+					alt='profile photo'
+					class='h-40 w-auto rounded-full bg-[#a9c5e6] p-1'
+				/>
+
+				<div class='flex flex-col items-center gap-y-4'>
+					<h1 class='text-3xl font-bold'>{fullName}</h1>
+					<p class='text-xl'>{role}</p>
+					<div class='flex flex-wrap justify-center gap-x-7 gap-y-3'>
+						{details.map((detail) => (
+							<div class='detail-item flex items-center gap-x-2'>
+								{detail.icon && detail.icon && <Icon name={detail.icon} size={20} />}
+								{detail.url ? (
+									<a href={detail.url} target='_blank' rel='noopener noreferrer'>
+										{detail.value}
+									</a>
+								) : (
+									<span>{detail.value}</span>
+								)}
+							</div>
+						))}
+					</div>
+					<div class='flex flex-wrap justify-center gap-x-7 gap-y-3'>
+						{/* {links.map((link) => (
+						<Label title={link.label} as='a' href={link.url} target='_blank'>
+							<svg
+								xmlns='http://www.w3.org/2000/svg'
+								viewBox='0 0 24 24'
+								class='h-5 w-5'
+								slot='icon'
+							>
+								<path fill='currentColor' d={link.iconPath} />
+							</svg>
+						</Label>
+					))} */}
+					</div>
+				</div>
+			</section>
+			<Section title={config.title}>
+				<p class='text-muted-foreground'>
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis atque quia omnis
+					consectetur, voluptas praesentium veniam blanditiis ratione asperiores accusantium laborum
+					odit commodi quis deserunt incidunt et dolor iure ut! Lorem ipsum dolor sit, amet
+					consectetur adipisicing elit. Alias quia, doloribus ut beatae perspiciatis voluptatibus.
+				</p>
+			</Section>
+		</>
+	)
+}

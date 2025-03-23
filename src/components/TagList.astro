@@ -1,0 +1,40 @@
+---
+import Tag, { type Tag as TagProps } from './Tag.astro'
+
+export interface TagsList {
+	/** Text displayed before the list of tags. */
+	title: string
+
+	/**
+	 * Tags to be displayed within the list.
+	 * Tags are displayed as gray blocks. All tag properties are used.
+	 * Tags are displayed comma separated list. Only the `name` property are used.
+	 */
+	tags: TagProps[]
+}
+
+export interface Props extends Omit<TagsList, 'title'> {
+	title?: TagsList['title']
+}
+
+const { tags, title } = Astro.props
+---
+
+{
+	title && tags.length != 0 ? (
+		<div class='flex flex-col gap-1.5'>
+			<span class='text-base font-medium text-gray-700 dark:text-gray-300'>{title}:</span>
+			<div class='flex flex-wrap gap-3'>
+				{tags.map((tag) => (
+					<Tag {...tag} />
+				))}
+			</div>
+		</div>
+	) : (
+		<div class='flex flex-wrap gap-3'>
+			{tags.map((tag) => (
+				<Tag {...tag} />
+			))}
+		</div>
+	)
+}
