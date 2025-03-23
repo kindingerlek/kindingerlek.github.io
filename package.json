@@ -22,6 +22,7 @@
 		"astro-icon": "^1.1.0",
 		"clsx": "^2.1.0",
 		"date-fns": "^4.1.0",
+		"iconify-icon": "^2.3.0",
 		"iconify-icon-names": "^1.1.0",
 		"immer": "^10.1.1",
 		"marked": "5.1.1",
