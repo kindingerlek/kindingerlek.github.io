@@ -28,7 +28,7 @@ export interface Diploma {
 	/**
 	 * A short overview of your studies. You can use markdown syntax.
 	 */
-	description: string
+	description?: string
 
 	/** Links related to your studies (e.g. course/university website, link to realized project).*/
 	links: LinkButton[]

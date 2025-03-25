@@ -14,18 +14,10 @@ const maxDate = new Date(
 	Math.max(...roles.map((role) => role.dates[1]?.getTime() ?? new Date().getTime()))
 )
 
-const dateFormatOptions: Intl.DateTimeFormatOptions = {
-	year: 'numeric',
-	month: 'short'
-}
-
-const startDate = minDate.toLocaleDateString('en-US', dateFormatOptions)
-const endDate = maxDate.toLocaleDateString('en-US', dateFormatOptions)
-
 const timeSpan = getFormattedDateSpan(minDate, maxDate)
 ---
 
-<div class='z-10 rounded-2xl border border-border bg-primary-foreground py-5 shadow-md'>
+<div class='z-10 rounded-2xl border border-border bg-primary-foreground py-5'>
 	<div
 		class={'flex flex-row items-start gap-4 px-5' /*TODO: add `sticky top-4 z-10`, but need to fix background*/}
 	>
@@ -36,14 +28,13 @@ const timeSpan = getFormattedDateSpan(minDate, maxDate)
 			<div class='flex flex-col items-start justify-between sm:flex-row'>
 				<div>
 					<h2 class='text-lg font-bold'>{company}</h2>
-					<p class='text-sm text-gray-500'>
-						<!-- {startDate} - {endDate ?? 'Present'} -->
-						{startDate} - {endDate ?? 'Present'} ({timeSpan})
+					<p class='text-sm text-zinc-500 dark:text-zinc-400'>
+						{timeSpan}
 					</p>
 				</div>
 				{
 					links?.length > 0 && (
-						<div class='my-2 hidden flex-row flex-wrap gap-3 sm:my-0 sm:flex'>
+						<div class='my-2 hidden flex-row gap-3 sm:my-0 sm:flex'>
 							{links.map((link) => (
 								<LinkButton {...link} />
 							))}

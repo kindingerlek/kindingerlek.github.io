@@ -37,14 +37,14 @@ if (status === 'dropped-out') {
 			<div class='flex items-start justify-between'>
 				<div>
 					<h2 class='text-lg font-bold'>{institution}</h2>
-					<p class='text-sm text-gray-500'>
+					<p class='text-sm text-zinc-500 dark:text-zinc-400'>
 						{startDate} - {endDateString}
 						{timeSpan}
 					</p>
 				</div>
 				{
 					links?.length > 0 && (
-						<div class='flex flex-wrap gap-3 sm:flex-nowrap'>
+						<div class='flex flex-nowrap gap-3'>
 							{links.map((link) => (
 								<LinkButton {...link} />
 							))}
@@ -52,11 +52,19 @@ if (status === 'dropped-out') {
 					)
 				}
 			</div>
+
 			<div class='flex flex-col gap-y-1'>
 				<h3 class='font-semibold'>{title}</h3>
-				<p class='text-justify'>
-					<Description content={description} classList={['list-disc', 'text-muted-foreground']} />
-				</p>
+				{
+					description && (
+						<p class='text-justify'>
+							<Description
+								content={description}
+								classList={['list-disc', 'text-muted-foreground']}
+							/>
+						</p>
+					)
+				}
 			</div>
 		</div>
 	</div>

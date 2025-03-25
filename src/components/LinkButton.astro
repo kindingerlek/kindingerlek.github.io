@@ -9,6 +9,9 @@ export interface LinkButton {
 	/** Icon displayed within the button.*/
 	icon: IconName
 
+	/** Size of the icon. Default size of the icon is 16. */
+	iconSize?: number
+
 	/** URL that will be opened in a new tab, when the button is clicked.*/
 	url: string
 }
@@ -18,12 +21,13 @@ export interface Props extends Omit<LinkButton, 'url'>, Omit<astroHTML.JSX.HTMLA
 	as?: 'a' | 'button'
 }
 
-const { name, icon, url, as, ...props } = Astro.props
+const { name, icon, url, as, iconSize, ...props } = Astro.props
 
 const classes = {
-	main: 'flex items-center justify-center w-7 h-7 rounded text-gray-400 bg-gray-100 dark:bg-gray-600 dark:text-gray-200',
+	main: 'flex items-center justify-center w-7 h-7 rounded text-gray-400 bg-zinc-100 dark:bg-zinc-600 dark:text-gray-200',
 	active: 'active:translate-y-px',
-	focus: 'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500'
+	focus: 'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500',
+	hover: 'hover:bg-zinc-200 dark:hover:bg-zinc-700 hover:-translate-y-px'
 }
 
 const Element = as || 'a'
@@ -34,8 +38,8 @@ const Element = as || 'a'
 	href={url}
 	target='_blank'
 	data-tooltip={name}
-	class:list={[classes.main, classes.active, classes.focus]}
+	class:list={[classes.main, classes.active, classes.focus, classes.hover]}
 	{...props}
 >
-	<Icon name={icon} size={16} />
+	<Icon name={icon} size={iconSize || 16} />
 </Element>

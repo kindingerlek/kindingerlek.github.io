@@ -12,6 +12,9 @@ export interface Tag {
 	/** Color of the icon. By default, the color is inherited from the text. */
 	iconColor?: string
 
+	/** Size of the icon. Defaultof the icon is 16. */
+	iconSize?: number
+
 	/** URL that will be opened in a new tab, when the tag is clicked. */
 	url?: string
 
@@ -21,17 +24,17 @@ export interface Tag {
 
 export interface Props extends Tag {}
 
-const { name, description, icon, iconColor, url } = Astro.props
+const { name, description, icon, iconSize, iconColor, url } = Astro.props
 
 const className =
-	'flex p-3 h-4 w-fit items-center gap-x-1.5 rounded bg-gray-100 px-2.5 dark:bg-gray-800'
+	'flex p-3 h-4 w-fit items-center gap-x-1.5 rounded bg-zinc-100 px-2.5 dark:bg-zinc-700 drop-shadow'
 const customProps = url
 	? ({
 			href: url,
 			as: 'a',
 			target: '_blank',
 			rel: 'noopener noreferrer',
-			class: `${className} hover:bg-gray-200 dark:hover:bg-gray-600`
+			class: `${className} hover:bg-zinc-200 dark:hover:bg-zinc-500`
 		} as const)
 	: {
 			class: className
@@ -46,6 +49,6 @@ const customProps = url
 		'text-sm font-medium tracking-wide text-gray-700 dark:text-gray-100'
 	]}
 >
-	{icon && <Icon name={icon} color={iconColor} size={16} />}
+	{icon && <Icon name={icon} color={iconColor} size={iconSize || 16} />}
 	{name}
 </a>

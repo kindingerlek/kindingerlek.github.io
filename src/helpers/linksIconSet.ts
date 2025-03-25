@@ -147,7 +147,7 @@ export const vimeo = createLinkFactory({
 
 export const website = createLinkFactory({
 	name: 'Website',
-	icon: 'fa6-solid:globe'
+	icon: 'fa6-solid:link'
 })
 
 export const demo = createLinkFactory({

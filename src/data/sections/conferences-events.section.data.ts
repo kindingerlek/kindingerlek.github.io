@@ -15,35 +15,35 @@ const conferencesEventsSectionData = {
 			tags: [
 				{
 					name: '2025',
-					url: '#'
+					url: 'https://globalgamejam.org/games/2025/ephemeral-breeze-5'
 				},
 				{
 					name: '2024',
-					url: '#'
+					url: 'https://globalgamejam.org/games/2024/happy-jam-friends-9'
 				},
 				{
 					name: '2023',
-					url: '#'
+					url: 'https://v3.globalgamejam.org/2023/games/rootproblems-7'
 				},
 				{
 					name: '2020',
-					url: '#'
+					url: 'https://v3.globalgamejam.org/2020/games/re-pair-8-0'
 				},
 				{
 					name: '2019',
-					url: '#'
+					url: 'https://v3.globalgamejam.org/2019/games/kutimido'
 				},
 				{
 					name: '2018',
-					url: '#'
+					url: 'https://v3.globalgamejam.org/2018/games/sick-people'
 				},
 				{
 					name: '2017',
-					url: '#'
+					url: 'https://v3.globalgamejam.org/2017/games/drownallthem'
 				},
 				{
 					name: '2015',
-					url: '#'
+					url: 'https://v3.globalgamejam.org/2015/games/babies-wanna-food'
 				}
 			]
 		},

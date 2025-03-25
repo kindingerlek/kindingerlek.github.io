@@ -7,6 +7,15 @@ export interface JobRole {
 	/** Your position in the company. */
 	title: string
 
+	/**
+	 * Logo of Project/Allocation.
+	 *
+	 * **Ratio**: 1:1
+	 *
+	 * **Display size**: 56x56px
+	 */
+	image?: Photo
+
 	/** Date range when you were working in the company. */
 	dates: DateRange
 

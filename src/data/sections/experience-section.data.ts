@@ -15,10 +15,14 @@ const experienceSectionData = {
 			company: 'Mindera',
 			image: import('@/assets/logos/mindera-logo.png'),
 
-			links: [links.facebook({ url: '#' }), links.linkedin({ url: '#' })],
+			links: [
+				links.linkedin({ url: 'https://www.linkedin.com/company/mindera-world' }),
+				links.website({ url: 'https://mindera.com/' })
+			],
 			roles: [
 				{
 					title: 'Senior Software Engineer',
+					image: import('@/assets/logos/2k-logo.png'),
 					dates: [new Date('2022-11'), new Date('2025-03')],
 					description: `
 						**Project description:** Signup Portal; 2K portal for account creation and permission management for the company's games.
@@ -44,6 +48,7 @@ const experienceSectionData = {
 				},
 				{
 					title: 'Mid Software Engineer',
+					image: import('@/assets/logos/2k-logo.png'),
 					dates: [new Date('2022-11'), new Date('2023-03')],
 					description: `
 						**Project description:** 2K Developers portal news; Promotional platform for the service offered by 2K, along with documentation and updates.
@@ -71,7 +76,10 @@ const experienceSectionData = {
 		{
 			company: 'Gateware',
 			image: import('@/assets/logos/gateware-logo.jpeg'),
-			links: [links.facebook({ url: '#' }), links.linkedin({ url: '#' })],
+			links: [
+				links.linkedin({ url: 'https://www.linkedin.com/company/gatewaretech' }),
+				links.website({ url: 'https://gateware.com.br/en/who-we-are/' })
+			],
 			roles: [
 				{
 					title: 'Mid Software Engineer',
@@ -99,6 +107,7 @@ const experienceSectionData = {
 				},
 				{
 					title: 'Mid Software Engineer',
+					image: import('@/assets/logos/lasa-logo.png'),
 					dates: [new Date('2021-05'), new Date('2021-10')],
 					description: `
 						**About the project:** AppBroker. System for selling insurance at point-of-sale, running directly on credit card terminals.
@@ -140,7 +149,10 @@ const experienceSectionData = {
 		{
 			company: 'BNE - EMPLOYER',
 			image: import('@/assets/logos/bne-logo.png'),
-			links: [links.website({ url: 'https://www.bne.com.br/' })],
+			links: [
+				links.website({ url: 'https://www.bne.com.br/' }),
+				links.linkedin({ url: 'https://www.linkedin.com/company/bneempregos' })
+			],
 			roles: [
 				{
 					title: 'Junior Software Engineer',
@@ -189,7 +201,7 @@ const experienceSectionData = {
 		{
 			company: 'C3SL - CENTER FOR SCIENTIFIC COMPUTING AND FREE SOFTWARE',
 			image: import('@/assets/logos/c3sl-logo.png'),
-			links: [links.facebook({ url: '#' }), links.linkedin({ url: '#' })],
+			links: [links.website({ url: 'https://www.c3sl.ufpr.br/' })],
 			roles: [
 				{
 					title: 'Scholarship',

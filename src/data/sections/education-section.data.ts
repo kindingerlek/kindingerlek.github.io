@@ -15,7 +15,6 @@ const educationSectionData = {
 			image: import('@/assets/logos/ufpr-logo.png'),
 			dates: [new Date('2020-01'), null],
 			status: 'dropped-out',
-			description: 'Specialization in Artificial Intelligence at the Federal University of Paraná.',
 			links: []
 		},
 		{
@@ -24,7 +23,6 @@ const educationSectionData = {
 			image: import('@/assets/logos/ufpr-logo.png'),
 			dates: [new Date('2014-01'), new Date('2016-12')],
 			status: 'completed',
-			description: 'Analysis and Development of Systems at the Federal University of Paraná.',
 			links: []
 		},
 		{
@@ -33,7 +31,6 @@ const educationSectionData = {
 			image: import('@/assets/logos/naptec-logo.jpg'),
 			dates: [new Date('2015'), new Date('2015')],
 			status: 'completed',
-			description: 'Development in Java at Naptec.',
 			links: []
 		},
 		{
@@ -42,7 +39,6 @@ const educationSectionData = {
 			image: import('@/assets/logos/opet-logo.png'),
 			status: 'completed',
 			dates: [new Date('2013-07'), new Date('2014-12')],
-			description: 'Digital Games Development at Opet.',
 			links: []
 		}
 	]
