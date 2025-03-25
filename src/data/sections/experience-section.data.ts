@@ -22,7 +22,7 @@ const experienceSectionData = {
 			roles: [
 				{
 					title: 'Senior Software Engineer',
-					image: import('@/assets/logos/2k-logo.png'),
+					//image: import('@/assets/logos/2k-logo.png'),
 					dates: [new Date('2022-11'), new Date('2025-03')],
 					description: `
 						**Project description:** Signup Portal; 2K portal for account creation and permission management for the company's games.
@@ -48,7 +48,7 @@ const experienceSectionData = {
 				},
 				{
 					title: 'Mid Software Engineer',
-					image: import('@/assets/logos/2k-logo.png'),
+					//image: import('@/assets/logos/2k-logo.png'),
 					dates: [new Date('2022-11'), new Date('2023-03')],
 					description: `
 						**Project description:** 2K Developers portal news; Promotional platform for the service offered by 2K, along with documentation and updates.
@@ -107,7 +107,7 @@ const experienceSectionData = {
 				},
 				{
 					title: 'Mid Software Engineer',
-					image: import('@/assets/logos/lasa-logo.png'),
+					//image: import('@/assets/logos/lasa-logo.png'),
 					dates: [new Date('2021-05'), new Date('2021-10')],
 					description: `
 						**About the project:** AppBroker. System for selling insurance at point-of-sale, running directly on credit card terminals.
