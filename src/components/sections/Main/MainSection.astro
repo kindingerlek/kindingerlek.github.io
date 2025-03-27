@@ -2,8 +2,8 @@
 import type { MainSection } from '@/components/sections/Main/MainSection.types'
 import ImageSrc from '@/components/ImageSrc.astro'
 import Icon from '@/components/Icon.astro'
-import Section from '@/components/Section.astro'
 import Tag from '@/components/Tag.astro'
+import Section from '@/components/Section.astro'
 
 interface Props extends MainSection {}
 
@@ -13,7 +13,12 @@ const { config, image, fullName, role, links, details, description } = Astro.pro
 {
 	config.visible && (
 		<>
-			<section class='flex flex-col items-center gap-y-7'>
+			<section
+				class='flex flex-col items-center gap-y-7'
+				id={config.slug}
+				class='flex flex-col items-center gap-y-7 md:flex-row md:gap-x-10 md:gap-y-0'
+				data-type='section'
+			>
 				<ImageSrc
 					src={image}
 					alt='profile photo'
@@ -44,7 +49,7 @@ const { config, image, fullName, role, links, details, description } = Astro.pro
 					</div>
 				</div>
 			</section>
-			<Section title={config.title}>
+			<Section {...config}>
 				<p class='text-justify text-muted-foreground'>{description}</p>
 			</Section>
 		</>

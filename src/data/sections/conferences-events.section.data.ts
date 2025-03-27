@@ -48,6 +48,15 @@ const conferencesEventsSectionData = {
 			]
 		},
 		{
+			title: 'The Developer Conference (TDC)',
+			url: 'https://thedevconf.com/',
+			tags: [
+				{
+					name: '2023'
+				}
+			]
+		},
+		{
 			title: 'Volunteer at SBGames',
 			url: 'https://sbgames.org/',
 			tags: [

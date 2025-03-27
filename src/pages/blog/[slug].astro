@@ -4,7 +4,7 @@ export const prerender = true
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
 
 import PostLayout from '@/layouts/BlogPost.astro'
-import { getAllPosts } from '@/utils'
+import { getAllPosts } from '@/collections/post'
 
 export const getStaticPaths = (async () => {
 	const blogEntries = await getAllPosts()

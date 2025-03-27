@@ -17,7 +17,7 @@ export interface JobRole {
 	image?: Photo
 
 	/** Date range when you were working in the company. */
-	dates: DateRange
+	dates: DateRange[]
 
 	/** A short overview of your job. You can use markdown syntax. */
 	description: string

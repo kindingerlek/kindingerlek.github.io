@@ -23,7 +23,7 @@ const experienceSectionData = {
 				{
 					title: 'Senior Software Engineer',
 					//image: import('@/assets/logos/2k-logo.png'),
-					dates: [new Date('2022-11'), new Date('2025-03')],
+					dates: [[new Date('2022-11'), new Date('2025-03')]],
 					description: `
 						**Project description:** Signup Portal; 2K portal for account creation and permission management for the company's games.
 						**Project area:** Games, Signup Website
@@ -49,7 +49,7 @@ const experienceSectionData = {
 				{
 					title: 'Mid Software Engineer',
 					//image: import('@/assets/logos/2k-logo.png'),
-					dates: [new Date('2022-11'), new Date('2023-03')],
+					dates: [[new Date('2022-11'), new Date('2023-03')]],
 					description: `
 						**Project description:** 2K Developers portal news; Promotional platform for the service offered by 2K, along with documentation and updates.
 						**Project area:** Games, Portal news Website
@@ -83,7 +83,7 @@ const experienceSectionData = {
 			roles: [
 				{
 					title: 'Mid Software Engineer',
-					dates: [new Date('2022-02'), new Date('2022-09')],
+					dates: [[new Date('2022-02'), new Date('2022-09')]],
 					description: `
 						**About the project:** LivID (Version 3.0). Platform for conducting life verification and updating registration information for affiliated associations
 						**Project area:** Retail, Insurance;
@@ -108,7 +108,7 @@ const experienceSectionData = {
 				{
 					title: 'Mid Software Engineer',
 					//image: import('@/assets/logos/lasa-logo.png'),
-					dates: [new Date('2021-05'), new Date('2021-10')],
+					dates: [[new Date('2021-05'), new Date('2021-10')]],
 					description: `
 						**About the project:** AppBroker. System for selling insurance at point-of-sale, running directly on credit card terminals.
 						**Project area:** Retail, Insurance;
@@ -131,7 +131,27 @@ const experienceSectionData = {
 				},
 				{
 					title: 'Junior Software Engineer',
-					dates: [new Date('2019-12'), new Date('2020-03')],
+					dates: [
+						[new Date('2020-04'), new Date('2021-04')],
+						[new Date('2021-10'), new Date('2022-09')]
+					],
+					description: `
+						**About the project:** LivID (Legacy Version). Platform for conducting life verification and updating registration information for affiliated associations.
+						**Project area:** Financial, Pension;
+						
+						- Maintained and enhanced the mobile app, web backoffice, and backend, ensuring stability and performance.
+						- Engineered a new module for processing payload files, scaling the system from 2,000 to 10,000 users while improving the validation process.
+						- Designed and deployed new features in the client’s environment to enhance functionality and user experience.
+						- Engaged directly with clients to gather requirements, design requested features, andimplement bug fixes, ensuring alignment with business needs.
+						`,
+					tagsList: {
+						title: 'Technologies',
+						tags: [skills.javascript(), skills.flutter(), skills.firebase()]
+					}
+				},
+				{
+					title: 'Junior Software Engineer',
+					dates: [[new Date('2019-12'), new Date('2020-03')]],
 					description: `
 						**About the project:** STARC (Robot to process back data). Bot for automation and processing of banking data.
 						**Project area:** Retail, Insurance;
@@ -156,7 +176,7 @@ const experienceSectionData = {
 			roles: [
 				{
 					title: 'Junior Software Engineer',
-					dates: [new Date('2018-11'), new Date('2019-09')],
+					dates: [[new Date('2018-11'), new Date('2019-09')]],
 					description: `
 						**Project description:** TrabalhaBrasil. Portal for offering job opportunities to candidates in the Brazilian job market.
 						**Project area:** Employment Portal;
@@ -176,7 +196,7 @@ const experienceSectionData = {
 				},
 				{
 					title: 'Junior Software Engineer',
-					dates: [new Date('2018-11'), new Date('2019-10')],
+					dates: [[new Date('2018-11'), new Date('2019-10')]],
 					description: `
 						**Project description:** Banco Nacional de Empregos; Portal for offering job opportunities to candidates in the Brazilian job market.
 						**Project area:** Employment Portal;
@@ -205,7 +225,7 @@ const experienceSectionData = {
 			roles: [
 				{
 					title: 'Scholarship',
-					dates: [new Date('2015-10'), new Date('2016-12')],
+					dates: [[new Date('2015-10'), new Date('2016-12')]],
 					description: `
 						**Project description:** PortalMEC. Portal for sharing study materials such as articles, slide presentations, videos, games, and more, between schools and universities across Brazil.
 						**Project area:** Education

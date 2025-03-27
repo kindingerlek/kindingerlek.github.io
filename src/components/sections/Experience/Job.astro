@@ -9,10 +9,13 @@ export interface Props extends JobExperience {}
 
 const { image, company, roles, links } = Astro.props
 
-const minDate = new Date(Math.min(...roles.map((role) => role.dates[0].getTime())))
-const maxDate = new Date(
-	Math.max(...roles.map((role) => role.dates[1]?.getTime() ?? new Date().getTime()))
-)
+const minDate: Date = roles
+	.flatMap((role) => role.dates)
+	.reduce((min, date) => (date[0] < min ? date[0] : min), new Date())
+
+const maxDate: Date = roles
+	.flatMap((role) => role.dates)
+	.reduce((max, date) => (!!date[1] && date[1] > max ? date[1] : max), new Date())
 
 const timeSpan = getFormattedDateSpan(minDate, maxDate)
 ---

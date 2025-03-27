@@ -25,14 +25,50 @@ export interface Section {
 	config: SectionConfig
 }
 
-const { class: className, title } = Astro.props
+interface Props extends SectionConfig {
+	/** Additional classes for the section. */
+	class?: string
+
+	/** Content of the section. */
+	children: unknown
+}
+
+const { class: className, title, slug, visible } = Astro.props
 ---
 
-<section class={cn(className, 'flex flex-col gap-y-5 md:flex-row md:gap-y-0')}>
-	<div class='pr-5 text-xl font-semibold md:w-1/4 md:text-right'>
-		<h2 class='sticky top-4'>{title}</h2>
-	</div>
-	<div class='flex flex-col gap-y-3 md:w-3/4'>
-		<slot />
-	</div>
-</section>
+{
+	visible && (
+		<section
+			id={slug}
+			class={cn(className, 'flex flex-col gap-y-5 md:flex-row md:gap-y-0')}
+			data-type='section'
+		>
+			<div class='pr-5 text-xl font-semibold md:w-1/4 md:text-right'>
+				<h2 class='sticky top-4'>{title}</h2>
+			</div>
+			<div class='flex flex-col gap-y-3 md:w-3/4'>
+				<slot />
+			</div>
+		</section>
+	)
+}
+
+<script>
+	import hashState from '@/utils/hash-state'
+	import throttle from '@/utils/throttle'
+
+	const sections = [...document.querySelectorAll('[data-type="section"]')]
+
+	const isInUpperView = (section: Element) =>
+		section.getBoundingClientRect().bottom >= window.innerHeight / 3
+
+	const updateHash = () => {
+		const currentSection = sections.find(isInUpperView)
+
+		if (currentSection) {
+			hashState.updateHash(currentSection.id)
+		}
+	}
+
+	document.addEventListener('scroll', throttle(updateHash, 200))
+</script>

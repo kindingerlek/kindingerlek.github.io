@@ -9,32 +9,30 @@ interface Props extends ConferencesEventsSection {}
 const { config, conferences } = Astro.props
 ---
 
-{
-	config.visible && (
-		<Section title={config.title}>
-			{conferences.map((conference) => (
-				<>
-					<div class='my-2 flex flex-col gap-y-2 align-top md:flex-row md:gap-x-5 md:gap-y-0'>
-						<h3 class='font-medium sm:w-2/5'>{conference.title}</h3>
-						<div class='flex flex-col gap-y-2 sm:w-3/5'>
-							{conference.tags && (
-								<div class='flex flex-wrap gap-2 md:justify-end'>
-									{conference.tags.map((tag) => (
-										<Tag
-											name={tag.name}
-											icon={tag.icon}
-											iconColor={tag.iconColor}
-											url={tag.url}
-											description={tag.description}
-										/>
-									))}
-								</div>
-							)}
-						</div>
+<Section {...config}>
+	{
+		conferences.map((conference) => (
+			<>
+				<div class='my-2 flex flex-col gap-y-2 align-top md:flex-row md:gap-x-5 md:gap-y-0'>
+					<h3 class='font-medium sm:w-2/5'>{conference.title}</h3>
+					<div class='flex flex-col gap-y-2 sm:w-3/5'>
+						{conference.tags && (
+							<div class='flex flex-wrap gap-2 md:justify-end'>
+								{conference.tags.map((tag) => (
+									<Tag
+										name={tag.name}
+										icon={tag.icon}
+										iconColor={tag.iconColor}
+										url={tag.url}
+										description={tag.description}
+									/>
+								))}
+							</div>
+						)}
 					</div>
-					<Divider />
-				</>
-			))}
-		</Section>
-	)
-}
+				</div>
+				<Divider />
+			</>
+		))
+	}
+</Section>

@@ -3,7 +3,7 @@ import type { ReadonlyDeep } from 'type-fest'
 
 const blogSectionData = {
 	config: {
-		visible: false,
+		visible: true,
 		title: 'Blog',
 		slug: 'blog',
 		icon: 'fa6-solid:pen-to-square'

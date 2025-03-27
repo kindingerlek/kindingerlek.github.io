@@ -7,14 +7,11 @@ interface Props extends JobRole {}
 
 const { title, dates, description, tagsList } = Astro.props
 
-const startDate = dates[0].toLocaleDateString('en-US', {
-	year: 'numeric',
-	month: 'short'
-})
-
-const endDate = dates[1]?.toLocaleDateString('en-US', {
-	year: 'numeric',
-	month: 'short'
+const tags = tagsList.tags.map((t) => {
+	return {
+		...t,
+		iconColorDark: '#FFFFFF'
+	}
 })
 ---
 
@@ -26,12 +23,33 @@ const endDate = dates[1]?.toLocaleDateString('en-US', {
 	</div>
 	<div class='timeline_line bd-grid px-5'>
 		<h3 class='mb-1 font-semibold'>{title}</h3>
-		<span class='text-sm font-light'>
-			{startDate} - {endDate ?? 'Present'}
-		</span>
+		{
+			dates.map(([from, to], i) => {
+				const startDate = from.toLocaleDateString('en-US', {
+					year: 'numeric',
+					month: 'short'
+				})
+
+				const endDate = to?.toLocaleDateString('en-US', {
+					year: 'numeric',
+					month: 'short'
+				})
+
+				return (
+					<>
+						<span class='text-sm font-light'>
+							{startDate} - {endDate ?? 'Present'}
+						</span>
+						{i < dates.length - 1 && <span class='px-2 text-sm font-light'>|</span>}
+					</>
+				)
+			})
+		}
 		<p class='my-2 text-justify'>
 			<Description content={description} classList={['list-disc', 'text-muted-foreground']} />
 		</p>
-		<div class='py-4'><TagList {...tagsList} /></div>
+		<div class='hidden py-4 sm:block'>
+			<TagList title={tagsList.title} tags={tags} />
+		</div>
 	</div>
 </div>

@@ -12,6 +12,9 @@ export interface Tag {
 	/** Color of the icon. By default, the color is inherited from the text. */
 	iconColor?: string
 
+	/** Color of the icon in dark mode. By default, the color is inherited from the text. */
+	iconColorDark?: string
+
 	/** Size of the icon. Defaultof the icon is 16. */
 	iconSize?: number
 
@@ -24,7 +27,7 @@ export interface Tag {
 
 export interface Props extends Tag {}
 
-const { name, description, icon, iconSize, iconColor, url } = Astro.props
+const { name, description, icon, iconSize, iconColor, url, iconColorDark } = Astro.props
 
 const className =
 	'flex p-3 h-4 w-fit items-center gap-x-1.5 rounded bg-zinc-100 px-2.5 dark:bg-zinc-700 drop-shadow'
@@ -49,6 +52,6 @@ const customProps = url
 		'text-sm font-medium tracking-wide text-gray-700 dark:text-gray-100'
 	]}
 >
-	{icon && <Icon name={icon} color={iconColor} size={iconSize || 16} />}
+	{icon && <Icon name={icon} color={iconColor} size={iconSize || 16} darkColor={iconColorDark} />}
 	{name}
 </a>

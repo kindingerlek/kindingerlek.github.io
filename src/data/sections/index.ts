@@ -12,14 +12,14 @@ import conferencesEventsData from './conferences-events.section.data'
 
 export const sections = {
 	main: mainData,
-	skills: skillsData,
 	blog: blogData,
 	experience: experienceData,
 	portfolio: portfolioData,
 	education: educationData,
+	conferencesEvents: conferencesEventsData,
+	skills: skillsData,
 	testimonials: testimonialsData,
-	favorites: favoritesData,
-	conferencesEvents: conferencesEventsData
+	favorites: favoritesData
 } as const satisfies ReadonlyDeep<Sections>
 
 export default sections

@@ -45,6 +45,7 @@ export const apolloGraphql = createSkillFactory({
 	name: 'Apollo GraphQL',
 	icon: 'simple-icons:apollographql',
 	iconColor: '#311C87',
+	iconColorDark: '#FFFFFF',
 	url: 'https://www.apollographql.com/'
 })
 
@@ -108,6 +109,7 @@ export const nextJs = createSkillFactory({
 	name: 'Next.js',
 	icon: 'simple-icons:nextdotjs',
 	iconColor: '#000000',
+	iconColorDark: '#FFFFFF',
 	url: 'https://nextjs.org/'
 })
 
@@ -129,6 +131,7 @@ export const postgreSql = createSkillFactory({
 	name: 'PostgreSQL',
 	icon: 'simple-icons:postgresql',
 	iconColor: '#4169E1',
+	iconColorDark: '#7c95de',
 	url: 'https://www.postgresql.org/'
 })
 
@@ -178,6 +181,7 @@ export const typescript = createSkillFactory({
 	name: 'TypeScript',
 	icon: 'simple-icons:typescript',
 	iconColor: '#3178C6',
+	iconColorDark: '#3f9aff',
 	url: 'https://www.typescriptlang.org/'
 })
 
@@ -241,6 +245,7 @@ export const flutter = createSkillFactory({
 	name: 'Flutter',
 	icon: 'simple-icons:flutter',
 	iconColor: '#02569B',
+	iconColorDark: '#3f9aff',
 	url: 'https://flutter.dev/'
 })
 
@@ -255,6 +260,7 @@ export const dotnet = createSkillFactory({
 	name: '.NET',
 	icon: 'simple-icons:dotnet',
 	iconColor: '#512BD4',
+	iconColorDark: '#FFFFFF',
 	url: 'https://dotnet.microsoft.com/'
 })
 
@@ -290,17 +296,11 @@ export const postgresql = createSkillFactory({
 	url: 'https://www.postgresql.org/'
 })
 
-export const website = createSkillFactory({
-	name: 'Website',
-	icon: 'fa6-solid:link',
-	iconColor: '#000000',
-	url: '#'
-})
-
 export const expressJs = createSkillFactory({
 	name: 'Express.js',
 	icon: 'simple-icons:express',
 	iconColor: '#000000',
+	iconColorDark: '#FFFFFF',
 	url: 'https://expressjs.com/'
 })
 
@@ -308,6 +308,7 @@ export const koa = createSkillFactory({
 	name: 'Koa.js',
 	icon: 'simple-icons:koa',
 	iconColor: '#000000',
+	iconColorDark: '#FFFFFF',
 	url: 'https://koajs.com/'
 })
 
@@ -329,6 +330,7 @@ export const rust = createSkillFactory({
 	name: 'Rust',
 	icon: 'simple-icons:rust',
 	iconColor: '#000000',
+	iconColorDark: '#FFFFFF',
 	url: 'https://www.rust-lang.org/'
 })
 
@@ -343,5 +345,13 @@ export const unity = createSkillFactory({
 	name: 'Unity',
 	icon: 'simple-icons:unity',
 	iconColor: '#000000',
+	iconColorDark: '#FFFFFF',
 	url: 'https://unity.com/'
+})
+
+export const javascript = createSkillFactory({
+	name: 'JavaScript',
+	icon: 'simple-icons:javascript',
+	iconColor: '#F7DF1E',
+	url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript'
 })

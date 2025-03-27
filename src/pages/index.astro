@@ -1,5 +1,5 @@
 ---
-import PageLayout from '../layouts/BaseLayout.astro'
+import PageLayout from '../layouts/HomeLayout.astro'
 import cv from '@/data'
 
 import MainSection from '../components/sections/Main/MainSection.astro'
@@ -18,60 +18,7 @@ const { config, sections } = cv()
 		<BlogSection {...sections.blog} />
 		<ExperienceSection {...sections.experience} />
 		<EducationSection {...sections.education} />
-
-		<!-- <Section title='Projects'>
-			<div class='flex flex-col gap-y-3 sm:flex-row sm:gap-x-3 sm:gap-y-0'>
-				<ProjectCard
-					href='https://www.google.com'
-					heading='Consectetur'
-					subheading='Lorem ipsum dolor sit amet consectetur adipisicing elit.'
-					imagePath='/src/assets/coming-soon.png'
-					altText='Example'
-					class='w-full sm:w-1/2'
-				/>
-				<ProjectCard
-					as='div'
-					heading='Coming soon...'
-					subheading=''
-					imagePath='/src/assets/coming-soon.png'
-					altText='Lorem, ipsum dolor sit'
-					class='w-full sm:w-1/2'
-				/>
-			</div>
-		</Section> -->
-
 		<ConferencesEventsSection {...sections.conferencesEvents} />
-
-		<!-- <Section title='Certifications'>
-			<Card
-				as='a'
-				heading='Lorem ipsum, dolor sit amet consectetur adipisicing.'
-				subheading='Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam dicta magni consequuntur corrupti.'
-				date='Mar 2024 - Mar 2024'
-				imagePath='/src/assets/about-astro.png'
-				altText='Lorem, ipsum dolor sit'
-				imageClass='h-11 w-auto md:-left-16'
-				href='https://www.google.com'
-			/>
-			<Card
-				as='a'
-				heading='Lorem ipsum, dolor sit amet'
-				subheading='Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam dicta.'
-				date='Mar 2029 - Mar 2032'
-				imagePath='/src/assets/about-astro.png'
-				altText='Lorem, ipsum dolor sit'
-				imageClass='h-11 w-auto md:-left-16'
-				href='https://www.google.com'
-			/>
-		</Section> -->
-
-		<!-- <Section title='Skills'>
-			<SkillLayout title='Languages' skills={languages} />
-			<SkillLayout title='Frontend' skills={frontend} />
-			<SkillLayout title='Backend' skills={backend} />
-			<SkillLayout title='Others' skills={others} />
-		</Section> -->
-
 		<SkillSection {...sections.skills} />
 	</div>
 </PageLayout>

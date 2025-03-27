@@ -5,10 +5,11 @@ export interface Props {
 	name: IconName
 	size: number
 	color?: string
+	darkColor?: string
 	class?: string
 }
 
-const { name, size, color = 'currentColor', ...props } = Astro.props
+const { name, size, color = 'currentColor', darkColor = color, ...props } = Astro.props
 ---
 
 <iconify-icon
@@ -16,7 +17,15 @@ const { name, size, color = 'currentColor', ...props } = Astro.props
 	width={size}
 	height={size}
 	style={{ color, width: `${size}px`, height: `${size}px` }}
+	class:list={[props.class]}
 	{...props}></iconify-icon>
+
+<style define:vars={{ darkColor }}>
+	:global(.dark) iconify-icon {
+		color: var(--darkColor) !important;
+	}
+</style>
+
 <script>
 	import 'iconify-icon'
 </script>

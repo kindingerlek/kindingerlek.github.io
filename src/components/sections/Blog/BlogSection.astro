@@ -3,7 +3,7 @@ import PostPreview from '@/components/blog/PostPreview.astro'
 import Section from '@/components/Section.astro'
 import type { BlogSection as BlogSectionProps } from './BlogSection.types'
 
-import { getAllPosts, sortMDByDate } from '@/utils'
+import { getAllPosts, sortMDByDate } from '@/collections/post'
 
 interface Props extends BlogSectionProps {}
 
@@ -13,8 +13,8 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, maxVisiblePosts ?? 3)
 ---
 
 {
-	config.visible && allPostsByDate.length > 0 && (
-		<Section title={config.title}>
+	allPostsByDate.length > 0 && (
+		<Section {...config} class='flex flex-col gap-y-4'>
 			<ul class='flex flex-col gap-y-2'>
 				{allPostsByDate.map((p) => (
 					<li class='flex flex-col gap-x-2 sm:flex-row'>

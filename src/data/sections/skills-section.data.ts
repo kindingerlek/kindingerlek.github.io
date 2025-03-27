@@ -6,7 +6,7 @@ const skillsSectionData = {
 	config: {
 		title: 'Skills',
 		slug: 'skills',
-		icon: 'fa6-solid:bars-progress',
+		icon: 'fa6-solid:code',
 		visible: true
 	},
 	skillSets: [

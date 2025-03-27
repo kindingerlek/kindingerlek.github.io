@@ -1,6 +1,6 @@
 import rss from '@astrojs/rss'
 import { CONFIG } from '@/site-config'
-import { getAllPosts } from '@/utils'
+import { getAllPosts } from '@/collections/post'
 
 export const GET = async () => {
 	const posts = await getAllPosts()

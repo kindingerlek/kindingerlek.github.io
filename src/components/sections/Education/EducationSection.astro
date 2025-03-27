@@ -8,12 +8,6 @@ interface Props extends EducationSection {}
 const { config, diplomas } = Astro.props
 ---
 
-{
-	config.visible && (
-		<Section title={config.title}>
-			{diplomas.map((diploma) => (
-				<Diploma {...diploma} />
-			))}
-		</Section>
-	)
-}
+<Section {...config}>
+	{diplomas.map((diploma) => <Diploma {...diploma} />)}
+</Section>

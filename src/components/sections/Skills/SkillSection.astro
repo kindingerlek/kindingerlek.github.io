@@ -8,12 +8,6 @@ interface Props extends SkillsSection {}
 const { config, skillSets } = Astro.props as Props
 ---
 
-{
-	config.visible && (
-		<Section title={config.title}>
-			{skillSets.map((skillSet) => (
-				<SkillLayout title={skillSet.title} skills={skillSet.skills} />
-			))}
-		</Section>
-	)
-}
+<Section {...config}>
+	{skillSets.map((skillSet) => <SkillLayout title={skillSet.title} skills={skillSet.skills} />)}
+</Section>

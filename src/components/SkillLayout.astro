@@ -10,6 +10,6 @@ const { title, skills } = Astro.props
 <div class='mt-2 flex flex-col gap-y-2 md:flex-row md:gap-x-5 md:gap-y-0'>
 	<h3 class='font-medium sm:w-1/5'>{title}</h3>
 	<div class='flex flex-row flex-wrap gap-x-4 gap-y-2 sm:w-4/5'>
-		{skills.map((skill) => <Tag {...skill} />)}
+		{skills.map((skill) => <Tag {...skill} iconColorDark='#FFFFFF' />)}
 	</div>
 </div>

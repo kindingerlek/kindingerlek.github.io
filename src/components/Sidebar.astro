@@ -1,0 +1,54 @@
+---
+import type { Data } from '@/types/data'
+
+import SidebarItem from './Sidebar-item.astro'
+
+export interface Props {
+	className?: string
+	sections: Data['sections']
+}
+
+const { className, sections } = Astro.props
+const sectionItems = Object.values(sections).filter((section) => section.config.visible)
+---
+
+<nav
+	id='sidebar'
+	class:list={[
+		'hidden h-fit w-max flex-col gap-2 rounded-lg bg-white p-2 shadow-md dark:bg-zinc-800 xl:flex',
+		className
+	]}
+>
+	{sectionItems.map(({ config }) => <SidebarItem {...config} />)}
+</nav>
+
+<script>
+	import hashState from '@/utils/hash-state'
+
+	const sidebarItems = [...document.getElementById('sidebar')!.children] as HTMLAnchorElement[]
+
+	sidebarItems.forEach((item) => {
+		item.removeAttribute('aria-current')
+	})
+
+	const setActiveItem = (hash: string) => {
+		// When page is loaded, the hash is empty. This means that the first item should be active.
+		if (!hash) {
+			sidebarItems.forEach((item) => item.removeAttribute('aria-current'))
+			sidebarItems[0].setAttribute('aria-current', 'page')
+			return
+		}
+
+		sidebarItems.forEach((item) => {
+			if (item.href.endsWith(hash)) {
+				item.setAttribute('aria-current', 'page')
+			} else {
+				item.removeAttribute('aria-current')
+			}
+		})
+	}
+
+	setActiveItem(hashState.getHash())
+
+	hashState.subscribe(setActiveItem)
+</script>
