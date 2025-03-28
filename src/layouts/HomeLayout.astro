@@ -23,8 +23,7 @@ const { sections } = cv()
 		<BaseHead {...meta} />
 	</head>
 
-	<!-- <body class="flex justify-center overflow-x-hidden bg-gray-50 dark:bg-gray-900 xl:relative xl:left-7"> -->
-	<body class='flex justify-center bg-background'>
+	<body class='flex justify-center overflow-x-hidden bg-background xl:relative'>
 		<ThemeProvider />
 		<main
 			class='flex min-h-screen w-screen max-w-[60rem] flex-col items-center px-6 pb-10 pt-7 font-satoshi text-[0.92rem] leading-relaxed sm:px-10 lg:px-10'
@@ -34,6 +33,6 @@ const { sections } = cv()
 			<Footer />
 		</main>
 
-		<Sidebar sections={sections} className='sticky top-8 mt-20' />
+		<Sidebar sections={sections} className='sticky top-8 mt-8' />
 	</body>
 </html>
