@@ -15,7 +15,7 @@ const minDate: Date = roles
 
 const maxDate: Date = roles
 	.flatMap((role) => role.dates)
-	.reduce((max, date) => (!!date[1] && date[1] > max ? date[1] : max), new Date())
+	.reduce((max, date) => (!!date[1] && date[1] > max ? date[1] : max), new Date(0))
 
 const timeSpan = getFormattedDateSpan(minDate, maxDate)
 ---
