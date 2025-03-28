@@ -33,7 +33,7 @@ export const CONFIG = {
 		}
 	},
 	meta: {
-		title: 'Lucas Kindinger - Software Engineer',
+		title: undefined,
 		description:
 			'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales ac dui at vestibulum. In condimentum metus id dui tincidunt, in blandit mi vehicula.',
 		faviconPath: '/src/assets/my-image.jpeg',

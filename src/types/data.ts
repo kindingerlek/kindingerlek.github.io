@@ -18,14 +18,16 @@ export type Config = {
 
 	/** Page metadata used for SEO and social media sharing. */
 	meta: {
-		/** Page title.
+		/** Page title. 
 		 *
 		 * Displayed as browser tab title and in search results.
 		 * It's recommended to keep it between 30 and 60 characters.
 		 *
+		 * *Optional:* If not specified, the `site.title` will be used as a fallback.
+		 * 
 		 * @see https://www.screamingfrog.co.uk/learn-seo/page-title
 		 */
-		title: string
+		title?: string
 
 		/** Page description.
 		 *

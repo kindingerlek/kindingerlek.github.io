@@ -2,6 +2,8 @@
 import PageLayout from '../layouts/HomeLayout.astro'
 import cv from '@/data'
 
+import { type Config } from '@/types/data'
+
 import MainSection from '../components/sections/Main/MainSection.astro'
 import ExperienceSection from '@/components/sections/Experience/ExperienceSection.astro'
 import EducationSection from '@/components/sections/Education/EducationSection.astro'
@@ -10,9 +12,14 @@ import SkillSection from '@/components/sections/Skills/SkillSection.astro'
 import ConferencesEventsSection from '@/components/sections/ConferencesEvents/ConferencesEventsSection.astro'
 
 const { config, sections } = cv()
+
+const meta = {
+	...config.meta,
+	title: 'Home'
+} as Config['meta']
 ---
 
-<PageLayout meta={config.meta}>
+<PageLayout meta={meta}>
 	<div class='flex w-full flex-col gap-y-10'>
 		<MainSection {...sections.main} />
 		<BlogSection {...sections.blog} />
