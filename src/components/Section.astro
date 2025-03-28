@@ -59,8 +59,37 @@ const { class: className, title, slug, visible } = Astro.props
 
 	const sections = [...document.querySelectorAll('[data-type="section"]')]
 
-	const isInUpperView = (section: Element) =>
-		section.getBoundingClientRect().bottom >= window.innerHeight / 3
+	function currentScrollPercentage() {
+		const docEl = document.documentElement
+		const docBd = document.body
+		return (docEl.scrollTop + docBd.scrollTop) / (docEl.scrollHeight - docEl.clientHeight)
+	}
+
+	function map(
+		value: number,
+		fromMin: number,
+		fromMax: number,
+		toMin: number = 0,
+		toMax: number = 1
+	) {
+		// Maps a value from one range to another
+		if (fromMin === fromMax) return toMin // Avoid division by zero
+		return ((value - fromMin) / (fromMax - fromMin)) * (toMax - toMin) + toMin
+	}
+
+	function clamp(value: number, min: number, max: number) {
+		// Clamps a value between a minimum and maximum range
+		if (value < min) return min
+		if (value > max) return max
+		return value
+	}
+
+	const isInUpperView = (section: Element) => {
+		const scrollPercentage = currentScrollPercentage()
+		const remap = clamp(map(scrollPercentage, 0.9, 1, 0.3, 0.8), 0.3, 1)
+		const bounds = window.innerHeight * remap
+		return section.getBoundingClientRect().bottom >= bounds
+	}
 
 	const updateHash = () => {
 		const currentSection = sections.find(isInUpperView)
