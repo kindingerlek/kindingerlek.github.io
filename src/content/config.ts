@@ -21,7 +21,7 @@ const contentSchema = z.object({
 	coverImage: z
 		.object({
 			src: z.string(),
-			alt: z.string().optional()
+			alt: z.string().nullable()
 		})
 		.optional(),
 	draft: z.boolean().default(false),

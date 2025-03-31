@@ -6,12 +6,12 @@ import type { Config } from '@/types/data'
 
 import { CONFIG } from '@/site.config'
 
-type Props = Config['meta']
+type Props = Partial<Config['meta']>
 
 const { articleDate, description, ogImage, title } = Astro.props
 
 const titleSeparator = ' • '
-const siteTitle = [title, CONFIG.site.title].join(titleSeparator)
+const siteTitle = [title, CONFIG.site.title].filter((e) => e).join(titleSeparator)
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url).href
 ---
@@ -39,7 +39,7 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 	as='font'
 	type='font/ttf'
 	crossorigin
-/>s
+/>
 
 {/* Canonical URL */}
 <link rel='canonical' href={canonicalURL} />
@@ -53,9 +53,8 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 <meta content='' name='theme-color' />
 
 {/* Open Graph / Facebook */}
-<meta content={articleDate ? 'article' : 'website'} property='og:type' />
-<meta content={title} property='og:title' />
-<meta content={description} property='og:description' />
+<meta content={title ?? CONFIG.site.title} property='og:title' />
+<meta content={description ?? CONFIG.site.description} property='og:description' />
 <meta content={canonicalURL} property='og:url' />
 <meta content={CONFIG.site.title} property='og:site_name' />
 <meta content={CONFIG.meta.ogLocale} property='og:locale' />
@@ -65,6 +64,7 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 {
 	articleDate && (
 		<>
+			<meta content={articleDate ? 'article' : 'website'} property='og:type' />
 			<meta content={CONFIG.site.author} property='article:author' />
 			<meta content={articleDate} property='article:published_time' />
 		</>

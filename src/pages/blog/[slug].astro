@@ -5,6 +5,7 @@ import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
 
 import PostLayout from '@/layouts/BlogPost.astro'
 import { getAllPosts } from '@/collections/post'
+import type { Config } from '@/types/data'
 
 export const getStaticPaths = (async () => {
 	const blogEntries = await getAllPosts()
@@ -18,8 +19,13 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { entry } = Astro.props
 const { Content } = await entry.render()
+
+const meta = {
+	description: entry.data.description,
+	title: entry.data.title
+} as Config['meta']
 ---
 
-<PostLayout post={entry}>
+<PostLayout post={entry} meta={meta}>
 	<Content />
 </PostLayout>

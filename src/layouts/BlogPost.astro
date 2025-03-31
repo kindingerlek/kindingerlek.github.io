@@ -5,14 +5,16 @@ import BlogHero from '@/components/blog/Hero.astro'
 import TOC from '@/components/blog/TOC.astro'
 import Button from '@/components/Button.astro'
 import { CONFIG } from '@/site-config'
+import type { Config } from '@/types/data'
 
 import PageLayout from './BaseLayout.astro'
 
 interface Props {
 	post: CollectionEntry<'posts'>
+	meta?: Config['meta']
 }
 
-const { post } = Astro.props
+const { post, meta } = Astro.props
 // const {
 // 	data: { description, ogImage, publishDate, title, updatedDate },
 // 	slug
@@ -21,9 +23,16 @@ const { post } = Astro.props
 // const socialImage = ogImage ?? `/og-image/${slug}.png`
 // const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString()
 const { headings } = await post.render()
+
+const pageMeta = {
+	description: post.data.description,
+	title: post.data.title,
+	articleDate: post.data.publishDate.toISOString(),
+	ogImage: post.data.ogImage ?? `/og-image/${post.slug}.png`
+} as Config['meta']
 ---
 
-<PageLayout meta={CONFIG.meta}>
+<PageLayout meta={pageMeta}>
 	<div class='w-full'>
 		<Button title='Back' href='/blog' style='button'>
 			<svg
