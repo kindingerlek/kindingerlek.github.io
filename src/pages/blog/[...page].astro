@@ -8,7 +8,7 @@ import { type Config } from '@/types/data'
 
 import Button from '@/components/Button.astro'
 import Pagination from '@/components/Paginator.astro'
-import PostPreview from '@/components/blog/PostPreview.astro'
+import ContentPreview from '@/components/blog/ContentPreview.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import { getAllPosts, getUniqueTags, sortMDByDate } from '@/collections/post'
 
@@ -74,7 +74,7 @@ const paginationProps = {
 					<section aria-label='Blog posts list'>
 						<ul class='flex flex-col gap-y-4 text-start'>
 							{page.data.map((p) => (
-								<PostPreview post={p} withDesc />
+								<ContentPreview content={p} withDesc />
 							))}
 						</ul>
 						<Pagination {...paginationProps} />

@@ -1,5 +1,5 @@
 ---
-import PostPreview from '@/components/blog/PostPreview.astro'
+import ContentPreview from '@/components/blog/ContentPreview.astro'
 import Section from '@/components/Section.astro'
 import type { BlogSection as BlogSectionProps } from './BlogSection.types'
 
@@ -18,7 +18,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, maxVisiblePosts ?? 3)
 			<ul class='flex flex-col gap-y-2'>
 				{allPostsByDate.map((p) => (
 					<li class='flex flex-col gap-x-2 sm:flex-row'>
-						<PostPreview post={p} />
+						<ContentPreview content={p} />
 					</li>
 				))}
 			</ul>
