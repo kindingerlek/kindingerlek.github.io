@@ -10,7 +10,7 @@ type Props = Config['meta']
 
 const { articleDate, description, ogImage, title } = Astro.props
 
-const titleSeparator = '•'
+const titleSeparator = ' • '
 const siteTitle = [title, CONFIG.site.title].join(titleSeparator)
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url).href
@@ -22,10 +22,10 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 <title>{siteTitle}</title>
 
 {/* Icons / Favicon */}
-<!-- <link href="favicon/favicon.ico" rel="icon" sizes="any" />
-<link href="favicon/icon.svg" rel="icon" type="image/svg+xml" />
-<link href="/apple-touch-icon.png" rel="apple-touch-icon" />
-<link href="/manifest.webmanifest" rel="manifest" /> -->
+<link href='favicon/favicon.ico' rel='icon' sizes='any' />
+<link href='favicon/icon.svg' rel='icon' type='image/svg+xml' />
+<link href='/apple-touch-icon.png' rel='apple-touch-icon' />
+<link href='/manifest.webmanifest' rel='manifest' />
 
 <link rel='apple-touch-icon' sizes='180x180' href='/favicon/apple-touch-icon.png' />
 <link rel='icon' type='image/png' sizes='32x32' href='/favicon/favicon-32x32.png' />
@@ -33,7 +33,7 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 <link rel='manifest' href='/favicon/site.webmanifest' />
 
 {/* Font preloads */}
-<!-- <link rel='preload' href='/fonts/Satoshi-Variable.ttf' as='font' type='font/ttf' crossorigin />
+<link rel='preload' href='/fonts/Satoshi-Variable.ttf' as='font' type='font/ttf' crossorigin />
 <link
 	rel='preload'
 	href='/fonts/Satoshi-VariableItalic.ttf'
@@ -41,7 +41,7 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 	type='font/ttf'
 	crossorigin
 />
-<link rel='preload' href='/fonts/ClashDisplay-Variable.ttf' as='font' type='font/ttf' crossorigin /> -->
+<link rel='preload' href='/fonts/ClashDisplay-Variable.ttf' as='font' type='font/ttf' crossorigin />
 
 {/* Canonical URL */}
 <link rel='canonical' href={canonicalURL} />

@@ -8,7 +8,7 @@ export const CONFIG = {
 		// Used as both a meta property (src/components/BaseHead.astro L:31 + L:49) & the generated satori png (src/pages/og-image/[slug].png.ts)
 		author: 'Lucas Kindinger',
 		// Meta property used to construct the meta title property, found in src/components/BaseHead.astro L:11
-		title: 'Lucas Kindinger - Software Engineer',
+		title: 'Lucas Kindinger (Software Engineer)',
 		// Meta property used as the default description meta property
 		description:
 			'Personal site of Lucas Kindinger, a software engineer from Brazil. Here you can find my projects, blog posts and more.'
