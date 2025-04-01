@@ -1,4 +1,4 @@
-import { defineCollection, z } from 'astro:content'
+import { defineCollection, z, type SchemaContext } from 'astro:content'
 
 function removeDupsAndLowerCase(array: string[]) {
 	if (!array.length) return array
@@ -7,61 +7,88 @@ function removeDupsAndLowerCase(array: string[]) {
 	return Array.from(distinctItems)
 }
 
-const contentSchema = z.object({
-	title: z.string().max(60),
-	description: z.string().min(50).max(160),
-	publishDate: z
-		.string()
-		.or(z.date())
-		.transform((val) => new Date(val)),
-	updatedDate: z
-		.string()
-		.optional()
-		.transform((str) => (str ? new Date(str) : undefined)),
-	coverImage: z
-		.object({
-			src: z.string(),
-			alt: z.string().nullable()
-		})
-		.optional(),
-	draft: z.boolean().default(false),
-	tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
-	ogImage: z.string().optional()
-})
+const postsSchema = ({ image }: SchemaContext) =>
+	z.object({
+		title: z.string().max(60),
+		description: z.string().min(50).max(160),
+		publishDate: z
+			.string()
+			.or(z.date())
+			.transform((val) => new Date(val)),
+		updatedDate: z
+			.string()
+			.optional()
+			.transform((str) => (str ? new Date(str) : undefined)),
+		coverImage: z
+			.object({
+				src: image(),
+				alt: z.string()
+			})
+			.optional(),
+		draft: z.boolean().default(false),
+		tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
+		ogImage: z.string().optional()
+	})
 
-export type Content = z.infer<typeof contentSchema>
+const contentSchemaFac = ({ image }: SchemaContext) =>
+	z.object({
+		title: z.string().max(60),
+		description: z.string().min(50).max(160),
+		publishDate: z
+			.string()
+			.or(z.date())
+			.transform((val) => new Date(val)),
+		updatedDate: z
+			.string()
+			.optional()
+			.transform((str) => (str ? new Date(str) : undefined)),
+		coverImage: z
+			.object({
+				src: image(),
+				alt: z.string().nullable()
+			})
+			.optional(),
+		draft: z.boolean().default(false),
+		tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
+		ogImage: z.string().optional()
+	})
 
-const postSchema = contentSchema.extend({
-	minutesRead: z.number().optional()
-})
+export type Content = z.infer<ReturnType<typeof contentSchemaFac>>
 
-export type PostContent = z.infer<typeof postSchema>
+const postSchema = (ctx: SchemaContext) =>
+	contentSchemaFac(ctx).extend({
+		minutesRead: z.number().optional()
+	})
 
-const projectsSchema = contentSchema.extend({
-	featured: z.boolean().default(false),
-	featuredImage: z.string().optional()
-})
+export type PostContent = z.infer<ReturnType<typeof postSchema>>
 
-export type ProjectContent = z.infer<typeof projectsSchema>
+const projectsSchema = (ctx: SchemaContext) =>
+	contentSchemaFac(ctx).extend({
+		featured: z.boolean().default(false),
+		featuredImage: z.string().optional()
+	})
 
-const photographySchema = contentSchema.extend({
-	category: z.literal('photography'),
-	featured: z.boolean().default(false),
-	meta: z
-		.object({
-			iso: z.string().optional(),
-			aperture: z.string().optional(),
-			shutterSpeed: z.string().optional(),
-			lens: z.string().optional(),
-			camera: z.string().optional(),
-			location: z.string().optional(),
-			latitude: z.string().optional(),
-			longitude: z.string().optional()
-		})
-		.optional()
-})
+export type ProjectContent = z.infer<ReturnType<typeof projectsSchema>>
 
-export type PhotographyContent = z.infer<typeof photographySchema>
+const photographySchema = (ctx: SchemaContext) =>
+	contentSchemaFac(ctx).extend({
+		category: z.literal('photography'),
+		featured: z.boolean().default(false),
+		meta: z
+			.object({
+				iso: z.string().optional(),
+				aperture: z.string().optional(),
+				shutterSpeed: z.string().optional(),
+				lens: z.string().optional(),
+				camera: z.string().optional(),
+				location: z.string().optional(),
+				latitude: z.string().optional(),
+				longitude: z.string().optional()
+			})
+			.optional()
+	})
+
+export type PhotographyContent = z.infer<ReturnType<typeof photographySchema>>
 
 export const collections = {
 	posts: defineCollection({
