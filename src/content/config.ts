@@ -71,5 +71,9 @@ export const collections = {
 	projects: defineCollection({
 		type: 'content',
 		schema: projectsSchema
+	}),
+	photography: defineCollection({
+		type: 'content',
+		schema: photographySchema
 	})
 }
