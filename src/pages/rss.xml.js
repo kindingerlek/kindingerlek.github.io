@@ -1,9 +1,9 @@
 import rss from '@astrojs/rss'
 import { CONFIG } from '@/site-config'
-import { getAllPosts } from '@/collections/post'
+import PostCollection from '@/collections/post'
 
 export const GET = async () => {
-	const posts = await getAllPosts()
+	const posts = await PostCollection.getAll()
 
 	return rss({
 		title: CONFIG.site.title,
