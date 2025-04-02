@@ -18,10 +18,16 @@ const alphabeticalSort = (a: [string, number], b: [string, number]) => {
 	return 0
 }
 
-const allTags = [
-	...(await PostCollection.getUniqueTagsWithCount()),
-	...(await ProjectCollection.getUniqueTagsWithCount())
-].sort(alphabeticalSort)
+const postTags = await PostCollection.getUniqueTagsWithCount()
+const projectTags = await ProjectCollection.getUniqueTagsWithCount()
+
+const tagMap = new Map<string, number>()
+
+for (const [tag, count] of [...postTags, ...projectTags]) {
+	tagMap.set(tag, (tagMap.get(tag) || 0) + count)
+}
+
+const allTags = Array.from(tagMap.entries()).sort(alphabeticalSort)
 
 const meta = {
 	description: "A list of all the topics I've written about in my posts",
