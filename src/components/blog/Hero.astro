@@ -3,9 +3,10 @@ import type { CollectionEntry } from 'astro:content'
 import { Image } from 'astro:assets'
 import FormattedDate from '../FormattedDate.astro'
 import ImageSrc from '../ImageSrc.astro'
+import type { ContentEntry } from '@/content/config'
 
 interface Props {
-	content: CollectionEntry<'posts'>
+	content: ContentEntry
 }
 
 const {
@@ -25,7 +26,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 			<ImageSrc
 				alt={data.coverImage.alt || ''}
 				class='rounded-2xl object-cover'
-				src={data.coverImage.src}
+				src={data.coverImage.src.src}
 			/>
 		</div>
 	)

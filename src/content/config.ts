@@ -1,4 +1,4 @@
-import { defineCollection, z, type SchemaContext } from 'astro:content'
+import { defineCollection, z, type CollectionEntry, type SchemaContext } from 'astro:content'
 
 function removeDupsAndLowerCase(array: string[]) {
 	if (!array.length) return array
@@ -6,29 +6,6 @@ function removeDupsAndLowerCase(array: string[]) {
 	const distinctItems = new Set(lowercaseItems)
 	return Array.from(distinctItems)
 }
-
-const postsSchema = ({ image }: SchemaContext) =>
-	z.object({
-		title: z.string().max(60),
-		description: z.string().min(50).max(160),
-		publishDate: z
-			.string()
-			.or(z.date())
-			.transform((val) => new Date(val)),
-		updatedDate: z
-			.string()
-			.optional()
-			.transform((str) => (str ? new Date(str) : undefined)),
-		coverImage: z
-			.object({
-				src: image(),
-				alt: z.string()
-			})
-			.optional(),
-		draft: z.boolean().default(false),
-		tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
-		ogImage: z.string().optional()
-	})
 
 const contentSchemaFac = ({ image }: SchemaContext) =>
 	z.object({
@@ -57,7 +34,7 @@ export type Content = z.infer<ReturnType<typeof contentSchemaFac>>
 
 const postSchema = (ctx: SchemaContext) =>
 	contentSchemaFac(ctx).extend({
-		minutesRead: z.number().optional()
+		minutesRead: z.number().optional().nullable()
 	})
 
 export type PostContent = z.infer<ReturnType<typeof postSchema>>
@@ -104,3 +81,25 @@ export const collections = {
 		schema: photographySchema
 	})
 }
+
+export type ContentEntry = CollectionEntry<keyof typeof collections>
+
+export const CollectionLinkMap: {
+	[key in keyof typeof collections]: {
+		label: string
+		url: string
+	}
+} = {
+	posts: {
+		label: 'Blog',
+		url: '/blog'
+	},
+	projects: {
+		label: 'Projects',
+		url: '/projects'
+	},
+	photography: {
+		label: 'Photography',
+		url: '/photography'
+	}
+} as const

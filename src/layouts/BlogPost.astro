@@ -8,9 +8,10 @@ import { CONFIG } from '@/site-config'
 import type { Config } from '@/types/data'
 
 import PageLayout from './BaseLayout.astro'
+import type { ContentEntry } from '@/content/config'
 
 interface Props {
-	post: CollectionEntry<'posts'>
+	post: ContentEntry
 	meta?: Config['meta']
 }
 

@@ -10,17 +10,24 @@ import ContentPreview from '@/components/blog/ContentPreview.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import Button from '@/components/Button.astro'
 import PostCollection from '@/collections/post'
+import ProjectCollection from '@/collections/projects'
+import type { ContentEntry } from '@/content/config'
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
-	const allPosts = await PostCollection.getAll()
-	const allPostsByDate = await PostCollection.sortedByDate(allPosts)
-	const uniqueTags = await PostCollection.getUniqueTags(allPostsByDate)
+	const allContent = [...(await PostCollection.getAll()), ...(await ProjectCollection.getAll())]
+	const allTags = allContent.flatMap((content) => content.data.tags)
+	const uniqueTags = Array.from(new Set(allTags))
 
 	return uniqueTags.flatMap((tag) => {
-		const filterPosts = allPostsByDate.filter((post: CollectionEntry<'posts'>) =>
-			post.data.tags.includes(tag)
-		)
-		return paginate(filterPosts, {
+		const filterContents = allContent
+			.filter((content) => content.data.tags.includes(tag))
+			.sort((a, b) => {
+				const dateA = new Date(a.data.publishDate)
+				const dateB = new Date(b.data.publishDate)
+				return dateB.getTime() - dateA.getTime()
+			})
+
+		return paginate(filterContents, {
 			pageSize: 10,
 			params: { tag }
 		})
@@ -28,7 +35,7 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 }
 
 export interface Props {
-	page: Page<CollectionEntry<'posts'>>
+	page: Page<ContentEntry>
 }
 
 const { page } = Astro.props as unknown as Props
@@ -57,7 +64,7 @@ const paginationProps = {
 
 <PageLayout meta={meta}>
 	<div class='w-full'>
-		<Button title='Back' href='/blog' style='button'>
+		<Button title='Back' href='/tags' style='button'>
 			<svg
 				xmlns='http://www.w3.org/2000/svg'
 				width='14'
@@ -78,7 +85,7 @@ const paginationProps = {
 		</h1>
 		<section aria-label='Blog post list'>
 			<ul class='flex flex-col gap-y-3 text-start'>
-				{page.data.map((p) => <ContentPreview as='h2' urlRoot='/blog' content={p} withDesc />)}
+				{page.data.map((p) => <ContentPreview as='h2' content={p} withDesc />)}
 			</ul>
 			<Pagination {...paginationProps} />
 		</section>

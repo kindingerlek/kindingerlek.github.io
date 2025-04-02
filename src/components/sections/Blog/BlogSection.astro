@@ -18,7 +18,7 @@ const allPostsByDate = sortedPosts.slice(0, maxVisiblePosts ?? 3)
 			<ul class='flex flex-col gap-y-2'>
 				{allPostsByDate.map((p) => (
 					<li class='flex flex-col gap-x-2 sm:flex-row'>
-						<ContentPreview content={p} urlRoot='/blog' />
+						<ContentPreview content={p} />
 					</li>
 				))}
 			</ul>
