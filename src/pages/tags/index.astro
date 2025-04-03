@@ -9,13 +9,7 @@ const alphabeticalSort = (a: [string, number], b: [string, number]) => {
 	const tagA = a[0].toLowerCase()
 	const tagB = b[0].toLowerCase()
 
-	if (tagA < tagB) {
-		return -1
-	}
-	if (tagA > tagB) {
-		return 1
-	}
-	return 0
+	return tagA > tagB ? 1 : tagA < tagB ? -1 : 0
 }
 
 const postTags = await PostCollection.getUniqueTagsWithCount()
@@ -54,7 +48,7 @@ const meta = {
 		</Button>
 
 		<h1 class='mb-6 mt-5 text-2xl font-bold'>Tags</h1>
-		{allTags.length === 0 && <p>No posts yet.</p>}
+		{allTags.length === 0 && <p>No content yet.</p>}
 
 		{
 			allTags.length > 0 && (
@@ -65,7 +59,7 @@ const meta = {
 								class='inline-block underline underline-offset-4 hover:text-foreground/75'
 								data-astro-prefetch
 								href={`/tags/${tag}/`}
-								title={`View posts with the tag: ${tag}`}
+								title={`View content with the tag: ${tag}`}
 							>
 								&#35;{tag}
 							</a>
