@@ -2,6 +2,7 @@ import type { LinkButton } from '@/components/LinkButton.astro'
 import type { Section } from '@/components/Section.astro'
 import type { TagsList } from '@/components/TagList.astro'
 import type { Photo, DateRange, LabelledValue, IconName } from '../shared'
+import type { CollectionEntry } from 'astro:content'
 
 interface Screenshot {
 	/** Source of the screenshot. */
@@ -55,10 +56,8 @@ export interface Project {
 }
 
 export interface PortfolioSection extends Section {
-	/**
-	 * List of your projects in a chronological order. Start with the most recent one.
-	 */
-	projects: Project[]
+	/** List of your projects in a chronological order. Start with the most recent one. */
+	projects: CollectionEntry<`projects`>[]
 
 	config: Section['config'] & {
 		/** Configuration of the button that displays project's screenshots. */

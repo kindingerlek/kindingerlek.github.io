@@ -8,6 +8,7 @@ import type { TestimonialsSection } from '../components/sections/Testimonials/Te
 import type { BlogSection } from '@/components/sections/Blog/BlogSection.types'
 import type { ConferencesEventsSection } from '@/components/sections/ConferencesEvents/ConferencesEventsSection.types'
 import type { Locale } from 'date-fns'
+import type { ProjectsSection } from '@/components/sections/Portfolio/ProjectsSection.types'
 
 export type Config = {
 	site: {
@@ -111,14 +112,14 @@ export type Sections = {
 	/** posts and articles. */
 	blog: BlogSection
 
+	/** Your projects and initiatives. */
+	projects: ProjectsSection
+
 	/** Grouped lists of your skills. */
 	skills: SkillsSection
 
 	/** Your employment history. */
 	experience: ExperienceSection
-
-	/** Your projects and initiatives. */
-	portfolio: PortfolioSection
 
 	/** Your education degrees and certifications. */
 	education: EducationSection

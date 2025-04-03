@@ -1,0 +1,51 @@
+---
+import type { ProjectsSection } from './ProjectsSection.types'
+import Section from '../../Section.astro'
+import Card from '@/components/Card.astro'
+
+interface Props extends ProjectsSection {}
+
+const { config, projects } = Astro.props
+
+const FEATURED_PROJECTS_LIMIT = 3
+
+const featuredProjects = projects
+	.filter((entry) => entry.data.featured)
+	.sort((a, b) => {
+		return (
+			new Date(b.data.updatedDate ?? b.data.publishDate).getTime() -
+			new Date(a.data.updatedDate ?? a.data.publishDate).getTime()
+		)
+	})
+
+// Limit to 4 projects for display
+const limitedProjects = featuredProjects.slice(0, FEATURED_PROJECTS_LIMIT)
+---
+
+<Section {...config}>
+	<div class='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+		{
+			limitedProjects.map((entry) => {
+				const project = entry.data
+				return (
+					<Card
+						heading={project.title}
+						subheading={project.description}
+						imagePath={project.featuredImage}
+						href={`/projects/${entry.slug}`}
+						date={new Date(project.updatedDate ?? project.publishDate).toLocaleDateString()}
+					/>
+				)
+			})
+		}
+	</div>
+	{
+		featuredProjects.length > FEATURED_PROJECTS_LIMIT && (
+			<div class='mt-4 text-center'>
+				<a class='btn' href='/projects'>
+					See all
+				</a>
+			</div>
+		)
+	}
+</Section>

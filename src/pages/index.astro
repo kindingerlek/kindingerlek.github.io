@@ -10,6 +10,7 @@ import EducationSection from '@/components/sections/Education/EducationSection.a
 import BlogSection from '@/components/sections/Blog/BlogSection.astro'
 import SkillSection from '@/components/sections/Skills/SkillSection.astro'
 import ConferencesEventsSection from '@/components/sections/ConferencesEvents/ConferencesEventsSection.astro'
+import ProjectsSection from '@/components/sections/Portfolio/ProjectsSection.astro'
 
 const { config, sections } = cv()
 
@@ -23,6 +24,7 @@ const meta = {
 	<div class='flex w-full flex-col gap-y-10'>
 		<MainSection {...sections.main} />
 		<BlogSection {...sections.blog} />
+		<ProjectsSection {...sections.projects} />
 		<ExperienceSection {...sections.experience} />
 		<EducationSection {...sections.education} />
 		<ConferencesEventsSection {...sections.conferencesEvents} />
