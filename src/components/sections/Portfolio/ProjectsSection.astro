@@ -12,6 +12,7 @@ const FEATURED_PROJECTS_LIMIT = 3
 const featuredProjects = projects
 	.filter((entry) => entry.data.featured)
 	.sort((a, b) => {
+		// Sort by updatedDate or publishDate, latest first
 		return (
 			new Date(b.data.updatedDate ?? b.data.publishDate).getTime() -
 			new Date(a.data.updatedDate ?? a.data.publishDate).getTime()
@@ -31,7 +32,7 @@ const limitedProjects = featuredProjects.slice(0, FEATURED_PROJECTS_LIMIT)
 					<Card
 						heading={project.title}
 						subheading={project.description}
-						imagePath={project.featuredImage}
+						imagePath={project.featuredImage || project.coverImage?.src.src}
 						href={`/projects/${entry.slug}`}
 						date={new Date(project.updatedDate ?? project.publishDate).toLocaleDateString()}
 					/>

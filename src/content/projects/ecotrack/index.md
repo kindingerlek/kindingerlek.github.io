@@ -4,6 +4,9 @@ description: A comprehensive IoT-based environmental monitoring system that help
 draft: false
 featured: true
 publishDate: '2023-10-02'
+coverImage:
+  src: './cover.jpg'
+  alt: 'EcoTrack Dashboard'
 tags:
   - IoT
   - React

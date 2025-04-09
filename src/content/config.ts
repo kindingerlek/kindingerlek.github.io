@@ -32,10 +32,7 @@ const contentSchemaFac = ({ image }: SchemaContext) =>
 
 export type Content = z.infer<ReturnType<typeof contentSchemaFac>>
 
-const postSchema = (ctx: SchemaContext) =>
-	contentSchemaFac(ctx).extend({
-		minutesRead: z.number().optional().nullable()
-	})
+const postSchema = (ctx: SchemaContext) => contentSchemaFac(ctx).extend({})
 
 export type PostContent = z.infer<ReturnType<typeof postSchema>>
 

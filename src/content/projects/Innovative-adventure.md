@@ -3,6 +3,9 @@ title: Innovative Adventure - The Neural Canvas
 description: A groundbreaking digital art platform that uses AI to transform brainwave patterns into interactive virtual landscapes.
 draft: false
 featured: true
+coverImage:
+  src: './cover.jpg'
+  alt: 'Neural Canvas - A digital art platform'
 publishDate: '2023-11-01'
 tags:
   - innovation
