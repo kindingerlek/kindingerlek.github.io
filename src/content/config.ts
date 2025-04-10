@@ -48,6 +48,7 @@ const photographySchema = (ctx: SchemaContext) =>
 	contentSchemaFac(ctx).extend({
 		category: z.literal('photography'),
 		featured: z.boolean().default(false),
+		matureContent: z.boolean().default(false),
 		meta: z
 			.object({
 				iso: z.string().optional(),

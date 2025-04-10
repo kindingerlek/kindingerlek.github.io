@@ -1,0 +1,140 @@
+---
+import Button from '@/components/Button.astro'
+import PageLayout from '@/layouts/BaseLayout.astro'
+import type { Config } from '@/types/data'
+
+interface Props {
+	title: string
+	description: string
+	backUrl: string
+	tags: [string, number][]
+	tagUrlPrefix: string
+}
+
+const { title, description, backUrl, tags: allTags, tagUrlPrefix } = Astro.props
+
+const meta = {
+	title,
+	description
+} as Config['meta']
+---
+
+<PageLayout meta={meta}>
+	<div class='w-full'>
+		<Button title='Back' href={backUrl} style='button'>
+			<svg
+				xmlns='http://www.w3.org/2000/svg'
+				width='14'
+				height='14'
+				viewBox='0 0 24 24'
+				slot='icon-before'
+			>
+				<path
+					fill='currentColor'
+					d='m6.921 12.5l5.792 5.792L12 19l-7-7l7-7l.713.708L6.921 11.5H19v1z'></path>
+			</svg>
+		</Button>
+
+		<div class='mb-6 mt-5 flex items-center justify-between'>
+			<h1 class='text-2xl font-bold'>{title}</h1>
+			<div class='flex items-center gap-2'>
+				<label for='sort-select'>Sort by:</label>
+				<select id='sort-select' class='rounded border px-2 py-1 dark:bg-gray-800'>
+					<option value='0'>Alphabetical</option>
+					<option value='1'>Quantity</option>
+				</select>
+			</div>
+		</div>
+
+		{allTags.length === 0 && <p>No content yet.</p>}
+
+		<ul id='tags-list' class='flex flex-col gap-y-3'>
+			{
+				allTags.map(([tag, val]) => (
+					<li class='flex items-center gap-x-2' data-tag={tag} data-count={val}>
+						<Button title={`#${tag}`} href={`${tagUrlPrefix}${tag}/`} style='pill' />
+						<span class='inline-block text-neutral-600 dark:text-neutral-400'>
+							{val} post{val > 1 && 's'}
+						</span>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</PageLayout>
+
+<script>
+	const sortSelect = document.getElementById('sort-select') as HTMLSelectElement
+	const tagsList = document.getElementById('tags-list') as HTMLUListElement
+
+	// Initialize the sort selector based on URL parameters
+	const params = new URLSearchParams(window.location.search)
+	const sortParam = params.get('sort')
+	sortSelect.value = sortParam === '0' || sortParam === '1' ? sortParam : '0'
+
+	// Apply initial sort
+	sortTags(sortSelect.value)
+
+	// Add event listener for sort change
+	sortSelect.addEventListener('change', (e) => {
+		const target = e.target as HTMLSelectElement
+		const sortValue = target.value
+
+		// Update URL with the new sort parameter
+		const url = new URL(window.location.href)
+		url.searchParams.set('sort', sortValue)
+		window.history.pushState({}, '', url)
+
+		// Apply the sort
+		sortTags(sortValue)
+	})
+
+	function sortTags(sortValue: string) {
+		const tags = Array.from(tagsList.children).filter(
+			(el) => !(el as HTMLElement).classList.contains('letter-divider')
+		)
+
+		// Clear the list
+		tagsList.innerHTML = ''
+
+		// Sort the tags
+		function sortByAlpha(a: Element, b: Element) {
+			const aTag = (a as HTMLElement).dataset.tag?.toLowerCase() || ''
+			const bTag = (b as HTMLElement).dataset.tag?.toLowerCase() || ''
+			return aTag > bTag ? 1 : aTag < bTag ? -1 : 0
+		}
+
+		function sortByCount(a: Element, b: Element) {
+			const aCount = parseInt((a as HTMLElement).dataset.count || '0')
+			const bCount = parseInt((b as HTMLElement).dataset.count || '0')
+			return bCount - aCount
+		}
+
+		tags.sort(sortValue === '0' ? sortByAlpha : sortByCount)
+
+		if (sortValue === '0') {
+			// Add letter dividers for alphabetical sort
+			let currentLetter = ''
+
+			tags.forEach((tag) => {
+				const tagName = (tag as HTMLElement).dataset.tag?.toLowerCase() || ''
+				const firstLetter = tagName.charAt(0).toUpperCase()
+
+				if (firstLetter !== currentLetter) {
+					currentLetter = firstLetter
+
+					// Create letter divider
+					const divider = document.createElement('li')
+					divider.className = 'letter-divider font-bold text-lg mt-4 mb-2 border-b pb-1'
+					divider.textContent = currentLetter
+					tagsList.appendChild(divider)
+				}
+
+				tagsList.appendChild(tag)
+			})
+		} else {
+			// For quantity sort, just append the tags without dividers
+			tags.forEach((tag) => tagsList.appendChild(tag))
+		}
+	}
+</script>

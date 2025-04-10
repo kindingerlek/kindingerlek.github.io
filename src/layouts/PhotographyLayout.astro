@@ -1,0 +1,241 @@
+---
+import type { Page } from 'astro'
+import type { CollectionEntry } from 'astro:content'
+import { type Config } from '@/types/data'
+
+import Button from '@/components/Button.astro'
+import Pagination from '@/components/Paginator.astro'
+import PageLayout from '@/layouts/BaseLayout.astro'
+import ImageSrc from '@/components/ImageSrc.astro'
+
+interface Props {
+	page: Page<CollectionEntry<'photography'>>
+	uniqueTags: string[]
+	currentTag?: string | null
+}
+
+const { page, uniqueTags, currentTag } = Astro.props
+
+const filteredData = currentTag
+	? page.data.filter((item) => item.data.tags?.includes(currentTag))
+	: page.data
+
+const meta = {
+	description: 'Photograph',
+	title: 'Photograph'
+} as Config['meta']
+
+const paginationProps = {
+	...(page.url.prev && {
+		prevUrl: {
+			text: `← Previous Posts`,
+			url: page.url.prev
+		}
+	}),
+	...(page.url.next && {
+		nextUrl: {
+			text: `Next Posts →`,
+			url: page.url.next
+		}
+	})
+}
+---
+
+<PageLayout meta={meta}>
+	<div class='w-full'>
+		<Button title='Back' href='/' style='button'>
+			<svg
+				xmlns='http://www.w3.org/2000/svg'
+				width='14'
+				height='14'
+				viewBox='0 0 24 24'
+				slot='icon-before'
+			>
+				<path
+					fill='currentColor'
+					d='m6.921 12.5l5.792 5.792L12 19l-7-7l7-7l.713.708L6.921 11.5H19v1z'
+				>
+				</path>
+			</svg>
+		</Button>
+
+		<h1 class='mb-6 mt-5 text-2xl font-bold'>Photographys</h1>
+
+		{
+			!!uniqueTags.length && (
+				<div class='relative mb-8'>
+					<div class='flex items-center'>
+						<button
+							id='scroll-left'
+							class='absolute left-0 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 shadow-md dark:bg-gray-800/80'
+						>
+							<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'>
+								<path
+									fill='currentColor'
+									d='M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6l6 6l1.41-1.41z'
+								/>
+							</svg>
+						</button>
+
+						<div id='tag-container' class='scrollbar-hide overflow-x-auto '>
+							<ul class='flex gap-2 whitespace-nowrap'>
+								<li>
+									<Button title='All' href='/photography/' style='pill' />
+								</li>
+								{uniqueTags.map((tag) => (
+									<li>
+										<Button title={tag} href={`/photography/tags/${tag}`} style='pill' />
+									</li>
+								))}
+								<li>
+									<Button title='View All →' href='/photography/tags' style='pill' />
+								</li>
+							</ul>
+						</div>
+
+						<button
+							id='scroll-right'
+							class='absolute right-0 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 shadow-md dark:bg-gray-800/80'
+						>
+							<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'>
+								<path
+									fill='currentColor'
+									d='M8.59 16.59L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.41z'
+								/>
+							</svg>
+						</button>
+					</div>
+				</div>
+			)
+		}
+
+		{filteredData.length === 0 && <p>No photography yet.</p>}
+		{
+			filteredData.length > 0 && (
+				<>
+					<div class='grid grid-cols-1 gap-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+						{filteredData.map((p) => (
+							<a
+								href={`/photography/${p.slug}/`}
+								class='group relative w-full overflow-hidden rounded-sm shadow-md'
+							>
+								<div class='relative pb-[100%]'>
+									<ImageSrc
+										src={p.data.coverImage?.src.src}
+										alt={p.data.title}
+										class={`absolute inset-0 h-full w-full object-cover duration-500 group-hover:scale-105 group-hover:opacity-80 ${p.data.matureContent ? 'blur-lg' : ''}`}
+									/>
+									{p.data.matureContent && (
+										<span class='absolute inset-0 z-10 flex items-center justify-center text-xs font-bold text-white transition-opacity duration-500 group-hover:opacity-0'>
+											MATURE CONTENT
+										</span>
+									)}
+									<div class='absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-40 px-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
+										<span class='text-sm text-white'>{p.data.title}</span>
+									</div>
+								</div>
+							</a>
+						))}
+					</div>
+					<Pagination {...paginationProps} />
+				</>
+			)
+		}
+	</div>
+</PageLayout>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const container = document.getElementById('tag-container')
+		const leftBtn = document.getElementById('scroll-left')
+		const rightBtn = document.getElementById('scroll-right')
+
+		if (container && leftBtn && rightBtn) {
+			// Initialize button visibility
+			updateButtonVisibility()
+
+			// Add scroll event listener to update button visibility
+			container.addEventListener('scroll', updateButtonVisibility)
+
+			// Button click handlers
+			leftBtn.addEventListener('click', () => {
+				container.scrollBy({ left: -300, behavior: 'smooth' })
+			})
+
+			rightBtn.addEventListener('click', () => {
+				container.scrollBy({ left: 300, behavior: 'smooth' })
+			})
+
+			// Function to update button visibility based on scroll position
+			function updateButtonVisibility() {
+				const htmlContainer = container as HTMLElement
+				// Hide left button if at the start of scroll
+				leftBtn!.style.display = htmlContainer.scrollLeft <= 10 ? 'none' : 'flex'
+				leftBtn!.style.opacity = htmlContainer.scrollLeft <= 10 ? '0' : '1'
+				leftBtn!.style.pointerEvents = htmlContainer.scrollLeft <= 10 ? 'none' : 'auto'
+
+				// Hide right button if at the end of scroll
+				const isAtEnd =
+					htmlContainer.scrollWidth - htmlContainer.clientWidth - htmlContainer.scrollLeft <= 10
+				rightBtn!.style.opacity = isAtEnd ? '0' : '1'
+				rightBtn!.style.pointerEvents = isAtEnd ? 'none' : 'auto'
+			}
+
+			// Add window resize listener to update button visibility
+			window.addEventListener('resize', updateButtonVisibility)
+		}
+	})
+</script>
+
+<style>
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
+	.scrollbar-hide {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	#scroll-left,
+	#scroll-right {
+		z-index: 1;
+		transition: opacity 0.3s ease;
+	}
+	#scroll-left::after {
+		position: absolute;
+		left: 0;
+		height: 100%;
+		width: 10rem;
+		content: '';
+		pointer-events: none;
+		background: linear-gradient(to right, rgb(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 80%);
+		z-index: -1;
+	}
+
+	#scroll-right::before {
+		position: absolute;
+		right: 0;
+		height: 100%;
+		width: 10rem;
+		content: '';
+		pointer-events: none;
+		background: linear-gradient(to left, rgb(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 80%);
+		z-index: -1;
+	}
+
+	:global(.dark) #scroll-left::after {
+		background: linear-gradient(
+			to right,
+			rgba(0.04, 0.04, 0.04, 0.8) 20%,
+			rgba(0.04, 0.04, 0.04, 0) 80%
+		);
+	}
+
+	:global(.dark) #scroll-right::before {
+		background: linear-gradient(
+			to left,
+			rgba(0.04, 0.04, 0.04, 0.8) 20%,
+			rgba(0.04, 0.04, 0.04, 0) 80%
+		);
+	}
+</style>

@@ -2,7 +2,7 @@
 
 ## Sections
 
-- [ ] Add a `Projects` sections to the page. (Same structure as an blog subpage)
+- [x] Add a `Projects` sections to the page. (Same structure as an blog subpage)
 - [ ] Add a `More About Me` section to the page (maybe as a subpage)
   - [ ] Add a `Tools` section to page.
   - [ ] Add an `Interests` section to page.
@@ -13,6 +13,7 @@
   - [ ] Add a `Courses` section to page.
 - [ ] Add a `Content` section to the page.
   - [ ] Filter the content by `type` and `tags`. (`Art`, `Art/Photography`, `Art/Drawings`, `Art/3D`, `Code`, `...`)
+- [ ] Migrate sections from home to 'CV'
 
 ## Features
 

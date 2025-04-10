@@ -1,0 +1,40 @@
+---
+export const prerender = true
+
+import type { GetStaticPaths } from 'astro'
+import PhotoCollection from '@/collections/photos'
+import PhotographyLayout from '@/layouts/PhotographyLayout.astro'
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const allProjects = await PhotoCollection.getAll()
+	const allProjectsByDate = await PhotoCollection.sortedByDate(allProjects)
+
+	// Get unique tags and count their occurrences
+	const uniqueTags = await PhotoCollection.getUniqueTags(allProjects)
+	const tagCounts = uniqueTags.map((tag) => {
+		const count = allProjects.filter(
+			(project) => project.data.tags && project.data.tags.includes(tag)
+		).length
+		return { tag, count }
+	})
+
+	// Sort tags by count in descending order
+	const sortedTags = tagCounts
+		.sort((a, b) => b.count - a.count)
+		.map((item) => item.tag)
+		.slice(0, 15)
+
+	return sortedTags.flatMap((tag) =>
+		paginate(allProjectsByDate, {
+			pageSize: 24,
+			props: { uniqueTags: sortedTags },
+			params: { tag, page: '1' }
+		})
+	)
+}) satisfies GetStaticPaths
+
+const { page, uniqueTags } = Astro.props
+const currentTag = Astro.params.tag
+---
+
+<PhotographyLayout page={page} uniqueTags={uniqueTags} currentTag={currentTag} />

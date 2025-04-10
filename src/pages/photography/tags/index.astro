@@ -1,0 +1,19 @@
+---
+import TagsLayout from '@/layouts/TagsLayout.astro'
+import PhotographyCollection from '@/collections/photos'
+
+const photoTags = await PhotographyCollection.getUniqueTagsWithCount()
+const allTags = photoTags.sort((a, b) => {
+	const tagA = a[0].toLowerCase()
+	const tagB = b[0].toLowerCase()
+	return tagA > tagB ? 1 : tagA < tagB ? -1 : 0
+})
+---
+
+<TagsLayout
+	title='Photography Tags'
+	description='A list of all photography categories and tags'
+	backUrl='/photography'
+	tags={allTags}
+	tagUrlPrefix='/photography/tags/'
+/>
