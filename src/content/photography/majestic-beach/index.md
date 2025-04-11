@@ -6,7 +6,13 @@ updatedDate: '2023-06-02'
 coverImage:
   src: './majestic-beach-cover.png'
   alt: 'Golden sunset over a serene beach with waves gently touching the shore'
-tags: ['landscape', 'seascape', 'sunset', 'nature', 'travel']
+tags:
+  - landscape
+  - seascape
+  - sunset
+  - nature
+  - travel
+
 category: 'photography'
 featured: true
 matureContent: true

@@ -6,13 +6,14 @@ import PhotoCollection from '@/collections/photos'
 import PhotographyLayout from '@/layouts/PhotographyLayout.astro'
 
 export const getStaticPaths = (async ({ paginate }) => {
-	const allProjects = await PhotoCollection.getAll()
-	const allProjectsByDate = await PhotoCollection.sortedByDate(allProjects)
+	const allPhotos = await PhotoCollection.getAll()
+	const allPhotosByDate = await PhotoCollection.sortedByDate(allPhotos)
 
 	// Get unique tags and count their occurrences
-	const uniqueTags = await PhotoCollection.getUniqueTags(allProjects)
+	const uniqueTags = await PhotoCollection.getUniqueTags(allPhotos)
+
 	const tagCounts = uniqueTags.map((tag) => {
-		const count = allProjects.filter(
+		const count = allPhotos.filter(
 			(project) => project.data.tags && project.data.tags.includes(tag)
 		).length
 		return { tag, count }
@@ -25,7 +26,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 		.slice(0, 15)
 
 	return sortedTags.flatMap((tag) =>
-		paginate(allProjectsByDate, {
+		paginate(allPhotosByDate, {
 			pageSize: 24,
 			props: { uniqueTags: sortedTags },
 			params: { tag, page: '1' }
