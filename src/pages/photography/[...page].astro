@@ -19,10 +19,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 	})
 
 	// Sort tags by count in descending order
-	const sortedTags = tagCounts
-		.sort((a, b) => b.count - a.count)
-		.map((item) => item.tag)
-		.slice(0, 15)
+	const sortedTags = tagCounts.sort((a, b) => b.count - a.count).map((item) => item.tag)
 
 	return paginate(allProjectsByDate, {
 		pageSize: 24,

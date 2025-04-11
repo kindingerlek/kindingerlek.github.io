@@ -53,7 +53,7 @@ const meta = {
 			{
 				allTags.map(([tag, val]) => (
 					<li class='flex items-center gap-x-2' data-tag={tag} data-count={val}>
-						<Tag name={`#${tag}`} url={`${tagUrlPrefix}${tag}/`} />
+						<Tag name={`#${tag}`} url={`${tagUrlPrefix}${tag}/`} target='_self' />
 						<span class='inline-block text-neutral-600 dark:text-neutral-400'>
 							{val} post{val > 1 && 's'}
 						</span>

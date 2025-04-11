@@ -23,11 +23,13 @@ export interface Tag {
 
 	/** Text displayed in the tooltip when someone hovers over the tag. */
 	description?: string
+
+	target?: '_blank' | '_self' | '_parent' | '_top'
 }
 
 export interface Props extends Tag {}
 
-const { name, description, icon, iconSize, iconColor, url, iconColorDark } = Astro.props
+const { name, description, icon, iconSize, iconColor, url, iconColorDark, target } = Astro.props
 
 const className =
 	'flex p-3 h-4 w-fit items-center gap-x-1.5 rounded bg-zinc-200 px-2.5 dark:bg-zinc-800 drop-shadow'
@@ -35,7 +37,7 @@ const customProps = url
 	? ({
 			href: url,
 			as: 'a',
-			target: '_blank',
+			target: target || '_blank',
 			rel: 'noopener noreferrer',
 			class: `${className} hover:bg-zinc-200 dark:hover:bg-zinc-500`
 		} as const)

@@ -81,11 +81,11 @@ const paginationProps = {
 						<div id='tag-container' class='scrollbar-hide overflow-x-auto '>
 							<ul class='flex gap-2 whitespace-nowrap'>
 								<li>
-									<Tag name='All' url='/photography/' />
+									<Tag name='All' url='/photography/' target='_self' />
 								</li>
-								{uniqueTags.map((tag) => (
+								{uniqueTags.slice(0, 15).map((tag) => (
 									<li>
-										<Tag name={tag} url={`/photography/tags/${tag}`} />
+										<Tag name={tag} url={`/photography/tags/${tag}`} target='_self' />
 									</li>
 								))}
 								<li>
