@@ -7,6 +7,7 @@ import Button from '@/components/Button.astro'
 import Pagination from '@/components/Paginator.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import ImageSrc from '@/components/ImageSrc.astro'
+import Tag from '@/components/Tag.astro'
 
 interface Props {
 	page: Page<CollectionEntry<'photography'>>
@@ -80,15 +81,15 @@ const paginationProps = {
 						<div id='tag-container' class='scrollbar-hide overflow-x-auto '>
 							<ul class='flex gap-2 whitespace-nowrap'>
 								<li>
-									<Button title='All' href='/photography/' style='pill' />
+									<Tag name='All' url='/photography/' />
 								</li>
 								{uniqueTags.map((tag) => (
 									<li>
-										<Button title={tag} href={`/photography/tags/${tag}`} style='pill' />
+										<Tag name={tag} url={`/photography/tags/${tag}`} />
 									</li>
 								))}
 								<li>
-									<Button title='View All →' href='/photography/tags' style='pill' />
+									<Tag name='View All →' url='/photography/tags' />
 								</li>
 							</ul>
 						</div>

@@ -12,6 +12,7 @@ import ContentPreview from '@/components/blog/ContentPreview.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import ProjectCollection from '@/collections/projects'
 import CustomIconTag from '@/components/customIcons/CustomIconTag.astro'
+import Tag from '@/components/Tag.astro'
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const allProjects = await ProjectCollection.getAll()
@@ -89,7 +90,8 @@ const paginationProps = {
 							<ul class='text-bgColor flex flex-wrap gap-2'>
 								{uniqueTags.map((tag) => (
 									<li>
-										<Button title={tag} href={`/tags/${tag}/`} style='pill' />
+										{/* <Button title={tag} href={`/tags/${tag}/`} style='pill' /> */}
+										<Tag name={`#${tag}`} url={`/tags/${tag}/`} />
 									</li>
 								))}
 							</ul>

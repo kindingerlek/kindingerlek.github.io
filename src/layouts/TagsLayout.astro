@@ -1,5 +1,6 @@
 ---
 import Button from '@/components/Button.astro'
+import Tag from '@/components/Tag.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import type { Config } from '@/types/data'
 
@@ -39,7 +40,7 @@ const meta = {
 			<h1 class='text-2xl font-bold'>{title}</h1>
 			<div class='flex items-center gap-2'>
 				<label for='sort-select'>Sort by:</label>
-				<select id='sort-select' class='rounded border px-2 py-1 dark:bg-gray-800'>
+				<select id='sort-select' class='rounded border px-2 py-1 dark:bg-zinc-800'>
 					<option value='0'>Alphabetical</option>
 					<option value='1'>Quantity</option>
 				</select>
@@ -52,7 +53,7 @@ const meta = {
 			{
 				allTags.map(([tag, val]) => (
 					<li class='flex items-center gap-x-2' data-tag={tag} data-count={val}>
-						<Button title={`#${tag}`} href={`${tagUrlPrefix}${tag}/`} style='pill' />
+						<Tag name={`#${tag}`} url={`${tagUrlPrefix}${tag}/`} />
 						<span class='inline-block text-neutral-600 dark:text-neutral-400'>
 							{val} post{val > 1 && 's'}
 						</span>
