@@ -7,6 +7,7 @@ import PageLayout from './BaseLayout.astro'
 import type { ContentEntry } from '@/content/config'
 
 import Hero from '@/components/blog/Hero.astro'
+import ContentSidePanel from '@/components/blog/ContentSidePanel.astro'
 
 interface Props {
 	urlRoot: string
@@ -44,7 +45,9 @@ const pageMeta = {
 			</svg>
 		</Button>
 		<div class='mt-8 gap-x-10 lg:flex lg:items-start'>
-			{!!headings.length && <TOC headings={headings} />}
+			<ContentSidePanel visible={!!headings.length}>
+				<TOC headings={headings} />
+			</ContentSidePanel>
 			<article class='flex-grow break-words' data-pagefind-body>
 				<div id='blog-hero'><Hero content={content} /></div>
 				<div

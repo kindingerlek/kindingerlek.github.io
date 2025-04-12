@@ -6,6 +6,7 @@ import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
 import ContentPostLayout from '@/layouts/ContentPostLayout.astro'
 import PhotoCollection from '@/collections/photos'
 import type { Config } from '@/types/data'
+import PhotoPostLayout from '@/layouts/PhotoPostLayout.astro'
 
 export const getStaticPaths = (async () => {
 	const projectEntries = await PhotoCollection.getAll()
@@ -26,6 +27,10 @@ const meta = {
 } as Config['meta']
 ---
 
-<ContentPostLayout content={entry} meta={meta} urlRoot='/photography'>
+<PhotoPostLayout content={entry} meta={meta} urlRoot='/photography'>
 	<Content />
-</ContentPostLayout>
+</PhotoPostLayout>
+
+<!-- <ContentPostLayout content={entry} meta={meta} urlRoot='/photography'>
+	<Content />
+</ContentPostLayout> -->

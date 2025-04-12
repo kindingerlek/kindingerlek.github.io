@@ -82,6 +82,8 @@ export const collections = {
 
 export type ContentEntry = CollectionEntry<keyof typeof collections>
 
+export type PhotographyEntry = CollectionEntry<'photography'>
+
 export const CollectionLinkMap: {
 	[key in keyof typeof collections]: {
 		label: string
