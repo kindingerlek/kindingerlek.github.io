@@ -21,7 +21,7 @@ const contentSchemaFac = ({ image }: SchemaContext) =>
 			.transform((str) => (str ? new Date(str) : undefined)),
 		coverImage: z
 			.object({
-				src: image(),
+				image: image(),
 				alt: z.string().nullable()
 			})
 			.optional(),

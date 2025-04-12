@@ -5,7 +5,7 @@ draft: false
 featured: true
 publishDate: '2023-10-02'
 coverImage:
-  src: './cover.jpg'
+  image: './cover.jpg'
   alt: 'EcoTrack Dashboard'
 tags:
   - IoT

@@ -4,7 +4,7 @@ description: 'A breathtaking capture of the sun setting over pristine shorelines
 publishDate: '2023-05-18'
 updatedDate: '2023-06-02'
 coverImage:
-  src: './majestic-beach-cover.png'
+  image: './majestic-beach-cover.png'
   alt: 'Golden sunset over a serene beach with waves gently touching the shore'
 tags:
   - landscape

@@ -32,7 +32,7 @@ const limitedProjects = featuredProjects.slice(0, FEATURED_PROJECTS_LIMIT)
 					<Card
 						heading={project.title}
 						subheading={project.description}
-						imagePath={project.featuredImage || project.coverImage?.src.src}
+						imagePath={project.featuredImage || project.coverImage?.image.src}
 						href={`/projects/${entry.slug}`}
 						date={new Date(project.updatedDate ?? project.publishDate).toLocaleDateString()}
 					/>

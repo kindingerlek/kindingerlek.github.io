@@ -4,7 +4,7 @@ description: A groundbreaking digital art platform that uses AI to transform bra
 draft: false
 featured: true
 coverImage:
-  src: './cover.jpg'
+  image: './cover.jpg'
   alt: 'Neural Canvas - A digital art platform'
 publishDate: '2023-11-01'
 tags:

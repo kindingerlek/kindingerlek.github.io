@@ -1,0 +1,26 @@
+---
+const { content } = Astro.props
+---
+
+{
+	content?.data?.meta && (
+		<div class='mt-8 hidden lg:block'>
+			<h2 class='font-semibold'>INFO</h2>
+			<div class='prose prose-sm dark:prose-invert'>
+				<table class='w-full'>
+					<tbody>
+						{Object.entries(content.data.meta).map(
+							([key, value]) =>
+								value && (
+									<tr>
+										<td class='font-medium text-gray-700 dark:text-gray-300'>{key}</td>
+										<td class='text-gray-900 dark:text-gray-100'>{value}</td>
+									</tr>
+								)
+						)}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	)
+}

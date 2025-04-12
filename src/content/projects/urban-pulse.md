@@ -4,7 +4,7 @@ description: A civic engagement platform that connects citizens with local gover
 draft: false
 featured: true
 coverImage:
-  src: './cover.jpg'
+  image: './cover.jpg'
   alt: 'Urban Pulse - Civic Engagement Platform'
 publishDate: '2023-05-15'
 tags:

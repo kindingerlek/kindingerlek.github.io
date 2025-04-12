@@ -5,7 +5,7 @@ publishDate: '2023-08-15'
 tags: ['lightning', 'storms', 'weather', 'long-exposure']
 category: 'photography'
 coverImage:
-  src: './storm-lightning-cover.png'
+  image: './storm-lightning-cover.png'
   alt: 'A brilliant fork of lightning striking across a dark stormy sky'
 featured: true
 meta:

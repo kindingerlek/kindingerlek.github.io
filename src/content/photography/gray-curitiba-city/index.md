@@ -5,7 +5,7 @@ publishDate: '2023-07-15'
 category: 'photography'
 tags: ['black and white', 'urban', 'architecture', 'cityscape', 'brazil', 'moody']
 coverImage:
-  src: './gray-curitiba-cover.png'
+  image: './gray-curitiba-cover.png'
   alt: 'Monochrome cityscape of Curitiba with dramatic clouds'
 meta:
   iso: 'ISO 400'

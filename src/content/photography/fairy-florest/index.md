@@ -5,7 +5,7 @@ publishDate: '2023-09-15'
 category: 'photography'
 featured: true
 coverImage:
-  src: './fairy-forest-cover.png'
+  image: './fairy-forest-cover.png'
   alt: 'Sunlight filtering through misty forest with moss-covered trees'
 tags: ['nature', 'landscape', 'mystical', 'forest', 'dawn']
 meta:

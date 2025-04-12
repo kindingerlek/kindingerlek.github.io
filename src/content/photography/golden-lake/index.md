@@ -6,7 +6,7 @@ tags: ['landscape', 'sunset', 'reflection', 'nature', 'water']
 category: 'photography'
 featured: true
 coverImage:
-  src: './golden-lake-cover.png'
+  image: './golden-lake-cover.png'
   alt: 'Golden Lake reflecting sunset with silhouettes of pine trees'
 meta:
   iso: '100'
