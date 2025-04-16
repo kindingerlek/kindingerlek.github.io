@@ -15,7 +15,7 @@ export interface Tag {
 	/** Color of the icon in dark mode. By default, the color is inherited from the text. */
 	iconColorDark?: string
 
-	/** Size of the icon. Defaultof the icon is 16. */
+	/** Size of the icon. Default of the icon is 16. */
 	iconSize?: number
 
 	/** URL that will be opened in a new tab, when the tag is clicked. */
@@ -25,21 +25,43 @@ export interface Tag {
 	description?: string
 
 	target?: '_blank' | '_self' | '_parent' | '_top'
+
+	/** Boolean value indicating whether the tag is selected. */
+	selected?: boolean
 }
 
 export interface Props extends Tag {}
 
-const { name, description, icon, iconSize, iconColor, url, iconColorDark, target } = Astro.props
+const {
+	name,
+	description,
+	icon,
+	iconSize,
+	iconColor,
+	url,
+	iconColorDark,
+	target,
+	selected = false
+} = Astro.props
 
 const className =
-	'flex p-3 h-4 w-fit items-center gap-x-1.5 rounded bg-zinc-200 px-2.5 dark:bg-zinc-700 drop-shadow'
+	'flex p-3 h-4 w-fit items-center gap-x-1.5 rounded drop-shadow ' +
+	(selected
+		? ' bg-zinc-800 dark:bg-zinc-300 text-zinc-100 dark:text-zinc-900 font-bold'
+		: ' bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200')
+
 const customProps = url
 	? ({
 			href: url,
 			as: 'a',
 			target: target || '_blank',
 			rel: 'noopener noreferrer',
-			class: `${className} hover:bg-zinc-200 dark:hover:bg-zinc-500`
+			class:
+				className +
+				' transition-all duration-300 ease-in-out' +
+				(selected
+					? ' hover:bg-zinc-500 dark:hover:bg-zinc-400'
+					: ' hover:bg-zinc-300 dark:hover:bg-zinc-600')
 		} as const)
 	: {
 			class: className
