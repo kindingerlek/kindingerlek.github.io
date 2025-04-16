@@ -18,7 +18,7 @@ interface Props {
 }
 
 const { content, meta, urlRoot } = Astro.props
-const { headings, remarkPluginFrontmatter } = await content.render()
+const { headings } = await content.render()
 
 const pageMeta = {
 	...meta,
@@ -27,10 +27,6 @@ const pageMeta = {
 	articleDate: content.data.publishDate.toISOString(),
 	ogImage: content.data.ogImage ?? `/og-image/${content.slug}.png`
 } as Config['meta']
-
-const dateTimeOptions: Intl.DateTimeFormatOptions = {
-	month: 'long'
-}
 
 const sidePanelVisible = !!content.data.meta || !!headings.length
 ---

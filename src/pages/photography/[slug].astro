@@ -3,10 +3,9 @@ export const prerender = true
 
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
 
-import ContentPostLayout from '@/layouts/ContentPostLayout.astro'
 import PhotoCollection from '@/collections/photos'
 import type { Config } from '@/types/data'
-import PhotoPostLayout from '@/layouts/PhotoPostLayout.astro'
+import ArtPostLayout from '@/layouts/ArtPostLayout.astro'
 
 export const getStaticPaths = (async () => {
 	const projectEntries = await PhotoCollection.getAll()
@@ -27,9 +26,9 @@ const meta = {
 } as Config['meta']
 ---
 
-<PhotoPostLayout content={entry} meta={meta} urlRoot='/photography'>
+<ArtPostLayout content={entry} meta={meta} urlRoot='/photography'>
 	<Content />
-</PhotoPostLayout>
+</ArtPostLayout>
 
 <!-- <ContentPostLayout content={entry} meta={meta} urlRoot='/photography'>
 	<Content />

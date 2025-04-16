@@ -3,7 +3,7 @@ export const prerender = true
 
 import type { GetStaticPaths } from 'astro'
 import PhotoCollection from '@/collections/photos'
-import PhotographyLayout from '@/layouts/PhotographyLayout.astro'
+import ArtGalleryLayout from '@/layouts/ArtGalleryLayout.astro'
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const allPhotos = await PhotoCollection.getAll()
@@ -35,4 +35,4 @@ const { page, uniqueTags } = Astro.props
 const currentTag = Astro.params.tag
 ---
 
-<PhotographyLayout page={page} uniqueTags={uniqueTags} currentTag={currentTag} />
+<ArtGalleryLayout page={page} uniqueTags={uniqueTags} currentTag={currentTag} />
