@@ -19,8 +19,6 @@ meta:
   longitude: '78.3213°W'
 ---
 
-## Golden Lake at Sunset
-
 I had been planning this shot for months, tracking the sun's position to capture the perfect moment when the last rays of daylight would transform the lake's surface into liquid gold.
 
 After three failed attempts due to cloudy weather, nature finally rewarded my patience. The evening was unusually still, creating a perfect mirror reflection on the lake's surface. As the sun descended behind the distant mountains, it painted the sky with gradients of orange, pink, and purple that melted into the water below.

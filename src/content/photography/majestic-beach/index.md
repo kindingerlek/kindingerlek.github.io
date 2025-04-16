@@ -27,8 +27,6 @@ meta:
   longitude: '-8.4125'
 ---
 
-## Majestic Beach: Where Sky Meets Ocean
-
 I had been planning this shot for months, tracking the sun's position and waiting for the perfect weather conditions. As I arrived at the beach two hours before sunset, the atmosphere was electric with anticipation.
 
 The cliffs surrounding this hidden gem created a natural frame for the composition I had envisioned. As the sun began its descent toward the horizon, the entire landscape transformed before my eyes. The golden light bathed the limestone formations in warm tones, while the turquoise waters gradually shifted to deep blues and purples.

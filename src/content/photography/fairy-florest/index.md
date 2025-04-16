@@ -19,8 +19,6 @@ meta:
   longitude: '122.7651W'
 ---
 
-## The Fairy Forest
-
 In the heart of the Whispering Hills lies a forest shrouded in mystery and magic. Local legends speak of fairy gatherings and enchanted creatures that emerge at dawn when the first light filters through the ancient trees.
 
 I arrived before sunrise, setting up my equipment in near darkness. As the first golden rays pierced through the canopy, the entire forest seemed to awaken. The mist, suspended between the moss-covered branches, caught the light in ways that transformed the ordinary woodland into something otherworldly.
