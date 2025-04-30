@@ -10,7 +10,7 @@ import ImageSrc from '@/components/ImageSrc.astro'
 import Tag from '@/components/Tag.astro'
 
 interface Props {
-	page: Page<CollectionEntry<'photography'>>
+	page: Page<CollectionEntry<'photographies'>>
 	uniqueTags: string[]
 	currentTag?: string | null
 }
@@ -60,7 +60,7 @@ const paginationProps = {
 			</svg>
 		</Button>
 
-		<h1 class='mb-6 mt-5 text-2xl font-bold'>Photographys</h1>
+		<h1 class='mb-6 mt-5 text-2xl font-bold'>Photography</h1>
 
 		{
 			!!uniqueTags.length && (
@@ -83,7 +83,7 @@ const paginationProps = {
 								<li>
 									<Tag
 										name='All'
-										url={currentTag ? '/photography/' : undefined}
+										url={currentTag ? '/photographies/' : undefined}
 										target='_self'
 										selected={!currentTag}
 									/>
@@ -92,14 +92,14 @@ const paginationProps = {
 									<li>
 										<Tag
 											name={tag}
-											url={currentTag !== tag ? `/photography/tags/${tag}` : undefined}
+											url={currentTag !== tag ? `/photographies/tags/${tag}` : undefined}
 											target='_self'
 											selected={currentTag === tag}
 										/>
 									</li>
 								))}
 								<li>
-									<Tag name='View All →' url='/photography/tags' />
+									<Tag name='View All →' url='/photographies/tags' />
 								</li>
 							</ul>
 						</div>
@@ -120,14 +120,14 @@ const paginationProps = {
 			)
 		}
 
-		{filteredData.length === 0 && <p>No photography yet.</p>}
+		{filteredData.length === 0 && <p>No photographies yet.</p>}
 		{
 			filteredData.length > 0 && (
 				<>
 					<div class='grid grid-cols-1 gap-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
 						{filteredData.map((p) => (
 							<a
-								href={`/photography/${p.slug}/`}
+								href={`/photographies/${p.slug}/`}
 								class='group relative w-full overflow-hidden rounded-sm shadow-md'
 							>
 								<div class='relative pb-[100%]'>

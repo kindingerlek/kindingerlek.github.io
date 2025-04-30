@@ -3,7 +3,7 @@ title: "Fury of Nature: Capturing Lightning's Dance"
 description: 'A summer thunderstorm journey capturing lightning’s raw power over the coastal plains in breathtaking images.'
 publishDate: '2023-08-15'
 tags: ['lightning', 'storms', 'weather', 'long-exposure']
-category: 'photography'
+category: 'photographies'
 coverImage:
   image: './storm-lightning-cover.png'
   alt: 'A brilliant fork of lightning striking across a dark stormy sky'
@@ -27,9 +27,9 @@ Armed with my trusty Canon EOS R5, a sturdy tripod, and a remote trigger, I set 
 
 ## The Setup
 
-Storm photography requires patience and preparation. I positioned my camera facing the darkest part of the sky, where the storm was intensifying. Using a wide-angle lens to capture the vast expanse of the churning clouds, I set for long exposures—30 seconds at a time—hoping to catch multiple lightning strikes in a single frame.
+Storm photographies requires patience and preparation. I positioned my camera facing the darkest part of the sky, where the storm was intensifying. Using a wide-angle lens to capture the vast expanse of the churning clouds, I set for long exposures—30 seconds at a time—hoping to catch multiple lightning strikes in a single frame.
 
-The challenge with lightning photography isn't just safety (I remained in my vehicle for most shots), but timing. You never know when or where the next strike will occur. It's a game of chance, persistence, and countless exposures.
+The challenge with lightning photographies isn't just safety (I remained in my vehicle for most shots), but timing. You never know when or where the next strike will occur. It's a game of chance, persistence, and countless exposures.
 
 ## The Reward
 

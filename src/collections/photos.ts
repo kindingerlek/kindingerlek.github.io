@@ -7,14 +7,14 @@ export default class PhotoCollection {
 	/** Note: this function filters out draft photos based on the environment */
 	public static async getAll() {
 		return await getCollection(
-			'photography',
-			({ data }: { data: CollectionEntry<'photography'>['data'] }) => {
+			'photographies',
+			({ data }: { data: CollectionEntry<'photographies'>['data'] }) => {
 				return import.meta.env.PROD ? data.draft !== true : true
 			}
 		)
 	}
 
-	public static async sortedByDate(photos?: Array<CollectionEntry<'photography'>>) {
+	public static async sortedByDate(photos?: Array<CollectionEntry<'photographies'>>) {
 		const items = photos ?? (await this.getAll())
 		return items.sort((a, b) => {
 			const aDate = new Date(a.data.updatedDate ?? a.data.publishDate).valueOf()
@@ -24,20 +24,20 @@ export default class PhotoCollection {
 	}
 
 	/** Note: This function doesn't filter draft photos */
-	public static async getAllTags(photos?: Array<CollectionEntry<'photography'>>) {
+	public static async getAllTags(photos?: Array<CollectionEntry<'photographies'>>) {
 		const items = photos ?? (await this.getAll())
 		return items.flatMap((photo) => [...photo.data.tags])
 	}
 
 	/** Note: This function doesn't filter draft photos */
-	public static async getUniqueTags(photos?: Array<CollectionEntry<'photography'>>) {
+	public static async getUniqueTags(photos?: Array<CollectionEntry<'photographies'>>) {
 		const allTags = await this.getAllTags(photos)
 		return [...new Set(allTags)]
 	}
 
 	/** Note: This function doesn't filter draft photos */
 	public static async getUniqueTagsWithCount(
-		photos?: Array<CollectionEntry<'photography'>>
+		photos?: Array<CollectionEntry<'photographies'>>
 	): Promise<Array<[string, number]>> {
 		const allTags = await this.getAllTags(photos)
 		return [

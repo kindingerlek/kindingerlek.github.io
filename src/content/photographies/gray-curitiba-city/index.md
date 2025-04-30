@@ -2,7 +2,7 @@
 title: 'Gray Curitiba City: Urban Monochromes'
 description: "A black and white photographic exploration of Curitiba's urban landscape, capturing the city's architecture and mood during an overcast winter day."
 publishDate: '2023-07-15'
-category: 'photography'
+category: 'photographies'
 tags: ['black and white', 'urban', 'architecture', 'cityscape', 'brazil', 'moody']
 coverImage:
   image: './gray-curitiba-cover.png'

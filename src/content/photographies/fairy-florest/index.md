@@ -2,7 +2,7 @@
 title: 'Enchanted Paths: The Fairy Forest at Dawn'
 description: 'Golden hour reveals a mystical forest in morning mist, with moss-clad trees evoking a fairytale vibe.'
 publishDate: '2023-09-15'
-category: 'photography'
+category: 'photographies'
 featured: true
 coverImage:
   image: './fairy-forest-cover.png'

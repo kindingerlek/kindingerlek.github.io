@@ -3,7 +3,7 @@ title: 'Golden Lake at Sunset'
 description: 'Golden Lake at sunset: serene waters mirror warm hues, framed by pine trees, capturing nature’s ephemeral masterpiece.'
 publishDate: '2023-08-15'
 tags: ['landscape', 'sunset', 'reflection', 'nature', 'water']
-category: 'photography'
+category: 'photographies'
 featured: true
 coverImage:
   image: './golden-lake-cover.png'

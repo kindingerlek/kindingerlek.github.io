@@ -13,7 +13,7 @@ tags:
   - nature
   - travel
 
-category: 'photography'
+category: 'photographies'
 featured: true
 matureContent: true
 meta:
@@ -35,4 +35,4 @@ What makes this image special is the moment when a gentle wave receded, creating
 
 In post-processing, I carefully balanced the exposure between the bright sky and darker foreground, maintaining the natural feel while enhancing the vibrant colors that made this sunset truly exceptional.
 
-This photograph reminds me of the patience required in landscape photography and how nature rewards those who wait for the perfect moment.
+This photograph reminds me of the patience required in landscape photographies and how nature rewards those who wait for the perfect moment.
