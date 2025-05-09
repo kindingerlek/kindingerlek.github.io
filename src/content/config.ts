@@ -11,6 +11,8 @@ const contentSchemaFac = ({ image }: SchemaContext) =>
 	z.object({
 		title: z.string().max(60),
 		description: z.string().min(50).max(160),
+		featured: z.boolean().default(false),
+		featuredImage: z.string().optional(),
 		publishDate: z
 			.string()
 			.or(z.date())
@@ -36,11 +38,7 @@ const postSchema = (ctx: SchemaContext) => contentSchemaFac(ctx).extend({})
 
 export type PostContent = z.infer<ReturnType<typeof postSchema>>
 
-const projectsSchema = (ctx: SchemaContext) =>
-	contentSchemaFac(ctx).extend({
-		featured: z.boolean().default(false),
-		featuredImage: z.string().optional()
-	})
+const projectsSchema = (ctx: SchemaContext) => contentSchemaFac(ctx).extend({})
 
 export type ProjectContent = z.infer<ReturnType<typeof projectsSchema>>
 
@@ -64,6 +62,22 @@ const photographiesSchema = (ctx: SchemaContext) =>
 
 export type PhotographyContent = z.infer<ReturnType<typeof photographiesSchema>>
 
+export const artworkSchema = (ctx: SchemaContext) =>
+	contentSchemaFac(ctx).extend({
+		featured: z.boolean().default(false),
+		featuredImage: z.string().optional(),
+		types: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
+		meta: z
+			.object({
+				dimensions: z.string().optional(),
+				medium: z.string().optional(),
+				year: z.string().optional(),
+				location: z.string().optional()
+			})
+			.optional()
+	})
+export type ArtworkContent = z.infer<ReturnType<typeof artworkSchema>>
+
 export const collections = {
 	posts: defineCollection({
 		type: 'content',
@@ -76,6 +90,10 @@ export const collections = {
 	photographies: defineCollection({
 		type: 'content',
 		schema: photographiesSchema
+	}),
+	artworks: defineCollection({
+		type: 'content',
+		schema: artworkSchema
 	})
 }
 
@@ -100,5 +118,9 @@ export const CollectionLinkMap: {
 	photographies: {
 		label: 'Photography',
 		url: '/photographies'
+	},
+	artworks: {
+		label: 'Artworks',
+		url: '/artworks'
 	}
 } as const

@@ -1,0 +1,34 @@
+---
+export const prerender = true
+
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
+
+import ArtworkCollection from '@/collections/artworks'
+import type { Config } from '@/types/data'
+import ArtPostLayout from '@/layouts/ArtPostLayout.astro'
+
+export const getStaticPaths = (async () => {
+	const artworkEntries = await ArtworkCollection.getAll()
+	return artworkEntries.map((entry) => ({
+		params: { slug: entry.slug },
+		props: { entry }
+	}))
+}) satisfies GetStaticPaths
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+const { entry } = Astro.props as Props
+const { Content } = await entry.render()
+
+const meta = {
+	description: entry.data.description,
+	title: entry.data.title
+} as Config['meta']
+---
+
+{
+	//TODO fix content prop type because it only receive photography entry
+}
+<ArtPostLayout content={entry as any} meta={meta} urlRoot='/artworks'>
+	<Content />
+</ArtPostLayout>
