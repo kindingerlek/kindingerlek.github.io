@@ -1,8 +1,9 @@
+import { slugify } from '@/utils/slug'
 import { defineCollection, z, type CollectionEntry, type SchemaContext } from 'astro:content'
 
-function removeDupsAndLowerCase(array: string[]) {
+function removeDupsAndSlugify(array: string[]) {
 	if (!array.length) return array
-	const lowercaseItems = array.map((str) => str.toLowerCase())
+	const lowercaseItems = array.map((str) => slugify(str))
 	const distinctItems = new Set(lowercaseItems)
 	return Array.from(distinctItems)
 }
@@ -28,7 +29,7 @@ const contentSchemaFac = ({ image }: SchemaContext) =>
 			})
 			.optional(),
 		draft: z.boolean().default(false),
-		tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
+		tags: z.array(z.string()).default([]).transform(removeDupsAndSlugify),
 		ogImage: z.string().optional()
 	})
 
@@ -66,7 +67,7 @@ export const artworkSchema = (ctx: SchemaContext) =>
 	contentSchemaFac(ctx).extend({
 		featured: z.boolean().default(false),
 		featuredImage: z.string().optional(),
-		types: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
+		types: z.array(z.string()).default([]).transform(removeDupsAndSlugify),
 		meta: z
 			.object({
 				dimensions: z.string().optional(),
