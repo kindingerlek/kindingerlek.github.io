@@ -19,6 +19,9 @@ interface Props {
 
 const { title, page, uniqueTags, meta } = Astro.props
 
+const contentType = page.data[0].collection
+const urlRoot = contentType === 'projects' ? 'projects' : ''
+
 const paginationProps = {
 	...(page.url.prev && {
 		prevUrl: {
@@ -76,12 +79,17 @@ const paginationProps = {
 							<ul class='text-bgColor flex flex-wrap gap-2 gap-y-3'>
 								{uniqueTags.map((tag) => (
 									<li>
-										<Tag name={`#${tag}`} url={`/tags/${tag}/`} />
+										<Tag name={`#${tag}`} url={`${urlRoot}/tags/${tag}/`} />
 									</li>
 								))}
 							</ul>
 							<span class='mt-4 block sm:text-end'>
-								<a aria-label='View all blog categories' class='' href='/tags/' data-astro-prefetch>
+								<a
+									aria-label='View all blog categories'
+									class=''
+									href={`/tags/`}
+									data-astro-prefetch
+								>
 									View all →
 								</a>
 							</span>
