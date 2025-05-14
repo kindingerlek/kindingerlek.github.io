@@ -7,6 +7,7 @@ featured: true
 coverImage:
   image: './fairy-forest-cover.png'
   alt: 'Sunlight filtering through misty forest with moss-covered trees'
+types: ['photography']
 tags: ['nature', 'landscape', 'mystical', 'forest', 'dawn']
 meta:
   iso: '100'

@@ -67,7 +67,22 @@ export const artworkSchema = (ctx: SchemaContext) =>
 	contentSchemaFac(ctx).extend({
 		featured: z.boolean().default(false),
 		featuredImage: z.string().optional(),
-		types: z.array(z.string()).default([]).transform(removeDupsAndSlugify),
+		types: z.array(
+			z.enum([
+				'photography',
+				'illustration',
+				'drawing',
+				'painting',
+				'digital-painting',
+				'vector',
+				'pixel-art',
+				'graphic-design',
+				'3D',
+				'sculpture',
+				'animation',
+				'render'
+			])
+		),
 		meta: z
 			.object({
 				dimensions: z.string().optional(),
@@ -78,6 +93,8 @@ export const artworkSchema = (ctx: SchemaContext) =>
 			.optional()
 	})
 export type ArtworkContent = z.infer<ReturnType<typeof artworkSchema>>
+
+export type ArtworkContentType = ArtworkContent['types'][number]
 
 export const collections = {
 	posts: defineCollection({
