@@ -67,30 +67,25 @@ export const artworkSchema = (ctx: SchemaContext) =>
 	contentSchemaFac(ctx).extend({
 		featured: z.boolean().default(false),
 		featuredImage: z.string().optional(),
-		types: z.array(
-			z.enum([
-				'photography',
-				'illustration',
-				'drawing',
-				'painting',
-				'digital-painting',
-				'vector',
-				'pixel-art',
-				'graphic-design',
-				'3D',
-				'sculpture',
-				'animation',
-				'render'
-			])
-		),
-		meta: z
-			.object({
-				dimensions: z.string().optional(),
-				medium: z.string().optional(),
-				year: z.string().optional(),
-				location: z.string().optional()
-			})
-			.optional()
+		types: z
+			.array(
+				z.enum([
+					'photography',
+					'illustration',
+					'drawing',
+					'painting',
+					'digital-painting',
+					'vector',
+					'pixel-art',
+					'graphic-design',
+					'3D',
+					'sculpture',
+					'animation',
+					'render'
+				])
+			)
+			.min(1),
+		meta: z.record(z.string())
 	})
 export type ArtworkContent = z.infer<ReturnType<typeof artworkSchema>>
 
