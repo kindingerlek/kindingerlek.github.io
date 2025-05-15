@@ -1,15 +1,15 @@
-import type { CollectionEntry } from 'astro:content'
+import type { BlogPostEntry } from '@/content/config'
 import { getCollection } from 'astro:content'
 
 export default class PostCollection {
 	/** Note: this function filters out draft posts based on the environment */
 	public static async getAll() {
-		return await getCollection('posts', ({ data }: { data: CollectionEntry<'posts'>['data'] }) => {
+		return await getCollection('posts', ({ data }: { data: BlogPostEntry['data'] }) => {
 			return import.meta.env.PROD ? data.draft !== true : true
 		})
 	}
 
-	public static async sortedByDate(posts?: Array<CollectionEntry<'posts'>>) {
+	public static async sortedByDate(posts?: Array<BlogPostEntry>) {
 		const items = posts ?? (await this.getAll())
 		return items.sort((a, b) => {
 			const aDate = new Date(a.data.updatedDate ?? a.data.publishDate).valueOf()
@@ -19,20 +19,20 @@ export default class PostCollection {
 	}
 
 	/** Note: This function doesn't filter draft posts */
-	public static async getAllTags(posts?: Array<CollectionEntry<'posts'>>) {
+	public static async getAllTags(posts?: Array<BlogPostEntry>) {
 		const items = posts ?? (await this.getAll())
 		return items.flatMap((post) => [...post.data.tags])
 	}
 
 	/** Note: This function doesn't filter draft posts */
-	public static async getUniqueTags(posts?: Array<CollectionEntry<'posts'>>) {
+	public static async getUniqueTags(posts?: Array<BlogPostEntry>) {
 		const allTags = await this.getAllTags(posts)
 		return [...new Set(allTags)]
 	}
 
 	/** Note: This function doesn't filter draft posts */
 	public static async getUniqueTagsWithCount(
-		posts?: Array<CollectionEntry<'posts'>>
+		posts?: Array<BlogPostEntry>
 	): Promise<Array<[string, number]>> {
 		const allTags = await this.getAllTags(posts)
 		return [

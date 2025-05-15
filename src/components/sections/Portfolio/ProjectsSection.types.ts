@@ -1,10 +1,9 @@
 import type { Section } from '@/components/Section.astro'
-import type { ProjectContent } from '@/content/config'
-import type { CollectionEntry } from 'astro:content'
+import type { ProjectEntry } from '@/content/config'
 
 export interface ProjectsSection extends Section {
 	/** List of your projects in a chronological order. Start with the most recent one. */
-	projects: CollectionEntry<'projects'>[]
+	projects: ProjectEntry[]
 
 	config: Section['config']
 }

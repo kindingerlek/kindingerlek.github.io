@@ -1,18 +1,15 @@
-import type { CollectionEntry } from 'astro:content'
+import type { ProjectEntry } from '@/content/config'
 import { getCollection } from 'astro:content'
 
 export default class ProjectCollection {
 	/** Note: this function filters out draft projects based on the environment */
 	public static async getAll() {
-		return await getCollection(
-			'projects',
-			({ data }: { data: CollectionEntry<'projects'>['data'] }) => {
-				return import.meta.env.PROD ? data.draft !== true : true
-			}
-		)
+		return await getCollection('projects', ({ data }: { data: ProjectEntry['data'] }) => {
+			return import.meta.env.PROD ? data.draft !== true : true
+		})
 	}
 
-	public static async sortedByDate(projects?: Array<CollectionEntry<'projects'>>) {
+	public static async sortedByDate(projects?: Array<ProjectEntry>) {
 		const projs = projects ?? (await this.getAll())
 		return projs.sort((a, b) => {
 			const aDate = new Date(a.data.updatedDate ?? a.data.publishDate).valueOf()
@@ -22,20 +19,20 @@ export default class ProjectCollection {
 	}
 
 	/** Note: This function doesn't filter draft projects */
-	public static async getAllTags(projects?: Array<CollectionEntry<'projects'>>) {
+	public static async getAllTags(projects?: Array<ProjectEntry>) {
 		const projs = projects ?? (await this.getAll())
 		return projs.flatMap((post) => [...post.data.tags])
 	}
 
 	/** Note: This function doesn't filter draft projects */
-	public static async getUniqueTags(projects?: Array<CollectionEntry<'projects'>>) {
+	public static async getUniqueTags(projects?: Array<ProjectEntry>) {
 		const allTags = await this.getAllTags(projects)
 		return [...new Set(allTags)]
 	}
 
 	/** Note: This function doesn't filter draft projects */
 	public static async getUniqueTagsWithCount(
-		projects?: Array<CollectionEntry<'projects'>>
+		projects?: Array<ProjectEntry>
 	): Promise<Array<[string, number]>> {
 		const allTags = await this.getAllTags(projects)
 		return [

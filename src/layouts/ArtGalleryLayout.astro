@@ -1,15 +1,15 @@
 ---
 import type { Page } from 'astro'
-import type { CollectionEntry } from 'astro:content'
 import { type Config } from '@/types/data'
 
 import Pagination from '@/components/Paginator.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import ImageSrc from '@/components/ImageSrc.astro'
 import Tag from '@/components/Tag.astro'
+import type { ArtworkEntry } from '@/content/config'
 
 interface Props {
-	page: Page<CollectionEntry<'artworks'>>
+	page: Page<ArtworkEntry>
 	title: string
 	uniqueTags: string[]
 	currentTag?: string | null
