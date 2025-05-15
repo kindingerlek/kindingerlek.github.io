@@ -3,7 +3,6 @@ import type { Page } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import { type Config } from '@/types/data'
 
-import Button from '@/components/Button.astro'
 import Pagination from '@/components/Paginator.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import ImageSrc from '@/components/ImageSrc.astro'
@@ -11,19 +10,20 @@ import Tag from '@/components/Tag.astro'
 
 interface Props {
 	page: Page<CollectionEntry<'photographies'>>
+	title: string
 	uniqueTags: string[]
 	currentTag?: string | null
 }
 
-const { page, uniqueTags, currentTag } = Astro.props
+const { page, uniqueTags, currentTag, title } = Astro.props
 
 const filteredData = currentTag
 	? page.data.filter((item) => item.data.tags?.includes(currentTag))
 	: page.data
 
 const meta = {
-	description: 'Photograph',
-	title: 'Photograph'
+	description: title,
+	title: title
 } as Config['meta']
 
 const paginationProps = {
@@ -44,23 +44,7 @@ const paginationProps = {
 
 <PageLayout meta={meta}>
 	<div class='w-full'>
-		<Button title='Back' href='/' style='button'>
-			<svg
-				xmlns='http://www.w3.org/2000/svg'
-				width='14'
-				height='14'
-				viewBox='0 0 24 24'
-				slot='icon-before'
-			>
-				<path
-					fill='currentColor'
-					d='m6.921 12.5l5.792 5.792L12 19l-7-7l7-7l.713.708L6.921 11.5H19v1z'
-				>
-				</path>
-			</svg>
-		</Button>
-
-		<h1 class='mb-6 mt-5 text-2xl font-bold'>Photography</h1>
+		<h1 class='mb-6 mt-5 text-2xl font-bold'>{title}</h1>
 
 		{
 			!!uniqueTags.length && (

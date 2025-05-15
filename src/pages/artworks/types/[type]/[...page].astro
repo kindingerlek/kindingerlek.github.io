@@ -7,15 +7,17 @@ import ArtGalleryLayout from '@/layouts/ArtGalleryLayout.astro'
 
 export const getStaticPaths = (async ({ paginate }) => {
 	// Get all unique artwork types
-	const uniqueTypes = await ArtworkCollection.getUniqueTypes()
-	const uniqueTags = await ArtworkCollection.getUniqueTags()
+	const allArtworks = await ArtworkCollection.getAll()
+	const uniqueTypes = await ArtworkCollection.getUniqueTypes(allArtworks)
 
 	let paths = []
 
 	for (const t of uniqueTypes) {
 		// Get artworks for this type
-		const artworksForType = await ArtworkCollection.getByType(t)
+		const artworksForType = await ArtworkCollection.getByType(t, allArtworks)
 		const sortedArtworks = await ArtworkCollection.sortedByDate(artworksForType)
+
+		const uniqueTags = await ArtworkCollection.getUniqueTags(sortedArtworks)
 
 		// Paginate the artworks by type
 		const paginatedPaths = paginate(sortedArtworks, {
@@ -32,4 +34,4 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page, type, uniqueTags } = Astro.props
 ---
 
-<ArtGalleryLayout page={page as any} uniqueTags={uniqueTags} />
+<ArtGalleryLayout page={page as any} uniqueTags={uniqueTags} title={type} />
