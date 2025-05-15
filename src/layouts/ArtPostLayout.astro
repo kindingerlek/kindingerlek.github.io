@@ -2,18 +2,17 @@
 import TOC from '@/components/blog/TOC.astro'
 import Button from '@/components/Button.astro'
 import type { Config } from '@/types/data'
-import FormattedDate from '@/components/FormattedDate.astro'
 import ImageSrc from '@/components/ImageSrc.astro'
 
 import PageLayout from './BaseLayout.astro'
-import type { PhotographyEntry } from '@/content/config'
 import ContentSidePanel from '@/components/blog/ContentSidePanel.astro'
 import MetaData from '@/components/blog/MetaData.astro'
 import HeroTitle from '@/components/blog/HeroTitle.astro'
+import type { ArtworkEntry } from '@/content/config'
 
 interface Props {
 	urlRoot: string
-	content: PhotographyEntry
+	content: ArtworkEntry
 	meta?: Config['meta']
 }
 
@@ -55,7 +54,7 @@ const sidePanelVisible = !!content.data.meta || !!headings.length
 			</ContentSidePanel>
 
 			<article class='flex-grow break-words' data-pagefind-body>
-				<HeroTitle content={content} tagsRoot='/photographies' />
+				<HeroTitle content={content} tagsRoot={urlRoot} />
 				{
 					content.data.coverImage && (
 						<div class='my-6'>

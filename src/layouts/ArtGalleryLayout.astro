@@ -9,7 +9,7 @@ import ImageSrc from '@/components/ImageSrc.astro'
 import Tag from '@/components/Tag.astro'
 
 interface Props {
-	page: Page<CollectionEntry<'photographies'>>
+	page: Page<CollectionEntry<'artworks'>>
 	title: string
 	uniqueTags: string[]
 	currentTag?: string | null
@@ -67,7 +67,7 @@ const paginationProps = {
 								<li>
 									<Tag
 										name='All'
-										url={currentTag ? '/photographies/' : undefined}
+										url={currentTag ? '/artworks/' : undefined}
 										target='_self'
 										selected={!currentTag}
 									/>
@@ -76,14 +76,14 @@ const paginationProps = {
 									<li>
 										<Tag
 											name={tag}
-											url={currentTag !== tag ? `/photographies/tags/${tag}` : undefined}
+											url={currentTag !== tag ? `/artworks/tags/${tag}` : undefined}
 											target='_self'
 											selected={currentTag === tag}
 										/>
 									</li>
 								))}
 								<li>
-									<Tag name='View All →' url='/photographies/tags' />
+									<Tag name='View All →' url='/artworks/tags' />
 								</li>
 							</ul>
 						</div>
@@ -111,7 +111,7 @@ const paginationProps = {
 					<div class='grid grid-cols-1 gap-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
 						{filteredData.map((p) => (
 							<a
-								href={`/photographies/${p.slug}/`}
+								href={`/artworks/${p.slug}/`}
 								class='group relative w-full overflow-hidden rounded-sm shadow-md'
 							>
 								<div class='relative pb-[100%]'>

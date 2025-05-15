@@ -43,30 +43,11 @@ const projectsSchema = (ctx: SchemaContext) => contentSchemaFac(ctx).extend({})
 
 export type ProjectContent = z.infer<ReturnType<typeof projectsSchema>>
 
-const photographiesSchema = (ctx: SchemaContext) =>
-	contentSchemaFac(ctx).extend({
-		featured: z.boolean().default(false),
-		matureContent: z.boolean().default(false),
-		meta: z
-			.object({
-				iso: z.string().optional(),
-				aperture: z.string().optional(),
-				shutterSpeed: z.string().optional(),
-				lens: z.string().optional(),
-				camera: z.string().optional(),
-				location: z.string().optional(),
-				latitude: z.string().optional(),
-				longitude: z.string().optional()
-			})
-			.optional()
-	})
-
-export type PhotographyContent = z.infer<ReturnType<typeof photographiesSchema>>
-
 export const artworkSchema = (ctx: SchemaContext) =>
 	contentSchemaFac(ctx).extend({
 		featured: z.boolean().default(false),
 		featuredImage: z.string().optional(),
+		matureContent: z.boolean().optional().default(false),
 		types: z
 			.array(
 				z.enum([
@@ -100,10 +81,6 @@ export const collections = {
 		type: 'content',
 		schema: projectsSchema
 	}),
-	photographies: defineCollection({
-		type: 'content',
-		schema: photographiesSchema
-	}),
 	artworks: defineCollection({
 		type: 'content',
 		schema: artworkSchema
@@ -111,9 +88,7 @@ export const collections = {
 }
 
 export type ContentEntry = CollectionEntry<keyof typeof collections>
-
-export type PhotographyEntry = CollectionEntry<'photographies'>
-
+export type ArtworkEntry = CollectionEntry<'artworks'>
 export const CollectionLinkMap: {
 	[key in keyof typeof collections]: {
 		label: string
@@ -127,10 +102,6 @@ export const CollectionLinkMap: {
 	projects: {
 		label: 'Projects',
 		url: '/projects'
-	},
-	photographies: {
-		label: 'Photography',
-		url: '/photographies'
 	},
 	artworks: {
 		label: 'Artworks',
