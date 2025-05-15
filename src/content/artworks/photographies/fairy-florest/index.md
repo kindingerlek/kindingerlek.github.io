@@ -14,6 +14,7 @@ tags:
   - 'mystical'
   - 'forest'
   - 'dawn'
+  - 'fantasy'
 meta:
   iso: '100'
   aperture: 'f/8'
