@@ -3,19 +3,19 @@ title: 'Majestic Beach at Golden Hour'
 description: 'A breathtaking capture of the sun setting over pristine shorelines, where golden rays dance across the gentle waves and create a symphony of colors in the sky.'
 publishDate: '2023-05-18'
 updatedDate: '2023-06-02'
+matureContent: true
+featured: true
 coverImage:
   image: './majestic-beach-cover.png'
   alt: 'Golden sunset over a serene beach with waves gently touching the shore'
+types:
+  - 'photography'
 tags:
   - landscape
   - seascape
   - sunset
   - nature
   - travel
-
-category: 'photographies'
-featured: true
-matureContent: true
 meta:
   iso: 'ISO 100'
   aperture: 'f/11'

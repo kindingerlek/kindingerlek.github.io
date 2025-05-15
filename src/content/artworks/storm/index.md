@@ -2,12 +2,17 @@
 title: "Fury of Nature: Capturing Lightning's Dance"
 description: 'A summer thunderstorm journey capturing lightning’s raw power over the coastal plains in breathtaking images.'
 publishDate: '2023-08-15'
-tags: ['lightning', 'storms', 'weather', 'long-exposure']
-category: 'photographies'
+featured: true
 coverImage:
   image: './storm-lightning-cover.png'
   alt: 'A brilliant fork of lightning striking across a dark stormy sky'
-featured: true
+types:
+  - 'photography'
+tags:
+  - 'lightning'
+  - 'storms'
+  - 'weather'
+  - 'long-exposure'
 meta:
   iso: '100'
   aperture: 'f/8'

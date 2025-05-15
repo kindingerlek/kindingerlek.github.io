@@ -2,13 +2,18 @@
 title: 'Gandalf the Grey - A Portrait Study'
 description: 'A detailed pencil drawing study of Gandalf the Grey.'
 publishDate: '2023-08-15'
+featured: true
 coverImage:
   image: './gandalf-portrait.png'
   alt: 'Pencil drawing of Gandalf the Grey featuring his iconic hat and beard'
-tags: ['traditional art', 'pencil drawing', 'fantasy', 'portrait', 'lord of the rings']
 types:
   - 'drawing'
-featured: true
+tags:
+  - 'traditional art'
+  - 'pencil drawing'
+  - 'fantasy'
+  - 'portrait'
+  - 'lord of the rings'
 meta:
   dimensions: '30x40cm'
   medium: 'Graphite pencils on paper'
