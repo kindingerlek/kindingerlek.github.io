@@ -54,7 +54,7 @@ export type ArtworkContent = z.infer<ReturnType<typeof artworkSchema>>
 
 export type ArtworkContentType = ArtworkEntry['slug'] extends `${infer First}/${string}`
 	? First
-	: ArtworkEntry['slug'];
+	: ArtworkEntry['slug']
 
 export const collections = {
 	posts: defineCollection({

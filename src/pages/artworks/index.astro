@@ -19,7 +19,7 @@ const allArtworks = await ArtworkCollection.getAll()
 const artworksByType = new Map<string, ContentEntry>()
 
 for (const artwork of allArtworks) {
-	const type = artwork.slug.split('/')[0];
+	const type = artwork.slug.split('/')[0]
 	const existingArtwork = artworksByType.get(type)
 
 	const isCurrentFeatured = artwork.data.featured
