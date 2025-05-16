@@ -2,11 +2,8 @@
 export const prerender = true
 
 import PageLayout from '@/layouts/BaseLayout.astro'
-import Button from '@/components/Button.astro'
 import type { ContentEntry } from '@/content/config'
 import ArtworkCollection from '@/collections/artworks'
-import { ar } from 'date-fns/locale'
-import ImageSrc from '@/components/ImageSrc.astro'
 
 interface Props {
 	page: {
@@ -22,36 +19,35 @@ const allArtworks = await ArtworkCollection.getAll()
 const artworksByType = new Map<string, ContentEntry>()
 
 for (const artwork of allArtworks) {
-	for (const type of artwork.data.types) {
-		const existingArtwork = artworksByType.get(type)
+	const type = artwork.slug.split('/')[0];
+	const existingArtwork = artworksByType.get(type)
 
-		const isCurrentFeatured = artwork.data.featured
-		const isExistingFeatured = existingArtwork?.data.featured
+	const isCurrentFeatured = artwork.data.featured
+	const isExistingFeatured = existingArtwork?.data.featured
 
-		if (!existingArtwork) {
-			// There is no existing artwork for this type, add it
+	if (!existingArtwork) {
+		// There is no existing artwork for this type, add it
+		artworksByType.set(type, artwork)
+		continue
+	}
+
+	if (isExistingFeatured && !isCurrentFeatured) {
+		// keep the existing one
+		continue
+	}
+
+	if (isExistingFeatured && isCurrentFeatured) {
+		// Both artworks are featured, so choose the most recent
+		if (artwork.data.publishDate > existingArtwork.data.publishDate) {
 			artworksByType.set(type, artwork)
-			continue
 		}
+		continue
+	}
 
-		if (isExistingFeatured && !isCurrentFeatured) {
-			// keep the existing one
-			continue
-		}
-
-		if (isExistingFeatured && isCurrentFeatured) {
-			// Both artworks are featured, so choose the most recent
-			if (artwork.data.publishDate > existingArtwork.data.publishDate) {
-				artworksByType.set(type, artwork)
-			}
-			continue
-		}
-
-		if (!isExistingFeatured && isCurrentFeatured) {
-			// replace the existing with the featured one
-			artworksByType.set(type, artwork)
-			continue
-		}
+	if (!isExistingFeatured && isCurrentFeatured) {
+		// replace the existing with the featured one
+		artworksByType.set(type, artwork)
+		continue
 	}
 }
 

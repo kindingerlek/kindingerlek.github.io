@@ -1,9 +1,9 @@
-import { slugify } from '@/utils/slug'
+import { StringUtils } from '@/utils/string'
 import { defineCollection, z, type CollectionEntry, type SchemaContext } from 'astro:content'
 
 function removeDupsAndSlugify(array: string[]) {
 	if (!array.length) return array
-	const lowercaseItems = array.map((str) => slugify(str))
+	const lowercaseItems = array.map((str) => StringUtils.slugify(str))
 	const distinctItems = new Set(lowercaseItems)
 	return Array.from(distinctItems)
 }
@@ -48,29 +48,13 @@ export const artworkSchema = (ctx: SchemaContext) =>
 		featured: z.boolean().default(false),
 		featuredImage: z.string().optional(),
 		matureContent: z.boolean().optional().default(false),
-		types: z
-			.array(
-				z.enum([
-					'photography',
-					'illustration',
-					'drawing',
-					'painting',
-					'digital-painting',
-					'vector',
-					'pixel-art',
-					'graphic-design',
-					'3D',
-					'sculpture',
-					'animation',
-					'render'
-				])
-			)
-			.min(1),
 		meta: z.record(z.string())
 	})
 export type ArtworkContent = z.infer<ReturnType<typeof artworkSchema>>
 
-export type ArtworkContentType = ArtworkContent['types'][number]
+export type ArtworkContentType = ArtworkEntry['slug'] extends `${infer First}/${string}`
+	? First
+	: ArtworkEntry['slug'];
 
 export const collections = {
 	posts: defineCollection({

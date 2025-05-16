@@ -4,6 +4,7 @@ export const prerender = true
 import type { GetStaticPaths } from 'astro'
 import ArtworkCollection from '@/collections/artworks'
 import ArtGalleryLayout from '@/layouts/ArtGalleryLayout.astro'
+import { StringUtils } from '@/utils/string'
 
 export const getStaticPaths = (async ({ paginate }) => {
 	// Get all unique artwork types
@@ -32,6 +33,8 @@ export const getStaticPaths = (async ({ paginate }) => {
 }) satisfies GetStaticPaths
 
 const { page, type, uniqueTags } = Astro.props
+
+const title = StringUtils.capitalize(type)
 ---
 
-<ArtGalleryLayout page={page as any} uniqueTags={uniqueTags} title={type} />
+<ArtGalleryLayout page={page as any} uniqueTags={uniqueTags} title={title} />

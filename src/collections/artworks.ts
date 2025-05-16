@@ -43,17 +43,17 @@ export default class ArtworkCollection {
 	public static async getByType(type: ArtworkContentType, artworks?: Array<ArtworkEntry>) {
 		artworks ??= await this.getAll()
 
-		return artworks.filter((a) => a.data.types.includes(type))
+		return artworks.filter((a) => a.slug.startsWith(type))
 	}
 
 	public static async getAllTypes(artworks?: Array<ArtworkEntry>) {
 		artworks ??= await this.getAll()
 
-		return artworks.flatMap((a) => a.data.types)
+		return artworks.flatMap((a) => a.slug.split('/')[0] as ArtworkContentType)
 	}
 
 	public static async getUniqueTypes(artworks?: Array<ArtworkEntry>) {
 		const allTypes = await this.getAllTypes(artworks)
-		return [...new Set(allTypes)]
+		return [...new Set(allTypes)] as ArtworkContentType[]
 	}
 }
