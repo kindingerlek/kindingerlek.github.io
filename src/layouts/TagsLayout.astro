@@ -122,6 +122,7 @@ const meta = {
 			}
 
 			tagsList.appendChild(tag)
+			updateCounter(tag)
 		})
 
 		function createDivider(letter: string) {
@@ -129,6 +130,14 @@ const meta = {
 			divider.className = 'letter-divider font-bold text-lg mt-4 mb-2 border-b pb-1'
 			divider.textContent = letter
 			return divider
+		}
+
+		function updateCounter(tag: Element) {
+			const count = parseInt((tag as HTMLElement).dataset.count || '0')
+			;(tag as HTMLElement).dataset.count = count.toString()
+			;(tag.querySelector('span') as HTMLElement).textContent = `${count} content${
+				count > 1 ? 's' : ''
+			}`
 		}
 	}
 </script>
