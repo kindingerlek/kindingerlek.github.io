@@ -7,15 +7,20 @@ import PageLayout from '@/layouts/BaseLayout.astro'
 import ImageSrc from '@/components/ImageSrc.astro'
 import Tag from '@/components/Tag.astro'
 import type { ArtworkEntry } from '@/content/config'
+import { StringUtils } from '@/utils/string'
 
 interface Props {
 	page: Page<ArtworkEntry>
-	title: string
 	uniqueTags: string[]
 	currentTag?: string | null
 }
 
-const { page, uniqueTags, currentTag, title } = Astro.props
+const TAGS_LIMIT = 15
+
+const { page, uniqueTags, currentTag } = Astro.props
+
+const artworkType = page.data[0].slug.split('/')[0]
+const title = `Artworks - ${StringUtils.capitalize(artworkType)}`
 
 const filteredData = currentTag
 	? page.data.filter((item) => item.data.tags?.includes(currentTag))
@@ -72,7 +77,7 @@ const paginationProps = {
 										selected={!currentTag}
 									/>
 								</li>
-								{uniqueTags.slice(0, 15).map((tag) => (
+								{uniqueTags.slice(0, TAGS_LIMIT).map((tag) => (
 									<li>
 										<Tag
 											name={tag}
@@ -83,7 +88,7 @@ const paginationProps = {
 									</li>
 								))}
 								<li>
-									<Tag name='View All →' url='/artworks/tags' />
+									<Tag name='View All →' url={`/artworks/tags?types=${artworkType}`} />
 								</li>
 							</ul>
 						</div>
@@ -104,7 +109,7 @@ const paginationProps = {
 			)
 		}
 
-		{filteredData.length === 0 && <p>No photographies yet.</p>}
+		{filteredData.length === 0 && <p>No content yet.</p>}
 		{
 			filteredData.length > 0 && (
 				<>
@@ -140,6 +145,9 @@ const paginationProps = {
 </PageLayout>
 
 <script>
+	const TAG_SCROLL_AMOUNT = 600
+	const HIDE_BUTTON_THRESHOLD = 10
+
 	document.addEventListener('DOMContentLoaded', () => {
 		const container = document.getElementById('tag-container')
 		const leftBtn = document.getElementById('scroll-left')
@@ -154,24 +162,26 @@ const paginationProps = {
 
 			// Button click handlers
 			leftBtn.addEventListener('click', () => {
-				container.scrollBy({ left: -300, behavior: 'smooth' })
+				container.scrollBy({ left: -TAG_SCROLL_AMOUNT, behavior: 'smooth' })
 			})
 
 			rightBtn.addEventListener('click', () => {
-				container.scrollBy({ left: 300, behavior: 'smooth' })
+				container.scrollBy({ left: TAG_SCROLL_AMOUNT, behavior: 'smooth' })
 			})
 
 			// Function to update button visibility based on scroll position
 			function updateButtonVisibility() {
 				const htmlContainer = container as HTMLElement
 				// Hide left button if at the start of scroll
-				leftBtn!.style.display = htmlContainer.scrollLeft <= 10 ? 'none' : 'flex'
-				leftBtn!.style.opacity = htmlContainer.scrollLeft <= 10 ? '0' : '1'
-				leftBtn!.style.pointerEvents = htmlContainer.scrollLeft <= 10 ? 'none' : 'auto'
+				leftBtn!.style.display = htmlContainer.scrollLeft <= HIDE_BUTTON_THRESHOLD ? 'none' : 'flex'
+				leftBtn!.style.opacity = htmlContainer.scrollLeft <= HIDE_BUTTON_THRESHOLD ? '0' : '1'
+				leftBtn!.style.pointerEvents =
+					htmlContainer.scrollLeft <= HIDE_BUTTON_THRESHOLD ? 'none' : 'auto'
 
 				// Hide right button if at the end of scroll
 				const isAtEnd =
-					htmlContainer.scrollWidth - htmlContainer.clientWidth - htmlContainer.scrollLeft <= 10
+					htmlContainer.scrollWidth - htmlContainer.clientWidth - htmlContainer.scrollLeft <=
+					HIDE_BUTTON_THRESHOLD
 				rightBtn!.style.opacity = isAtEnd ? '0' : '1'
 				rightBtn!.style.pointerEvents = isAtEnd ? 'none' : 'auto'
 			}
