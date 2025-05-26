@@ -19,6 +19,9 @@ const allArtworks = await ArtworkCollection.getAll()
 const artworksByType = new Map<string, ContentEntry>()
 
 for (const artwork of allArtworks) {
+	// Skip artworks with mature content
+	if (artwork.data.matureContent) continue
+
 	const type = artwork.slug.split('/')[0]
 	const existingArtwork = artworksByType.get(type)
 
@@ -72,7 +75,7 @@ const meta = {}
 								alt={artwork.data.title}
 								class='h-64 w-full rounded-lg object-cover '
 							/>
-							<h2 class='absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center text-lg font-bold text-white'>
+							<h2 class='absolute bottom-0 left-0 right-0 bg-white bg-opacity-50 p-2 text-center text-lg font-bold text-black dark:bg-black dark:bg-opacity-50 dark:text-white'>
 								{type}
 							</h2>
 						</a>

@@ -1,0 +1,165 @@
+---
+import Tag from '@/components/Tag.astro'
+
+interface Props {
+	uniqueTags: string[]
+	currentTag?: string | null
+	tagsLimit?: number
+	allTagsUrl: string
+}
+
+const { uniqueTags, currentTag, tagsLimit = 15, allTagsUrl } = Astro.props
+---
+
+<div class='relative mb-8'>
+	<div class='flex items-center'>
+		<button
+			id='scroll-left'
+			class='absolute left-0 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 shadow-md dark:bg-gray-800/80'
+		>
+			<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'>
+				<path fill='currentColor' d='M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6l6 6l1.41-1.41z'
+				></path>
+			</svg>
+		</button>
+
+		<div id='tag-container' class='scrollbar-hide overflow-x-auto'>
+			<ul class='flex gap-2 whitespace-nowrap'>
+				<li>
+					<Tag
+						name='All'
+						url={currentTag ? '/artworks/' : undefined}
+						target='_self'
+						selected={!currentTag}
+					/>
+				</li>
+				{
+					uniqueTags.slice(0, tagsLimit).map((tag) => (
+						<li>
+							<Tag
+								name={tag}
+								url={currentTag !== tag ? `/artworks/tags/${tag}` : undefined}
+								target='_self'
+								selected={currentTag === tag}
+							/>
+						</li>
+					))
+				}
+				<li>
+					<Tag name='View All →' url={allTagsUrl} />
+				</li>
+			</ul>
+		</div>
+
+		<button
+			id='scroll-right'
+			class='absolute right-0 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 shadow-md dark:bg-gray-800/80'
+		>
+			<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'>
+				<path fill='currentColor' d='M8.59 16.59L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.41z'
+				></path>
+			</svg>
+		</button>
+	</div>
+</div>
+
+<script>
+	const TAG_SCROLL_AMOUNT = 600
+	const HIDE_BUTTON_THRESHOLD = 10
+
+	document.addEventListener('DOMContentLoaded', () => {
+		const container = document.getElementById('tag-container')
+		const leftBtn = document.getElementById('scroll-left')
+		const rightBtn = document.getElementById('scroll-right')
+
+		if (container && leftBtn && rightBtn) {
+			// Initialize button visibility
+			updateButtonVisibility()
+
+			// Add scroll event listener to update button visibility
+			container.addEventListener('scroll', updateButtonVisibility)
+
+			// Button click handlers
+			leftBtn.addEventListener('click', () => {
+				container.scrollBy({ left: -TAG_SCROLL_AMOUNT, behavior: 'smooth' })
+			})
+
+			rightBtn.addEventListener('click', () => {
+				container.scrollBy({ left: TAG_SCROLL_AMOUNT, behavior: 'smooth' })
+			})
+
+			// Function to update button visibility based on scroll position
+			function updateButtonVisibility() {
+				const htmlContainer = container as HTMLElement
+				// Hide left button if at the start of scroll
+				leftBtn!.style.display = htmlContainer.scrollLeft <= HIDE_BUTTON_THRESHOLD ? 'none' : 'flex'
+				leftBtn!.style.opacity = htmlContainer.scrollLeft <= HIDE_BUTTON_THRESHOLD ? '0' : '1'
+				leftBtn!.style.pointerEvents =
+					htmlContainer.scrollLeft <= HIDE_BUTTON_THRESHOLD ? 'none' : 'auto'
+
+				// Hide right button if at the end of scroll
+				const isAtEnd =
+					htmlContainer.scrollWidth - htmlContainer.clientWidth - htmlContainer.scrollLeft <=
+					HIDE_BUTTON_THRESHOLD
+				rightBtn!.style.opacity = isAtEnd ? '0' : '1'
+				rightBtn!.style.pointerEvents = isAtEnd ? 'none' : 'auto'
+			}
+
+			// Add window resize listener to update button visibility
+			window.addEventListener('resize', updateButtonVisibility)
+		}
+	})
+</script>
+
+<style>
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
+	.scrollbar-hide {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	#scroll-left,
+	#scroll-right {
+		z-index: 1;
+		transition: opacity 0.3s ease;
+	}
+	#scroll-left::after {
+		position: absolute;
+		left: 0;
+		height: 100%;
+		width: 10rem;
+		content: '';
+		pointer-events: none;
+		background: linear-gradient(to right, rgb(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 80%);
+		z-index: -1;
+	}
+
+	#scroll-right::before {
+		position: absolute;
+		right: 0;
+		height: 100%;
+		width: 10rem;
+		content: '';
+		pointer-events: none;
+		background: linear-gradient(to left, rgb(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 80%);
+		z-index: -1;
+	}
+
+	:global(.dark) #scroll-left::after {
+		background: linear-gradient(
+			to right,
+			rgba(0.04, 0.04, 0.04, 0.8) 20%,
+			rgba(0.04, 0.04, 0.04, 0) 80%
+		);
+	}
+
+	:global(.dark) #scroll-right::before {
+		background: linear-gradient(
+			to left,
+			rgba(0.04, 0.04, 0.04, 0.8) 20%,
+			rgba(0.04, 0.04, 0.04, 0) 80%
+		);
+	}
+</style>

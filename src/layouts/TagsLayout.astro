@@ -123,6 +123,7 @@ const meta = {
 
 			tagsList.appendChild(tag)
 			updateCounter(tag)
+			updateHref(tag)
 		})
 
 		function createDivider(letter: string) {
@@ -138,6 +139,17 @@ const meta = {
 			;(tag.querySelector('span') as HTMLElement).textContent = `${count} content${
 				count > 1 ? 's' : ''
 			}`
+		}
+
+		function updateHref(tag: Element) {
+			const tagName = (tag as HTMLElement).dataset.tag || ''
+			const link = tag.querySelector('a') as HTMLAnchorElement
+
+			if (link) {
+				const queryParams = new URLSearchParams(window.location.search)
+				const typeQuery = queryParams.get('types') ? `types=${queryParams.get('types')}` : ''
+				link.href = `/artworks/tags/${tagName}?${typeQuery}`
+			}
 		}
 	}
 </script>

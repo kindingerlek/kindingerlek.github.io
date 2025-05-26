@@ -14,6 +14,7 @@ tags:
   - 'reflection'
   - 'nature'
   - 'water'
+  - 'fantasy'
 meta:
   iso: '100'
   aperture: 'f/11'

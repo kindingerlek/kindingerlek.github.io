@@ -10,7 +10,7 @@ type Props = Partial<Config['meta']>
 
 const { articleDate, description, ogImage, title } = Astro.props
 
-const titleSeparator = ' • '
+const titleSeparator = ' - '
 const siteTitle = [title, CONFIG.site.title].filter((e) => e).join(titleSeparator)
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url).href

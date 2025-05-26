@@ -29,15 +29,13 @@ const data = (await ArtworkCollection.getAll()).map((artwork) => ({
 }))
 ---
 
-<input type='hidden' id='data' value={JSON.stringify(data)} />
-
 <TagsLayout
 	title='Tags'
 	description="A list of all the topics I've written about in my posts"
 	tags={allTags}
 	tagUrlPrefix='/artworks/tags/'
 />
-
+<input type='hidden' id='data' value={JSON.stringify(data)} />
 <script>
 	interface FilteredItem {
 		tag: string
