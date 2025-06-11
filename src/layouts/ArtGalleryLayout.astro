@@ -5,7 +5,7 @@ import { type Config } from '@/types/data'
 import Pagination from '@/components/Paginator.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import ImageSrc from '@/components/ImageSrc.astro'
-import TagListRow from '@/components/TagListRow.astro'
+import Tag from '@/components/Tag.astro'
 import type { ArtworkEntry } from '@/content/config'
 import { StringUtils } from '@/utils/string'
 
@@ -15,12 +15,12 @@ interface Props {
 	currentTag?: string | null
 }
 
+const TAGS_LIMIT = 15
+
 const { page, uniqueTags, currentTag } = Astro.props
 
-// TODO: change to not get the first item, but to get the type from the URL or something else
 const artworkType = page.data[0].slug.split('/')[0]
-// const title = `Artworks - ${StringUtils.capitalize(artworkType)}`
-const title = `Artworks`
+const title = `Artworks - ${StringUtils.capitalize(artworkType)}`
 
 const filteredData = currentTag
 	? page.data.filter((item) => item.data.tags?.includes(currentTag))
@@ -53,11 +53,59 @@ const paginationProps = {
 
 		{
 			!!uniqueTags.length && (
-				<TagListRow
-					uniqueTags={uniqueTags}
-					currentTag={currentTag}
-					allTagsUrl={`/artworks/tags?types=${artworkType}`}
-				/>
+				<div class='relative mb-8'>
+					<div class='flex items-center'>
+						<button
+							id='scroll-left'
+							class='absolute left-0 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 shadow-md dark:bg-gray-800/80'
+						>
+							<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'>
+								<path
+									fill='currentColor'
+									d='M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6l6 6l1.41-1.41z'
+								/>
+							</svg>
+						</button>
+
+						<div id='tag-container' class='scrollbar-hide overflow-x-auto '>
+							<ul class='flex gap-2 whitespace-nowrap'>
+								<li>
+									<Tag
+										name='All'
+										url={currentTag ? '/artworks/' : undefined}
+										target='_self'
+										selected={!currentTag}
+									/>
+								</li>
+								{uniqueTags.slice(0, TAGS_LIMIT).map((tag) => (
+									<li>
+										<Tag
+											name={tag}
+											url={currentTag !== tag ? `/artworks/${artworkType}/tags/${tag}` : undefined}
+											target='_self'
+											selected={currentTag === tag}
+										/>
+									</li>
+								))}
+								<li>
+									<Tag name='View All →' url={`/artworks/${artworkType}/tags/`} target='_self' />
+								</li>
+							</ul>
+						</div>
+
+						<button
+							id='scroll-right'
+							class='absolute right-0 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 shadow-md dark:bg-gray-800/80'
+						>
+							<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'>
+								<path
+									fill='currentColor'
+									d='M8.59 16.59L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.41z'
+								/>
+							</svg>
+						</button>
+					</div>
+				</div>
 			)
 		}
 
@@ -69,9 +117,7 @@ const paginationProps = {
 						{filteredData.map((p) => (
 							<a
 								href={`/artworks/${p.slug}/`}
-								class='group relative hidden w-full overflow-hidden rounded-sm shadow-md'
-								data-slug={p.slug}
-								data-type={p.slug.split('/')[0]}
+								class='group relative w-full overflow-hidden rounded-sm shadow-md'
 							>
 								<div class='relative pb-[100%]'>
 									<ImageSrc
@@ -99,26 +145,102 @@ const paginationProps = {
 </PageLayout>
 
 <script>
-	console.log('test')
-	const artworks = document.querySelectorAll('[data-slug]')
-	const artworksQueryFilter =
-		new URLSearchParams(window.location.search).get('types')?.split(',') || []
+	const TAG_SCROLL_AMOUNT = 600
+	const HIDE_BUTTON_THRESHOLD = 10
 
-	artworks.forEach((artwork) => {
-		const slug = artwork.getAttribute('data-slug')
-		const type = artwork.getAttribute('data-type')
+	document.addEventListener('DOMContentLoaded', () => {
+		const container = document.getElementById('tag-container')
+		const leftBtn = document.getElementById('scroll-left')
+		const rightBtn = document.getElementById('scroll-right')
 
-		if (!slug || !type) return
+		if (container && leftBtn && rightBtn) {
+			// Initialize button visibility
+			updateButtonVisibility()
 
-		if (artworksQueryFilter.length === 0) {
-			artwork.classList.remove('hidden')
-			return
-		}
+			// Add scroll event listener to update button visibility
+			container.addEventListener('scroll', updateButtonVisibility)
 
-		if (artworksQueryFilter.includes(type)) {
-			artwork.classList.remove('hidden')
-		} else {
-			artwork.classList.add('hidden')
+			// Button click handlers
+			leftBtn.addEventListener('click', () => {
+				container.scrollBy({ left: -TAG_SCROLL_AMOUNT, behavior: 'smooth' })
+			})
+
+			rightBtn.addEventListener('click', () => {
+				container.scrollBy({ left: TAG_SCROLL_AMOUNT, behavior: 'smooth' })
+			})
+
+			// Function to update button visibility based on scroll position
+			function updateButtonVisibility() {
+				const htmlContainer = container as HTMLElement
+				// Hide left button if at the start of scroll
+				leftBtn!.style.display = htmlContainer.scrollLeft <= HIDE_BUTTON_THRESHOLD ? 'none' : 'flex'
+				leftBtn!.style.opacity = htmlContainer.scrollLeft <= HIDE_BUTTON_THRESHOLD ? '0' : '1'
+				leftBtn!.style.pointerEvents =
+					htmlContainer.scrollLeft <= HIDE_BUTTON_THRESHOLD ? 'none' : 'auto'
+
+				// Hide right button if at the end of scroll
+				const isAtEnd =
+					htmlContainer.scrollWidth - htmlContainer.clientWidth - htmlContainer.scrollLeft <=
+					HIDE_BUTTON_THRESHOLD
+				rightBtn!.style.opacity = isAtEnd ? '0' : '1'
+				rightBtn!.style.pointerEvents = isAtEnd ? 'none' : 'auto'
+			}
+
+			// Add window resize listener to update button visibility
+			window.addEventListener('resize', updateButtonVisibility)
 		}
 	})
 </script>
+
+<style>
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
+	.scrollbar-hide {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	#scroll-left,
+	#scroll-right {
+		z-index: 1;
+		transition: opacity 0.3s ease;
+	}
+	#scroll-left::after {
+		position: absolute;
+		left: 0;
+		height: 100%;
+		width: 10rem;
+		content: '';
+		pointer-events: none;
+		background: linear-gradient(to right, rgb(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 80%);
+		z-index: -1;
+	}
+
+	#scroll-right::before {
+		position: absolute;
+		right: 0;
+		height: 100%;
+		width: 10rem;
+		content: '';
+		pointer-events: none;
+		background: linear-gradient(to left, rgb(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 80%);
+		z-index: -1;
+	}
+
+	:global(.dark) #scroll-left::after {
+		background: linear-gradient(
+			to right,
+			rgba(0.04, 0.04, 0.04, 0.8) 20%,
+			rgba(0.04, 0.04, 0.04, 0) 80%
+		);
+	}
+
+	:global(.dark) #scroll-right::before {
+		background: linear-gradient(
+			to left,
+			rgba(0.04, 0.04, 0.04, 0.8) 20%,
+			rgba(0.04, 0.04, 0.04, 0) 80%
+		);
+	}
+</style>

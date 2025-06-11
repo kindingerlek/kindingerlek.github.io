@@ -2,40 +2,67 @@
 import TagsLayout from '@/layouts/TagsLayout.astro'
 import ArtworkCollection from '@/collections/artworks'
 
-const artworksTags = await ArtworkCollection.getUniqueTagsWithCount()
+export async function getStaticPaths() {
+	const artworks = await ArtworkCollection.getAll()
+	const types = [...new Set(artworks.map((artwork) => artwork.slug.split('/')[0]))]
 
-const tagMap = new Map<string, number>()
+	return types.map((type) => {
+		const typeArtworks = artworks.filter((artwork) => artwork.slug.split('/')[0] === type)
+		const tagMap = new Map<string, number>()
 
-for (const [tag, count] of [...artworksTags]) {
-	tagMap.set(tag, (tagMap.get(tag) || 0) + count)
+		typeArtworks.forEach((artwork) => {
+			artwork.data.tags.forEach((tag) => {
+				tagMap.set(tag, (tagMap.get(tag) || 0) + 1)
+			})
+		})
+
+		const typeTags = Array.from(tagMap.entries())
+			.sort((a, b) => {
+				const tagA = a[0].toLowerCase()
+				const tagB = b[0].toLowerCase()
+				return tagA > tagB ? 1 : tagA < tagB ? -1 : 0
+			})
+			.map(([tag, count]) => ({
+				tag,
+				count
+			}))
+
+		return {
+			params: { type },
+			props: {
+				tags: typeTags,
+				artworksData: typeArtworks.map((artwork) => ({
+					id: artwork.id,
+					slug: artwork.slug,
+					tags: artwork.data.tags,
+					type: artwork.slug.split('/')[0]
+				}))
+			}
+		}
+	})
 }
 
-const allTags = Array.from(tagMap.entries())
-	.sort((a, b) => {
-		const tagA = a[0].toLowerCase()
-		const tagB = b[0].toLowerCase()
-		return tagA > tagB ? 1 : tagA < tagB ? -1 : 0
-	})
-	.map(([tag, count]) => ({
-		tag,
-		count
-	}))
+interface Props {
+	tags: Array<{ tag: string; count: number }>
+	artworksData: Array<{
+		id: string
+		slug: string
+		tags: string[]
+		type: string
+	}>
+}
 
-const data = (await ArtworkCollection.getAll()).map((artwork) => ({
-	id: artwork.id,
-	slug: artwork.slug,
-	tags: artwork.data.tags,
-	type: artwork.slug.split('/')[0]
-}))
+const { tags, artworksData } = Astro.props
+const type = Astro.params.type
 ---
 
 <TagsLayout
 	title='Tags'
 	description="A list of all the topics I've written about in my posts"
-	tags={allTags}
-	tagUrlPrefix='/artworks/tags/'
+	tags={tags}
+	tagUrlPrefix={`/artworks/${type}/tags/`}
 />
-<input type='hidden' id='data' value={JSON.stringify(data)} />
+<input type='hidden' id='data' value={JSON.stringify(artworksData)} />
 <script>
 	interface FilteredItem {
 		tag: string

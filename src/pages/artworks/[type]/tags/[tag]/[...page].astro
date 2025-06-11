@@ -1,0 +1,53 @@
+---
+export const prerender = true
+
+import type { GetStaticPaths } from 'astro'
+import ArtworksCollection from '@/collections/artworks'
+import ArtGalleryLayout from '@/layouts/ArtGalleryLayout.astro'
+import type { ArtworkContentType, ArtworkEntry } from '@/content/config'
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const allArtworks = await ArtworksCollection.getAll()
+	const allArtworksByDate = await ArtworksCollection.sortedByDate(allArtworks)
+	const tagTypeMap = new Map<string, ArtworkEntry[]>()
+
+	allArtworksByDate.forEach((artwork) => {
+		const tags = artwork.data.tags || []
+		tags.forEach((tag) => {
+			const artworkType = artwork.slug.split('/')[0]
+
+			const key = `${tag}/${artworkType}`
+			if (!tagTypeMap.has(key)) {
+				tagTypeMap.set(key, [])
+			}
+
+			console.log(`Matching key '${key}' with artwork:`, artwork.slug)
+			tagTypeMap.get(key)!.push(artwork)
+		})
+	})
+
+	const routes = Array.from(tagTypeMap.entries()).flatMap(([key, artworks]) => {
+		const [tag, type] = key.split('/') as [string, ArtworkContentType]
+
+		const uniqueTags = allArtworksByDate
+			.filter((artwork) => artwork.slug.startsWith(type))
+			.flatMap((artwork) => artwork.data.tags || [])
+			.filter((t, index, self) => self.indexOf(t) === index)
+			.sort((a, b) => a.localeCompare(b))
+
+		return paginate(artworks, {
+			pageSize: 24,
+			props: { uniqueTags },
+			params: { type, tag }
+		})
+	})
+
+	// console.log('Generated routes:', routes)
+	return routes
+}) satisfies GetStaticPaths
+
+const { page, uniqueTags } = Astro.props
+const currentTag = Astro.params.tag
+---
+
+<ArtGalleryLayout page={page} uniqueTags={uniqueTags} currentTag={currentTag} />
