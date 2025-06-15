@@ -11,6 +11,20 @@ export const getStaticPaths = (async ({ paginate }) => {
 	const allArtworksByDate = await ArtworksCollection.sortedByDate(allArtworks)
 	const tagTypeMap = new Map<string, ArtworkEntry[]>()
 
+	const getUniqueTagsByArtworkType = (
+		artworks: ArtworkEntry[],
+		type: ArtworkContentType
+	): string[] => {
+		const tags = artworks
+			.filter((artwork) => artwork.slug.startsWith(type))
+			.flatMap((artwork) => artwork.data.tags || [])
+
+		const tagCount = new Map<string, number>()
+		tags.forEach((tag) => tagCount.set(tag, (tagCount.get(tag) || 0) + 1))
+
+		return Array.from(tagCount.keys()).sort((a, b) => tagCount.get(b)! - tagCount.get(a)!)
+	}
+
 	allArtworksByDate.forEach((artwork) => {
 		const tags = artwork.data.tags || []
 		tags.forEach((tag) => {
@@ -29,11 +43,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 	const routes = Array.from(tagTypeMap.entries()).flatMap(([key, artworks]) => {
 		const [tag, type] = key.split('/') as [string, ArtworkContentType]
 
-		const uniqueTags = allArtworksByDate
-			.filter((artwork) => artwork.slug.startsWith(type))
-			.flatMap((artwork) => artwork.data.tags || [])
-			.filter((t, index, self) => self.indexOf(t) === index)
-			.sort((a, b) => a.localeCompare(b))
+		const uniqueTags = getUniqueTagsByArtworkType(artworks, type)
 
 		return paginate(artworks, {
 			pageSize: 24,
@@ -42,7 +52,6 @@ export const getStaticPaths = (async ({ paginate }) => {
 		})
 	})
 
-	// console.log('Generated routes:', routes)
 	return routes
 }) satisfies GetStaticPaths
 
