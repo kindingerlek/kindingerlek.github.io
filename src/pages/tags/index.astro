@@ -12,17 +12,21 @@ for (const [tag, count] of [...postTags, ...projectTags]) {
 	tagMap.set(tag, (tagMap.get(tag) || 0) + count)
 }
 
-const allTags = Array.from(tagMap.entries()).sort((a, b) => {
-	const tagA = a[0].toLowerCase()
-	const tagB = b[0].toLowerCase()
-	return tagA > tagB ? 1 : tagA < tagB ? -1 : 0
-})
+const allTags = Array.from(tagMap.entries())
+	.map(([tag, count]) => ({
+		tag,
+		count
+	}))
+	.sort((a, b) => {
+		const tagA = a.tag.toLowerCase()
+		const tagB = b.tag.toLowerCase()
+		return tagA > tagB ? 1 : tagA < tagB ? -1 : 0
+	})
 ---
 
 <TagsLayout
 	title='Tags'
 	description="A list of all the topics I've written about in my posts"
-	backUrl='/blog'
 	tags={allTags}
 	tagUrlPrefix='/tags/'
 />
