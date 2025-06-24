@@ -28,8 +28,6 @@ export const getStaticPaths = (async ({ paginate }) => {
 		paths.push(...paginatedPaths)
 	}
 
-	// console.log('Generated paths:', paths)
-
 	return paths
 }) satisfies GetStaticPaths
 

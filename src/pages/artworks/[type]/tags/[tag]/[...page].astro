@@ -35,7 +35,6 @@ export const getStaticPaths = (async ({ paginate }) => {
 				tagTypeMap.set(key, [])
 			}
 
-			console.log(`Matching key '${key}' with artwork:`, artwork.slug)
 			tagTypeMap.get(key)!.push(artwork)
 		})
 	})
