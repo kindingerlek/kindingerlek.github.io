@@ -7,7 +7,7 @@ const portfolioSectionData = {
 		title: 'Projects',
 		slug: 'projects',
 		icon: 'fa6-solid:rocket',
-		visible: import.meta.env.DEV,
+		visible: import.meta.env.DEV && (await ProjectCollection.getAll()).length > 0,
 		screenshots: {
 			title: 'Screenshots',
 			icon: 'fa6-solid:images'
