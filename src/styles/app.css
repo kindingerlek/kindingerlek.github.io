@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+	margin-left: calc(100vw - 100%);
+	margin-right: 0;
+}
+
 @font-face {
 	font-family: 'Satoshi';
 	src: url('/fonts/Satoshi-Variable.ttf');
@@ -71,6 +76,6 @@
 	}
 }
 
-.timeline_container>div:last-child .timeline_dot>.timeline_line {
-    display: none;
+.timeline_container > div:last-child .timeline_dot > .timeline_line {
+	display: none;
 }
