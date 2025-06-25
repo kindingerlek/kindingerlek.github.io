@@ -32,6 +32,13 @@ const createHashState = () => {
 		}
 	}
 
+	window.addEventListener('hashchange', () => {
+		const currentHash = window.location.hash
+		if (currentHash !== getHash()) {
+			updateHash(currentHash)
+		}
+	})
+
 	return { getHash, subscribe, updateHash }
 }
 

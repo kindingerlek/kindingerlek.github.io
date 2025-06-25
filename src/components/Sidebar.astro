@@ -40,11 +40,9 @@ const sectionItems = Object.values(sections).filter((section) => section.config.
 		}
 
 		sidebarItems.forEach((item) => {
-			if (item.href.endsWith(hash)) {
-				item.setAttribute('aria-current', 'page')
-			} else {
-				item.removeAttribute('aria-current')
-			}
+			item.href.endsWith(hash)
+				? item.setAttribute('aria-current', 'page')
+				: item.removeAttribute('aria-current')
 		})
 	}
 
@@ -52,3 +50,12 @@ const sectionItems = Object.values(sections).filter((section) => section.config.
 
 	hashState.subscribe(setActiveItem)
 </script>
+
+<style>
+	#sidebar {
+		position: fixed;
+		left: calc(50% + 30rem);
+		top: calc(50% - 10rem);
+		overflow-y: auto;
+	}
+</style>
