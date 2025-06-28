@@ -11,9 +11,9 @@
   - [ ] Add a `Talks` section to page.
   - [ ] Add a `Podcasts` section to page.
   - [ ] Add a `Courses` section to page.
-- [ ] Add a `Content` section to the page.
-  - [ ] Filter the content by `type` and `tags`. (`Art`, `Art/Photography`, `Art/Drawings`, `Art/3D`, `Code`, `...`)
-- [ ] Migrate sections from home to 'CV'
+- [x] Add a `Content` section to the page. // Did as 'Artworks' tabs
+  - [x] Filter the content by `type` and `tags`. (`Art`, `Art/Photography`, `Art/Drawings`, `Art/3D`, `...`) // Did as intermediated page to a gallery
+- [ ] Migrate some sections from home to 'CV'
 
 ## Features
 
@@ -29,7 +29,6 @@
 - [x] Add a `Dark Mode` toggle to the page.
 - [x] Make it responsive.
 - [ ] Make it printable.
-- [ ] Add a accent color to the page.
 - [ ] Change the favicon to a custom one.
 - [x] Add `darkColor` to the icons. Right now some colors for the icons are not great in dark mode.
 
