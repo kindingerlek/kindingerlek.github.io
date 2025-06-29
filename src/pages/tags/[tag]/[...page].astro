@@ -2,13 +2,11 @@
 export const prerender = true
 
 import type { GetStaticPaths, Page } from 'astro'
-import type { CollectionEntry } from 'astro:content'
 import { type Config } from '@/types/data'
 
 import Pagination from '@/components/Paginator.astro'
 import ContentPreview from '@/components/blog/ContentPreview.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
-import Button from '@/components/Button.astro'
 import PostCollection from '@/collections/post'
 import ProjectCollection from '@/collections/projects'
 import type { ContentEntry } from '@/content/config'

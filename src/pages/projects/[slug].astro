@@ -1,7 +1,7 @@
 ---
 export const prerender = true
 
-import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
+import type { GetStaticPaths } from 'astro'
 
 import ContentPostLayout from '@/layouts/ContentPostLayout.astro'
 import ProjectCollection from '@/collections/projects'
@@ -14,8 +14,6 @@ export const getStaticPaths = (async () => {
 		props: { entry }
 	}))
 }) satisfies GetStaticPaths
-
-type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { entry } = Astro.props
 const { Content } = await entry.render()

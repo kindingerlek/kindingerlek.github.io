@@ -2,7 +2,6 @@ import type { EducationSection } from '@/components/sections/Education/Education
 import type { ExperienceSection } from '@/components/sections/Experience/ExperienceSection.types'
 import type { FavoritesSection } from '@/components/sections/Favorites/FavoritesSection.types'
 import type { MainSection } from '@/components/sections/Main/MainSection.types'
-import type { PortfolioSection } from '@/components/sections/Portfolio/PortfolioSection.types'
 import type { SkillsSection } from '../components/sections/Skills/SkillsSection.types'
 import type { TestimonialsSection } from '../components/sections/Testimonials/TestimonialsSection.types'
 import type { BlogSection } from '@/components/sections/Blog/BlogSection.types'
