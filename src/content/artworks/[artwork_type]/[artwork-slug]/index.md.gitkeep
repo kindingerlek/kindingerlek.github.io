@@ -1,0 +1,21 @@
+---
+title: 'Placeholder Title'
+description: 'Placeholder description.'
+publishDate: 'YYYY-MM-DD'
+featured: false
+draft: true,
+coverImage:
+    image: 'placeholder-image.png'
+    alt: 'Placeholder image description'
+types:
+    - 'placeholder type'
+tags:
+    - 'placeholder tag'
+meta:
+    dimensions: 'placeholder dimensions'
+    medium: 'placeholder medium'
+    year: 'YYYY'
+    [...meta key]: 'placeholder value'
+---
+
+Placeholder content. Replace this text with your description.
