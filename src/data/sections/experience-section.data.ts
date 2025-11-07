@@ -22,8 +22,7 @@ const experienceSectionData = {
 			roles: [
 				{
 					title: 'Senior Software Engineer',
-					//image: import('@/assets/logos/2k-logo.png'),
-					dates: [[new Date('2022-11'), new Date('2025-03')]],
+					dates: [[new Date('2022-11'), null]],
 					description: `
 						**Project description:** Signup Portal; 2K portal for account creation and permission management for the company's games.
 						**Project area:** Games, Signup Website
@@ -48,7 +47,6 @@ const experienceSectionData = {
 				},
 				{
 					title: 'Mid Software Engineer',
-					//image: import('@/assets/logos/2k-logo.png'),
 					dates: [[new Date('2022-11'), new Date('2023-03')]],
 					description: `
 						**Project description:** 2K Developers portal news; Promotional platform for the service offered by 2K, along with documentation and updates.
@@ -86,7 +84,7 @@ const experienceSectionData = {
 					dates: [[new Date('2022-02'), new Date('2022-09')]],
 					description: `
 						**About the project:** LivID (Version 3.0). Platform for conducting life verification and updating registration information for affiliated associations
-						**Project area:** Retail, Insurance;
+						**Project area:** Financial, Pension;
 
 						- Led the development of a new version of the LivID product from the ground up. This version heavily integrates Firebase services, including Firestore, Functions, Analytics, Performance, and Crashlytics, among others. The backend was built in TypeScript, following Domain-Driven Design (DDD) and Clean Architecture principles.
 						- Developed the mobile app using Flutter, implementing the Provider pattern/framework to separate business logic from UI components.
@@ -107,7 +105,6 @@ const experienceSectionData = {
 				},
 				{
 					title: 'Mid Software Engineer',
-					//image: import('@/assets/logos/lasa-logo.png'),
 					dates: [[new Date('2021-05'), new Date('2021-10')]],
 					description: `
 						**About the project:** AppBroker. System for selling insurance at point-of-sale, running directly on credit card terminals.
@@ -138,7 +135,7 @@ const experienceSectionData = {
 					description: `
 						**About the project:** LivID (Legacy Version). Platform for conducting life verification and updating registration information for affiliated associations.
 						**Project area:** Financial, Pension;
-						
+
 						- Maintained and enhanced the mobile app, web backoffice, and backend, ensuring stability and performance.
 						- Engineered a new module for processing payload files, scaling the system from 2,000 to 10,000 users while improving the validation process.
 						- Designed and deployed new features in the client’s environment to enhance functionality and user experience.
