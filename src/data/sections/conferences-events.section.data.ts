@@ -14,6 +14,10 @@ const conferencesEventsSectionData = {
 			url: 'https://globalgamejam.org/',
 			tags: [
 				{
+					name: '2026',
+					url: 'https://globalgamejam.org/games/2026/chi-sei-intruso-2'
+				},
+				{
 					name: '2025',
 					url: 'https://globalgamejam.org/games/2025/ephemeral-breeze-5'
 				},
