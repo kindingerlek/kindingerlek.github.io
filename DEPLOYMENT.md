@@ -47,7 +47,7 @@ Once configured, the workflow will:
 - Use the `html5` channel (suitable for web-based games/sites)
 - The zip file can be extracted and served by itch.io's HTML5 player
 
-**Note**: The itch.io deployment job only runs if both `ITCH_API_KEY` and `ITCH_GAME` are configured. If these are not set, the job is safely skipped without causing any errors.
+**Note**: The itch.io deployment job only runs if `ITCH_GAME` variable is set. Make sure both the `ITCH_API_KEY` secret and `ITCH_GAME` variable are properly configured before pushing to main, otherwise the job will fail.
 
 ## Workflow Details
 
