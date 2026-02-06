@@ -2,7 +2,7 @@ name: Github Pages Astro CI
 
 on:
   # Trigger the workflow every time you push to the `main` branch
-  # Using a different branch name? Replace `main` with your branch’s name
+  # Using a different branch name? Replace `main` with your branch's name
   push:
     branches: [main]
   # Allows you to run this workflow manually from the Actions tab on GitHub.
@@ -13,16 +13,26 @@ env:
 
 # Allow this job to clone the repo and create a page deployment
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      release-tag: ${{ steps.create-tag.outputs.tag }}
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+
+      - name: Create release tag
+        id: create-tag
+        run: |
+          TAG="release-$(date +'%Y%m%d-%H%M%S')-${{ github.run_number }}"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "Release tag: $TAG"
+
       - name: Install, build, and upload your site
         uses: withastro/action@v4
         # with:
@@ -30,14 +40,132 @@ jobs:
         # node-version: 16 # The specific version of Node that should be used to build your site. Defaults to 16. (optional)
         # package-manager: yarn # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
 
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: ./artifact-download
+
+      - name: Extract and create zip for release
+        run: |
+          cd artifact-download
+          tar -xzf artifact.tar.gz
+          zip -r ../site-build.zip .
+          cd ..
+
+      - name: Upload build artifact for release
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-build
+          path: site-build.zip
+          retention-days: 90
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  release:
+    needs: [build, deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-build
+          path: .
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.build.outputs.release-tag }}
+          name: Release ${{ needs.build.outputs.release-tag }}
+          body: |
+            Automated release from commit ${{ github.sha }}
+
+            Build date: ${{ github.event.head_commit.timestamp }}
+            Commit message: ${{ github.event.head_commit.message }}
+          files: site-build.zip
+          draft: false
+          prerelease: false
+
+      - name: Delete old releases
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const releases = await github.rest.repos.listReleases({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+            // Filter releases that match our naming pattern
+            const autoReleases = releases.data
+              .filter(release => release.tag_name.startsWith('release-'))
+              .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+            // Keep only the 5 most recent releases
+            const releasesToDelete = autoReleases.slice(5);
+
+            for (const release of releasesToDelete) {
+              console.log(`Deleting release: ${release.tag_name} (ID: ${release.id})`);
+
+              // Delete the release
+              await github.rest.repos.deleteRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                release_id: release.id,
+              });
+
+              // Delete the associated tag
+              try {
+                await github.rest.git.deleteRef({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  ref: `tags/${release.tag_name}`,
+                });
+                console.log(`Deleted tag: ${release.tag_name}`);
+              } catch (error) {
+                console.log(`Failed to delete tag ${release.tag_name}: ${error.message}`);
+              }
+            }
+
+            console.log(`Kept ${Math.min(5, autoReleases.length)} most recent releases`);
+            console.log(`Deleted ${releasesToDelete.length} old releases`);
+
+  deploy-itch:
+    needs: [build, deploy]
+    runs-on: ubuntu-latest
+    if: ${{ vars.ITCH_GAME != '' }}
+    steps:
+      - name: Validate itch.io configuration
+        run: |
+          if [ -z "${{ secrets.ITCH_API_KEY }}" ]; then
+            echo "Error: ITCH_API_KEY secret is not set."
+            echo "Please add your itch.io API key as a repository secret."
+            echo "See DEPLOYMENT.md for setup instructions."
+            exit 1
+          fi
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-build
+          path: .
+
+      - name: Deploy to itch.io
+        uses: joshmci/itchio-upload-action@v1
+        with:
+          api-key: ${{ secrets.ITCH_API_KEY }}
+          game: ${{ vars.ITCH_GAME }}
+          file: site-build.zip
+          channel: html5
