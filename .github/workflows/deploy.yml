@@ -147,6 +147,15 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ vars.ITCH_GAME != '' }}
     steps:
+      - name: Validate itch.io configuration
+        run: |
+          if [ -z "${{ secrets.ITCH_API_KEY }}" ]; then
+            echo "Error: ITCH_API_KEY secret is not set."
+            echo "Please add your itch.io API key as a repository secret."
+            echo "See DEPLOYMENT.md for setup instructions."
+            exit 1
+          fi
+
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:

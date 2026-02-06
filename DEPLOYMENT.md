@@ -9,7 +9,7 @@ The site is automatically deployed to GitHub Pages. No additional configuration 
 ## GitHub Releases
 
 Every build automatically creates a GitHub Release with the following features:
-- **Automatic Release Creation**: Each successful build creates a new release with a timestamped tag (format: `release-YYYYMMDD-HHMMSS`)
+- **Automatic Release Creation**: Each successful build creates a new release with a timestamped tag (format: `release-YYYYMMDD-HHMMSS-runNumber`)
 - **Build Artifacts**: The complete site build is packaged as `site-build.zip` and attached to each release
 - **Release Retention**: Only the 5 most recent releases are kept. Older releases are automatically deleted to save storage space
 
