@@ -14,12 +14,6 @@ const mainSectionData = {
 	role: 'Software Engineer',
 	details: [
 		{
-			label: 'Phone',
-			icon: 'ph:phone-outgoing',
-			value: '+5541984408026',
-			url: 'tel:+5541984408026'
-		},
-		{
 			label: 'Email',
 			icon: 'ci:mail',
 			value: 'lucas.ernesto.k@gmail.com',
